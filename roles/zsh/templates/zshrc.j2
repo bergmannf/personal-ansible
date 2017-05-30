@@ -1,0 +1,19 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+export ZSH_CUSTOM="$HOME/.zsh"
+setopt autocd nomatch
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename "$HOME/.zshrc"
+
+autoload -Uz compinit
+compinit
+
+autoload -Uz promptinit
+promptinit
+
+source "$ZSH_CUSTOM/themes/planet.zsh-theme"
+planet git on

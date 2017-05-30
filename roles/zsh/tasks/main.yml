@@ -1,0 +1,41 @@
+---
+# tasks file for zsh
+- name: Install zsh package
+  package: zsh
+  state: present
+
+- name: Set as default shell
+  user:
+    name: "{{ item.key }}"
+    shell: /bin/zsh
+  with_dict: __users__ | default({})
+
+- name: Install zsh configuration
+  template:
+    mode: 0644
+    src: zshrc.j2
+    owner: "{{ item.key }}"
+    dest: "/home/{{ item.key }}/.zshrc"
+  with_dict: __users__ | default({})
+
+- name: Create zfunction directory
+  file:
+    state: directory
+    mode: 0755
+    owner: "{{ item.key }}"
+    dest: "/home/{{ item.key }}/.zfunctions"
+  with_dict: __users__ | default({})
+
+- name: Copy async library
+  copy:
+    src: async.zsh
+    dest: "/home/{{ item.key }}/.zfunctions/async"
+    owner: {{ item.key }}
+  with_dict: __users__ | default({})
+
+- name: Copy pure theme
+  copy:
+    src: pure.zsh
+    dest: "/home/{{ item.key }}/.zfunctions/prompt_pure_setup"
+    owner: {{ item.key }}
+  with_dict: __users__ | default({})
