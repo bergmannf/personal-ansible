@@ -5,6 +5,9 @@ SAVEHIST=1000
 export ZSH_CUSTOM="$HOME/.zsh"
 setopt autocd nomatch
 bindkey -e
+
+# Add local home directory to fpath
+fpath=( "$HOME/.zfunctions" $fpath )
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename "$HOME/.zshrc"
@@ -15,5 +18,4 @@ compinit
 autoload -Uz promptinit
 promptinit
 
-source "$ZSH_CUSTOM/themes/planet.zsh-theme"
-planet git on
+prompt pure
