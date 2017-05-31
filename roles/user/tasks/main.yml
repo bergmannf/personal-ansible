@@ -1,0 +1,10 @@
+---
+# tasks file for user
+- name: Create users
+  user:
+    name: "{{ item.key }}"
+    comment: "{{ item.get('comment', '') }}"
+    groups: "{{ item['groups'] | default(item.key) }}"
+    state: present
+  with_dict: "{{ users }}"
+
