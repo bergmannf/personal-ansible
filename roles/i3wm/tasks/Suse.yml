@@ -1,0 +1,6 @@
+- name: Install i3wm packages
+  sudo: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: ["compton", "i3", "i3lock", "i3status", "rofi", "xrandr", "gawk"]
