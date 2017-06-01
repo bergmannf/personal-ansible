@@ -1,5 +1,11 @@
 ---
 # tasks file for user
+- name: Create user-named group per user
+  group:
+    name: "{{ item.key }}"
+    state: present
+  with_dict: "{{ users }}"
+
 - name: Create users
   user:
     name: "{{ item.key }}"
