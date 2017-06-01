@@ -33,3 +33,4 @@
     owner: "{{ item.key }}"
     mode: 0644
   with_dict: "{{ users }}"
+  notify: Set wallpaper in config
