@@ -6,12 +6,16 @@
     state: present
 
 - name: Create wallpaper folder
+  become: yes
+  become_user: root
   file:
     state: directory
     mode: 0755
     dest: "/usr/share/wallpapers/"
 
 - name: Download wallpaper
+  become: yes
+  become_user: root
   get_url:
     url: "{{ wallpaper_url }}"
     dest: "/usr/share/wallpapers/{{ wallpaper }}"
