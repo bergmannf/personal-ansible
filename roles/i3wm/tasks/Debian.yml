@@ -1,5 +1,5 @@
 - name: Install i3wm packages
   package:
-    name: {{ item }}
+    name: "{{ item }}"
     state: present
-  with_items: ["compton", "i3", "rofi"]
+  with_items: ["compton", "i3", "suckless-tools", "x11-xserver-utils", "gawk"]
