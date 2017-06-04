@@ -11,6 +11,7 @@
     name: "{{ item.key }}"
     comment: "{{ item.get('comment', '') }}"
     groups: "{{ item['groups'] | default(item.key) }}"
+    append: yes
     state: present
   with_dict: "{{ users }}"
 
