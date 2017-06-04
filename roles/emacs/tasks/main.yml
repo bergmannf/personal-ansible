@@ -4,11 +4,7 @@
   include: "{{ ansible_os_family }}.yml"
 
 - name: Spacemacs repository checkout for .emacs.d
-  become: yes
-  become_user: "{{ item.key }}"
-  git:
-    repo: https://github.com/syl20bnr/spacemacs.git
-    dest: ~/.emacs.d
+  include: emacsd.yml user="{{ item }}"
   with_dict: "{{ users }}"
 
 - name: Spacemacs configuration file

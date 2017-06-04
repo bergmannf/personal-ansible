@@ -1,0 +1,17 @@
+- name: emacs.d exists
+  become: yes
+  become_user: "{{ user.key }}"
+  stat:
+    path: "~/.emacs.d/"
+    follow: yes
+  register:
+    emacsd
+
+- name: Clone .emacs.d
+  become: yes
+  become_user: "{{ user.key }}"
+  git:
+    repo: https://github.com/syl20bnr/spacemacs.git
+    dest: ~/.emacs.d/
+    update: yes
+  when: emacsd.stat.exists == False
