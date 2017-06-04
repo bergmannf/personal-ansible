@@ -1,0 +1,4 @@
+---
+# tasks file for fonts
+- name: Load distribution specific font setup
+  include: "{{ ansible_os_family }}.yml"

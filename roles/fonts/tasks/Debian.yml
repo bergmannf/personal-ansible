@@ -1,0 +1,9 @@
+- name: Install Fira font
+  package:
+    name: "fonts-firacode"
+    state: present
+
+- name: Install Linux Libertine font
+  package:
+    name: "fonts-linuxlibertine"
+    state: present
