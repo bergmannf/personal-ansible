@@ -1,0 +1,18 @@
+---
+# tasks file for certificates
+- name: Install certificates
+  package:
+    name: ca-certificates
+    state: present
+
+- name: Install certificates SUSE
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: ["ca-certificates-cacert", "ca-certificates-mozilla"]
+  when: ansible_os_family == "Suse"
+
+- name: Install ssl
+  package:
+    name: openssl
+    state: present
