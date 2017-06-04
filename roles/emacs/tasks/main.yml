@@ -1,0 +1,22 @@
+---
+# tasks file for emacs
+- name: Install emacs
+  include: "{{ ansible_os_family }}.yml"
+
+- name: Spacemacs repository checkout for .emacs.d
+  become: yes
+  become_user: "{{ item.key }}"
+  git:
+    repo: https://github.com/syl20bnr/spacemacs.git
+    dest: ~/.emacs.d
+  with_dict: "{{ users }}"
+
+- name: Spacemacs configuration file
+  become: yes
+  become_user: "{{ item.key }}"
+  template:
+    src: spacemacs.j2
+    dest: ~/.spacemacs
+    owner: "{{ item.key }}"
+    mode: 0644
+  with_dict: "{{ users }}"

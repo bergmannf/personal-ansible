@@ -1,0 +1,12 @@
+- name: Add editors repository
+  zypper_repository:
+    name: editors
+    repo: "http://download.opensuse.org/repositories/editors/openSUSE_Leap_{{ ansible_distribution_version }}"
+    state: present
+    autorefresh: yes
+    auto_import_keys: yes
+
+- name: Install emacs package
+  package:
+    name: emacs
+    state: present
