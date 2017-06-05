@@ -1,0 +1,19 @@
+---
+# tasks file for xfce-terminal
+- name: Install xfce terminal
+  package:
+    name: xfce4-terminal
+    state: present
+
+- name: Clone xfce4-terminal base16 themes
+  git:
+    repo: https://github.com/afg984/base16-xfce4-terminal.git
+    dest: /tmp/base16-xfce4-terminal
+    clone: yes
+    update: yes
+
+- name: Move xfce4-terminal themes
+  synchronize:
+    src: /tmp/base16-xfce4-terminal/colorschemes/
+    dest: /usr/share/xfce4/terminal/colorschemes/
+  delegate_to: "{{ inventory_hostname }}"
