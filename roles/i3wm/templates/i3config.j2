@@ -97,12 +97,13 @@ bindsym $mod+a focus parent
 
 set $ws1 1: Web
 set $ws2 2: Dev
-set $ws3 3: Mus
-set $ws4 4: Gra
+set $ws3 3: Term
+set $ws4 4: Comm
 set $ws5 5: Rea
 set $ws6 6: Gam
-set $ws7 7: Vid
+set $ws7 7: Ent
 set $ws8 8: Rpg
+set $ws9 9: Gra
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -135,15 +136,17 @@ assign [class="Chromium"]       $ws1
 assign [class="Emacs"]          $ws2
 assign [class="Gvim"]           $ws2
 assign [class="Gmpc"]           $ws3
-assign [class="Inkscape"]       $ws4
-assign [class="Gimp"]           $ws4
+assign [class="Thunderbird"]    $ws4
 assign [instance="calibre-gui"] $ws5
 assign [class="Foxit Reader"]   $ws5
 assign [class="evince"]         $ws5
 assign [class="Steam"]          $ws6
 assign [class="mpv"]            $ws7
+assign [class="Gmpc"]           $ws7
 assign [class="maptool"]        $ws8
 assign [class="PCGen"]          $ws8
+assign [class="Inkscape"]       $ws9
+assign [class="Gimp"]           $ws9
 
 # Special configurations for windows
 for_window [class="Kmag"] floating enable
