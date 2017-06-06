@@ -2,25 +2,12 @@
 # tasks file for i3wm
 - include: "{{ ansible_os_family }}.yml"
 
-- name: Create i3-config directory
-  become: true
-  become_user: "{{ item.key }}"
-  become_method: su
-  file:
-    state: directory
-    mode: 0755
-    owner: "{{ item.key }}"
-    dest: "~/.i3/"
-  with_dict: "{{ users }}"
-
 - name: Determine monitors
   shell: |
     xrandr |\
     grep --extended-regexp "\bconnected" |\
     gawk 'BEGIN { print "{\"Monitors\": {" } {print "\"" $1 "\": {\"Name\": \"" $1 "\","}; match($0, /[0-9]{2,}x[0-9]+/, ary) { print "\"Resolution\": \"" ary[0] "\"},"} END { print "}}"}'
   register: monitors
-  environment:
-    DISPLAY: "10.160.67.231:0.0"
 
 # Turn the 
 - name: Set monitors fact
@@ -28,7 +15,19 @@
     monitors: "{{ item }}"
   with_dict: "{{ ' '.join(monitors.stdout_lines) }}"
 
+- name: Create i3-config directory
+  become: true
+  become_user: "{{ item.key }}"
+  file:
+    state: directory
+    mode: 0755
+    owner: "{{ item.key }}"
+    dest: "~/.i3/"
+  with_dict: "{{ users }}"
+
 - name: Copy configuration for i3
+  become: true
+  become_user: "{{ item.key }}"
   template:
     src: i3config.j2
     dest: "~/.i3/config"
