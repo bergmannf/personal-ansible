@@ -1,0 +1,4 @@
+---
+# vars file for scala
+
+scala_ver: "2.12.2"
