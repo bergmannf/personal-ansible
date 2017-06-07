@@ -1,0 +1,9 @@
+---
+# tasks file for sbt
+- name: Run distribution tasks
+  include: "{{ ansible_os_family }}.yml"
+
+- name: Install sbt
+  package: 
+    name: sbt
+    state: present
