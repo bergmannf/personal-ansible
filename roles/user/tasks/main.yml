@@ -15,3 +15,7 @@
     state: present
   with_dict: "{{ users }}"
 
+- name: Install sudo
+  package:
+    name: sudo
+    state: present
