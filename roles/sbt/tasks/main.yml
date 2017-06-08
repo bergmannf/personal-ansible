@@ -7,3 +7,36 @@
   package: 
     name: sbt
     state: present
+
+- name: Create plugin directory
+  become: yes
+  become_user: "{{ item.key }}"
+  file:
+    path: "~/.sbt/{{ sbt_version }}/plugins/"
+    owner: "{{ item.key }}"
+    group: "{{ item.key }}"
+    mode: 0755
+    state: directory
+  with_dict: "{{ users }}"
+
+- name: Create plugins file
+  become: yes
+  become_user: "{{ item.key }}"
+  copy:
+    content: ""
+    dest: "~/.sbt/{{ sbt_version }}/plugins/plugins.sbt"
+    owner: "{{ item.key }}"
+    group: "{{ item.key }}"
+    force: no
+    mode: 0644
+  with_dict: "{{ users }}"
+
+- name: Global ensime plugin
+  become: yes
+  become_user: "{{ item.key }}"
+  lineinfile:
+    path: "~/.sbt/{{ sbt_version }}/plugins/plugins.sbt"
+    regexp: 'addSbtPlugin\("org.ensime" % "sbt-ensime" % ".*"\)'
+    line: addSbtPlugin("org.ensime" % "sbt-ensime" % "{{ ensime_version }}")
+    state: present
+  with_dict: "{{ users }}"
