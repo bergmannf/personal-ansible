@@ -33,6 +33,17 @@
     dest: "~/.zshrc"
   with_dict: "{{ users }}"
 
+- name: Install zprofile configuration
+  become: true
+  become_user: "{{ item.key }}"
+  become_method: "su"
+  template:
+    mode: 0644
+    src: zprofile.j2
+    owner: "{{ item.key }}"
+    dest: "~/.zprofile"
+  with_dict: "{{ users }}"
+
 - name: Copy async library
   become: true
   become_user: "{{ item.key }}"
