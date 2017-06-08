@@ -1,0 +1,68 @@
+conky.config = {
+    out_to_x = false,
+    own_window = false,
+    out_to_console = true,
+    use_xft = true,
+    override_utf8_locale = true,
+    background = false,
+    false_buffers = true,
+
+    max_text_width = 0,
+
+    update_interval = 1,
+    total_run_times = 0,
+    net_avg_samples = 1,
+    cpu_avg_samples = 1,
+
+    use_spacer = left,
+    pad_percents = 0,
+
+    default_color = 'F9F9F9',
+    color1 = '884444',
+    color2 = '888888',
+}
+
+conky.text = [[,
+    [
+    {"full_text": "<span color='\#885577'></span> ${execi 30 sensors | grep 'temp1' | head -n 1 | cut -c16-19}°C",
+    "markup": "pango",
+    "color": "\#CCCCCC"},
+    {"full_text": "<span color='\#EE6666'></span> ${execi 30 sensors | grep 'Core 0' | cut -c16-19}°C",
+    "markup": "pango",
+    "color": "\#CCCCCC"},
+    {"full_text": "<span color='\#EE6666'></span> ${cpubar}",
+    "markup": "pango",
+    "color": "\#CCCCCC"},
+    {"full_text": "<span color='\#668899'></span> $memperc%",
+    "markup": "pango",
+    "align": "right",
+    "min_width": "100%",
+    "color": "\#CCCCCC"},
+    {"full_text": "<span color='\#668899'></span> ${execi 30 pactl list sinks | grep Volume | head -n 1 | cut -d " " -f 5}",
+    "markup": "pango",
+    "min_width": "100%",
+    "color": "\#CCCCCC"},
+    {% for network in ansible_interfaces %}
+    {% if network != 'lo' %}
+    {"full_text": "<span color='\#AAAA88'></span> ${downspeedf {{ network }} }KiB/s",
+    "markup": "pango",
+    "align": "right",
+    "min_width": "99999,9 KiB/s",
+    "color": "\#CCCCCC"},
+    {"full_text": "<span color='\#884444'></span> ${upspeedf {{ network }} }KiB/s",
+    "markup": "pango",
+    "align": "right",
+    "min_width": "99999,9 KiB/s",
+    "color": "\#CCCCCC"},
+    {% endif %}
+    {% endfor %}
+    ${if_existing /sys/class/power_supply/BAT0}
+    {"full_text": "<span color='\#AAAA88'></span> ${battery_time}",
+    "markup": "pango",
+    "color": "\#CCCCCC"},
+    ${endif}
+    {"full_text": "${time %H:%M:%S}",
+    "markup": "pango",
+    "color": "\#CCCCCC"}
+    ]
+]]

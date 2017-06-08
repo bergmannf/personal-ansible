@@ -35,3 +35,23 @@
     mode: 0644
   with_dict: "{{ users }}"
   notify: Set wallpaper in config
+
+- name: Copy conky execution file
+  become: true
+  become_user: "{{ item.key }}"
+  template:
+    src: conky.j2
+    dest: "~/.i3/conky"
+    owner: "{{ item.key }}"
+    mode: 0744
+  with_dict: "{{ users }}"
+
+- name: Copy conky configuration file
+  become: true
+  become_user: "{{ item.key }}"
+  template:
+    src: conkyrc.j2
+    dest: "~/.i3/conkyrc"
+    owner: "{{ item.key }}"
+    mode: 0644
+  with_dict: "{{ users }}"
