@@ -1,0 +1,4 @@
+- name: Install font awesome
+  package:
+    name: fontawesome-fonts
+    state: present

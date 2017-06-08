@@ -7,3 +7,8 @@
   package:
     name: "fonts-linuxlibertine"
     state: present
+
+- name: Install font awesome
+  package:
+    name: "fonts-font-awesome"
+    state: present
