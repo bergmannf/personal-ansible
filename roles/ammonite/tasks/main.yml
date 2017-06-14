@@ -1,0 +1,28 @@
+---
+# tasks file for ammonite
+- name: Install ammonite scripting environment
+  get_urL:
+    url: https://git.io/vHr1V
+    dest: /usr/local/bin/amm
+    checksum: sha256:cdff969fd161a74c96a82d42174044051e1a063f601ff80d8adbede2336f4f4a
+    mode: 0755
+
+- name: Create config directory
+  become: yes
+  become_user: "{{ item.key }}"
+  file:
+    dest: "~/.ammonite"
+    state: directory
+    owner: "{{ item.key }}"
+    mode: 0755
+  with_dict: "{{ users }}"
+
+- name: Copy shell configuration
+  become: yes
+  become_user: "{{ item.key }}"
+  template:
+    mode: 0644
+    src: predef.sc.j2
+    dest: "~/.ammonite/predef.sc"
+    owner: "{{ item.key }}"
+  with_dict: "{{ users }}"
