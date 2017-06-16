@@ -12,7 +12,7 @@
   become: yes
   become_user: "{{ item.key }}"
   file:
-    path: "~/.sbt/{{ sbt_version }}/plugins/"
+    dest: "~/.sbt/{{ sbt_version }}/plugins/"
     owner: "{{ item.key }}"
     group: "{{ item.key }}"
     mode: 0755
@@ -35,7 +35,7 @@
   become: yes
   become_user: "{{ item.key }}"
   lineinfile:
-    path: "~/.sbt/{{ sbt_version }}/plugins/plugins.sbt"
+    dest: "~/.sbt/{{ sbt_version }}/plugins/plugins.sbt"
     regexp: 'addSbtPlugin\("org.ensime" % "sbt-ensime" % ".*"\)'
     line: addSbtPlugin("org.ensime" % "sbt-ensime" % "{{ ensime_version }}")
     state: present
