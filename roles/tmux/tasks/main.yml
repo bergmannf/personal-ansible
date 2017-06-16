@@ -1,0 +1,26 @@
+---
+# tasks file for tmux
+- name: Install tmux
+  package:
+    name: tmux
+    state: present
+
+- name: Copy tmux theme
+  become: yes
+  become_user: "{{ item.key }}"
+  template:
+    src: tmux.theme.j2
+    dest: "~/.tmux.theme"
+    owner: "{{ item.key }}"
+    mode: 0644
+  with_dict: "{{ users }}"
+
+- name: Copy tmux config
+  become: yes
+  become_user: "{{ item.key }}"
+  template:
+    src: tmux.conf.j2
+    dest: "~/.tmux.conf"
+    owner: "{{ item.key }}"
+    mode: 0644
+  with_dict: "{{ users }}"

@@ -1,0 +1,15 @@
+source "$HOME/.tmux.theme"
+
+# correct colors
+set -g default-terminal "screen-256color"
+
+# Activity
+setw -g monitor-activity on
+set -g visual-activity off
+
+# Mouse stuff
+if-shell "if (( $(tmux -V | cut -d' ' -f2 >= 2.1 | bc) )); then true; else false; fi" \
+    'set -g mouse on;'
+
+if-shell "if (( $(tmux -V | cut -d' ' -f2` < 2.1 | bc) ]]; then true; else false; fi" \
+  'setw -g mode-mouse on; setw -g mouse-select-window on; setw -g mouse-select-pane on; setw -g mouse-resize-pane on'
