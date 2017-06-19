@@ -5,6 +5,10 @@
     name: tmux
     state: present
 
+- name: Set tmux_version fact
+  shell: tmux -V | cut -d' ' -f2
+  register: tmux_version
+
 - name: Copy tmux theme
   become: yes
   become_user: "{{ item.key }}"

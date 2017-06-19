@@ -8,8 +8,12 @@ setw -g monitor-activity on
 set -g visual-activity off
 
 # Mouse stuff
-if-shell "if (( $(tmux -V | cut -d' ' -f2 >= 2.1 | bc) )); then true; else false; fi" \
-    'set -g mouse on;'
 
-if-shell "if (( $(tmux -V | cut -d' ' -f2` < 2.1 | bc) ]]; then true; else false; fi" \
-  'setw -g mode-mouse on; setw -g mouse-select-window on; setw -g mouse-select-pane on; setw -g mouse-resize-pane on'
+{% if tmux_version.stdout >= 2.1 %}
+set -g mouse on
+{% else %}
+setw -g mode-mouse on
+setw -g mouse-select-window on
+setw -g mouse-select-pane on
+setw -g mouse-resize-pane on
+{% endif %}
