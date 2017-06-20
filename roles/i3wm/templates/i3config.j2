@@ -223,6 +223,6 @@ exec --no-startup-id xrandr {% for monitor in monitors['value'] %} \
 {% endif %}
 {% endfor %}
 
-exec_always --no-startup-id setxkbmap -layout us,de -option grp:alt_shift_toggle,ctrl:nocaps
+exec_always --no-startup-id setxkbmap -layout us,de -option grp:rctrl_rshift_toggle,ctrl:nocaps
 exec --no-startup-id compton -CGb
 exec dropbox start
