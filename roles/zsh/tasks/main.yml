@@ -63,3 +63,13 @@
     dest: "~/.zfunctions/prompt_pure_setup"
     owner: "{{ item.key }}"
   with_dict: "{{ users }}"
+
+- name: Copy aliases
+  become: true
+  become_user: "{{ item.key }}"
+  become_method: "su"
+  copy:
+    src: "{{ role_path }}/templates/aliases"
+    dest: "~/.aliases"
+    owner: "{{ item.key }}"
+  with_dict: "{{ users }}"

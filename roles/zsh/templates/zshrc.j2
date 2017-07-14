@@ -19,3 +19,7 @@ autoload -Uz promptinit
 promptinit
 
 prompt pure
+
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
+fi
