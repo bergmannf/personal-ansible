@@ -1,0 +1,13 @@
+---
+# tasks file for pass
+- name: Install pass packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: ["pass"]
+
+- name: Install passmenu script
+  copy:
+    src: "{{ role_path }}/templates/passmenu"
+    dest: "/usr/bin/passmenu"
+    owner: "root"
