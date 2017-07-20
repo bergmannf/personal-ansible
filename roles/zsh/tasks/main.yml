@@ -67,3 +67,12 @@
     dest: "~/.aliases"
     owner: "{{ item.key }}"
   with_dict: "{{ users }}"
+
+- name: Add additional zsh-completions
+  become: true
+  become_user: "{{ item.key }}"
+  git:
+    repo: https://github.com/zsh-users/zsh-completions.git
+    dest: "~/.zcompletions"
+    update: yes
+  with_dict: "{{ users }}"
