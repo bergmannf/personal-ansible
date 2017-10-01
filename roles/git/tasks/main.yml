@@ -4,3 +4,17 @@
   package:
     name: git
     state: present
+
+- name: Configure name
+  git_config:
+    name: user.name
+    value: "{{ item.value.fullname }}"
+    scope: global
+  with_dict: "{{ users }}"
+
+- name: Create email
+  git_config:
+    name: user.email
+    value: "{{ item.value.email }}"
+    scope: global
+  with_dict: "{{ users }}"
