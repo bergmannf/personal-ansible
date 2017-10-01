@@ -1,3 +1,6 @@
 ---
 - name: Java role for Debian
   src: debops.java
+
+- name: Rust-dev role for local development setup
+  src: naftulikay.rust-dev
