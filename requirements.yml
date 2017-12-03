@@ -1,3 +1,6 @@
 ---
 - name: java
   src: debops.java
+
+- name: intellij
+  src: gantsign.intellij
