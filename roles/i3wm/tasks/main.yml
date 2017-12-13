@@ -13,45 +13,45 @@
 - name: Set monitors fact
   set_fact:
     monitors: "{{ item }}"
-  with_dict: "{{ ' '.join(monitors.stdout_lines) }}"
+  with_items: "{{ ' '.join(monitors.stdout_lines) }}"
 
 - name: Create i3-config directory
   become: true
-  become_user: "{{ item.key }}"
+  become_user: "{{ item.username }}"
   file:
     state: directory
     mode: 0755
-    owner: "{{ item.key }}"
+    owner: "{{ item.username }}"
     dest: "~/.i3/"
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"
 
 - name: Copy configuration for i3
   become: true
-  become_user: "{{ item.key }}"
+  become_user: "{{ item.username }}"
   template:
     src: i3config.j2
     dest: "~/.i3/config"
-    owner: "{{ item.key }}"
+    owner: "{{ item.username }}"
     mode: 0644
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"
   notify: Set wallpaper in config
 
 - name: Copy conky execution file
   become: true
-  become_user: "{{ item.key }}"
+  become_user: "{{ item.username }}"
   template:
     src: conky.j2
     dest: "~/.i3/conky"
-    owner: "{{ item.key }}"
+    owner: "{{ item.username }}"
     mode: 0744
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"
 
 - name: Copy conky configuration file
   become: true
-  become_user: "{{ item.key }}"
+  become_user: "{{ item.username }}"
   template:
     src: conkyrc.j2
     dest: "~/.i3/conkyrc"
-    owner: "{{ item.key }}"
+    owner: "{{ item.username }}"
     mode: 0644
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"

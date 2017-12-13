@@ -9,20 +9,20 @@
 
 - name: Create config directory
   become: yes
-  become_user: "{{ item.key }}"
+  become_user: "{{ item.username }}"
   file:
     dest: "~/.ammonite"
     state: directory
-    owner: "{{ item.key }}"
+    owner: "{{ item.username }}"
     mode: 0755
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"
 
 - name: Copy shell configuration
   become: yes
-  become_user: "{{ item.key }}"
+  become_user: "{{ item.username }}"
   template:
     mode: 0644
     src: predef.sc.j2
     dest: "~/.ammonite/predef.sc"
-    owner: "{{ item.key }}"
-  with_dict: "{{ users }}"
+    owner: "{{ item.username }}"
+  with_items: "{{ users }}"

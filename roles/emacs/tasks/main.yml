@@ -5,14 +5,14 @@
 
 - name: Spacemacs repository checkout for .emacs.d
   include: emacsd.yml user="{{ item }}"
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"
 
 - name: Spacemacs configuration file
   become: yes
-  become_user: "{{ item.key }}"
+  become_user: "{{ item.username }}"
   template:
     src: spacemacs.j2
     dest: ~/.spacemacs
-    owner: "{{ item.key }}"
+    owner: "{{ item.username }}"
     mode: 0644
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"

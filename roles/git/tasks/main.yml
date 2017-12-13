@@ -8,13 +8,13 @@
 - name: Configure name
   git_config:
     name: user.name
-    value: "{{ item.value.fullname }}"
+    value: "{{ item.fullname }}"
     scope: global
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"
 
 - name: Create email
   git_config:
     name: user.email
-    value: "{{ item.value.email }}"
+    value: "{{ item.e.email }}"
     scope: global
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"

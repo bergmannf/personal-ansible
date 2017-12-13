@@ -1,19 +1,4 @@
 ---
 - hosts: all
   roles:
-    - role: intellij
-      intellij_version: 2017.3
-      intellij_redis_sha256sum: 914f624096a23c96bffff270349b676213dedd27d51469f84bcd7cb2ef191713 
-      intellij_default_jdk_home: '/usr/lib/jvm/java-1.9.0-openjdk-amd64/'
-      intellij_default_maven_home: '/tmp/'
-      users:
-      - username: florian
-        intellij_jdks:
-        - name: '1.9'
-          home: '/usr/lib/jvm/java-9-openjdk-amd64/'
-        intellij_default_jdk: '1.9'
-        intellij_plugins:
-          - 1347-scala
-          - Scalafmt
-          - IdeaVim
-          - Python
+    - intellij

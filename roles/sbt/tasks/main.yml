@@ -13,11 +13,11 @@
   become_user: "{{ item.key }}"
   file:
     dest: "~/.sbt/{{ sbt_version }}/plugins/"
-    owner: "{{ item.key }}"
-    group: "{{ item.key }}"
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
     mode: 0755
     state: directory
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"
 
 - name: Create plugins file
   become: yes
@@ -25,18 +25,18 @@
   copy:
     content: ""
     dest: "~/.sbt/{{ sbt_version }}/plugins/plugins.sbt"
-    owner: "{{ item.key }}"
-    group: "{{ item.key }}"
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
     force: no
     mode: 0644
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"
 
 - name: Global ensime plugin
   become: yes
-  become_user: "{{ item.key }}"
+  become_user: "{{ item.username }}"
   lineinfile:
     dest: "~/.sbt/{{ sbt_version }}/plugins/plugins.sbt"
     regexp: 'addSbtPlugin\("org.ensime" % "sbt-ensime" % ".*"\)'
     line: addSbtPlugin("org.ensime" % "sbt-ensime" % "{{ ensime_version }}")
     state: present
-  with_dict: "{{ users }}"
+  with_items: "{{ users }}"
