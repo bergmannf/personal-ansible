@@ -9,6 +9,11 @@ command=/usr/share/i3blocks/volume
 interval=1
 signal=10
 
+[cpu]
+label=
+command=/usr/share/i3blocks/cpu_usage
+interval=15
+
 [ram]
 label=
 command=/usr/share/i3blocks/memory | grep -E -o '[0-9].[0-9]?G'
