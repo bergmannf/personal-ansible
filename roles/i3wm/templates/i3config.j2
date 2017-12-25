@@ -95,15 +95,15 @@ bindsym $mod+a focus parent
 
 # switch to workspace
 
-set $ws1 1: Web
-set $ws2 2: Dev
-set $ws3 3: Term
-set $ws4 4: Comm
-set $ws5 5: Rea
-set $ws6 6: Gam
-set $ws7 7: Ent
-set $ws8 8: Rpg
-set $ws9 9: Gra
+set $ws1 1:
+set $ws2 2:
+set $ws3 3:
+set $ws4 4:
+set $ws5 5:
+set $ws6 6:
+set $ws7 7:
+set $ws8 8:
+set $ws9 9:
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -202,14 +202,17 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-colors {
+    status_command i3blocks -c ~/.i3/i3blocks.conf
+    tray_output primary
+    strip_workspace_numbers yes
+    workspace_buttons yes
+    colors {
         focused_workspace  $light_blue $dark_blue #ffffff
         active_workspace   #333333 #5f676a #ffffff
         inactive_workspace #333333 #222222 #888888
         urgent_workspace   $light_red $dark_red #ffffff
     }
     position top
-    status_command ~/.i3/conky
 }
 
 

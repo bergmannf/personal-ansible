@@ -2,4 +2,10 @@
   package:
     name: "{{ item }}"
     state: present
-  with_items: ["conky", "compton", "i3", "suckless-tools", "x11-xserver-utils", "gawk"]
+  with_items:
+    - compton
+    - i3
+    - suckless-tools
+    - x11-xserver-utils
+    - gawk
+    - i3blocks
