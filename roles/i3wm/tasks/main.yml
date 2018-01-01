@@ -36,22 +36,12 @@
   with_items: "{{ users }}"
   notify: Set wallpaper in config
 
-- name: Copy conky execution file
+- name: Copy i3blocks configuration
   become: true
   become_user: "{{ item.username }}"
   template:
-    src: conky.j2
-    dest: "~/.i3/conky"
+    src: i3blocks.j2
+    dest: "~/.i3/i3blocks.conf"
     owner: "{{ item.username }}"
     mode: 0744
-  with_items: "{{ users }}"
-
-- name: Copy conky configuration file
-  become: true
-  become_user: "{{ item.username }}"
-  template:
-    src: conkyrc.j2
-    dest: "~/.i3/conkyrc"
-    owner: "{{ item.username }}"
-    mode: 0644
   with_items: "{{ users }}"
