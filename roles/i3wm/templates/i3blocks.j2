@@ -5,18 +5,18 @@ markup=none
 
 [volume-pulseaudio]
 label=
-command=/usr/share/i3blocks/volume
+command={{ I3BLOCKS_BASE_PATH }}volume
 interval=1
 signal=10
 
 [cpu]
 label=
-command=/usr/share/i3blocks/cpu_usage
+command={{ I3BLOCKS_BASE_PATH }}cpu_usage
 interval=15
 
 [ram]
 label=
-command=/usr/share/i3blocks/memory | grep -E -o '[0-9].[0-9]?G'
+command={{ I3BLOCKS_BASE_PATH }}memory | grep -E -o '[0-9].[0-9]?G'
 interval=30
 
 [disk-home]

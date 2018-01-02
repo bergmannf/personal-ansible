@@ -2,6 +2,12 @@
 # tasks file for i3wm
 - include: "{{ ansible_os_family }}.yml"
 
+- name: Load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_os_family }}.yml"
+    - "default.yml"
+
 # Use some hackery to get valid JSON output:
 # print variable 't' in AWK that is *not* set on the first iteration.
 # For any iteration thereafter it inserts the required ',' except for the last
