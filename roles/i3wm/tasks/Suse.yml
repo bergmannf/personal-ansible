@@ -1,5 +1,13 @@
+---
+- name: Add required repository
+  zypper_repository:
+    name: i3blocks-repository
+    repo: "http://download.opensuse.org/repositories/home:/fkobzik/openSUSE_Leap_42.3/"
+    auto_import_keys: yes
+    state: present
+
 - name: Install i3wm packages
   package:
     name: "{{ item }}"
     state: present
-  with_items: ["conky", "compton", "i3", "i3lock", "i3status", "rofi", "xrandr", "gawk"]
+  with_items: ["compton", "i3", "i3blocks", "i3lock", "i3status", "rofi", "xrandr", "gawk"]
