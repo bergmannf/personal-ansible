@@ -58,3 +58,10 @@
     owner: "{{ item.username }}"
     mode: 0744
   with_items: "{{ users }}"
+
+- name: Copy i3lock wrapper script
+  template:
+    src: i3lock_wrapper.sh
+    dest: "/usr/local/bin/i3lock_wrapper.sh"
+    owner: root
+    mode: 0777
