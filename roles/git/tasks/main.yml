@@ -15,6 +15,6 @@
 - name: Create email
   git_config:
     name: user.email
-    value: "{{ item.e.email }}"
+    value: "{{ item.email }}"
     scope: global
   with_items: "{{ users }}"

@@ -1,6 +1,6 @@
 - name: emacs.d exists
   become: yes
-  become_user: "{{ user.key }}"
+  become_user: "{{ user.username }}"
   stat:
     path: "~/.emacs.d/"
     follow: yes
@@ -9,7 +9,7 @@
 
 - name: Clone .emacs.d
   become: yes
-  become_user: "{{ user.key }}"
+  become_user: "{{ user.username }}"
   git:
     repo: https://github.com/syl20bnr/spacemacs.git
     dest: ~/.emacs.d/
