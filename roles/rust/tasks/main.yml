@@ -1,0 +1,31 @@
+---
+- name: Download the rustup installer
+  get_url:
+    dest: /tmp/rustup.sh
+    url:  https://sh.rustup.rs
+    sha256sum: 22aa1f7f4c4b9be99a9d7e13ad45b2aec6714165a0578dd5ef81ca11f55ea24e
+    mode: 0755
+
+- name: Install the rustup toolchain for the user
+  become: yes
+  become_user: "{{ item.username }}"
+  command: /tmp/rustup.sh -y
+  with_items: "{{ users }}"
+
+- name: Install rust completions
+  become: yes
+  become_user: "{{ item.username }}"
+  shell: ~/.cargo/bin/rustup completions zsh > ~/.zfunctions/_rustup
+  with_items: "{{ users }}"
+
+- name: Install toolchain
+  become: yes
+  become_user: "{{ item.username }}"
+  command: ~/.cargo/bin/rustup install stable
+  with_items: "{{ users }}"
+
+- name: Install rust source
+  become: yes
+  become_user: "{{ item.username }}"
+  command: rustup component add rust-src
+  with_items: "{{ users }}"
