@@ -4,6 +4,10 @@
   package:
     name: git
     state: present
+  with_items:
+    - git
+    - ssh-askpass
+    - ssh-askpass-gnome
 
 - name: Configure name
   git_config:
