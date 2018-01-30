@@ -1,0 +1,21 @@
+---
+
+- name: Install
+  include: "install_{{ ansible_os_family }}"
+
+- name: Add rbenv to PATH
+  become: yes
+  become_user: "{{ item.username }}"
+  lineinfile:
+    dest: "~/.zshrc"
+    line: "PATH='$PATH:~/.rbenv/bin'"
+    insert_after: "# PATH config:"
+  with_items: "{{ users }}"
+
+- name: Initialize rbenv
+  become: yes
+  become_user: "{{ item.username }}"
+  lineinfile:
+    dest: "~/.zshrc"
+    line: 'eval "$(rbenv init -)"'
+  with_items: "{{ users }}"

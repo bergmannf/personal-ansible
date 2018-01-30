@@ -1,0 +1,25 @@
+---
+- name: Install rbenv (user only)
+  become: yes
+  become_user: "{{ user.username }}"
+  git:
+    dest: "~/.rbenv"
+    repo: https://github.com/rbenv/rbenv.git
+  with_items: "{{ users }}"
+
+- name: Create rbenv-plugins directory
+  become: yes
+  become_user: "{{ user.username }}"
+  file:
+    path: "~/.rbenv/plugins"
+    state: directory
+    owner: "{{ user.username }}"
+  with_items: "{{ users }}"
+
+- name: Install ruby-build
+  become: yes yum_repository
+  become_user: "{{ user.username }}"
+  git:
+    dest: "~/.rbenv/plugins/"
+    repo: https://github.com/rbenv/ruby-build.git
+  with_items: "{{ users }}"
