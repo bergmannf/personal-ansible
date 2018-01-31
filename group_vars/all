@@ -14,11 +14,12 @@ users:
       - IdeaVIM
     vscodeextensions:
       - christian-kohler.path-intellisense
-      - PeterJausovec.vscode-docker
+      - donjayamanne.githistory
       - kalitaalexey.vscode-rust
       - lextudio.restructuredtext
       - lukehoban.Go
       - ms-python.python
+      - PeterJausovec.vscode-docker
       - rebornix.Ruby
       - stkb.rewrap
       - streetsidesoftware.code-spell-checker
