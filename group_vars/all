@@ -13,6 +13,7 @@ users:
       - org.rust.lang 
       - IdeaVIM
     vscodeextensions:
+      - christian-kohler.path-intellisense
       - PeterJausovec.vscode-docker
       - kalitaalexey.vscode-rust
       - lextudio.restructuredtext
