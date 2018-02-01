@@ -8,7 +8,7 @@
   become_user: "{{ item.username }}"
   lineinfile:
     dest: "~/.zshrc"
-    line: "PATH='$PATH:~/.rbenv/bin'"
+    line: "PATH='$PATH:$HOME/.rbenv/bin'"
     insert_after: "# PATH config:"
   with_items: "{{ users }}"
 
