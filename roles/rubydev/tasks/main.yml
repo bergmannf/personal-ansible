@@ -1,15 +1,15 @@
 ---
 
 - name: Install
-  include: "install_{{ ansible_os_family }}"
+  include: "install_{{ ansible_os_family }}.yml"
 
 - name: Add rbenv to PATH
   become: yes
   become_user: "{{ item.username }}"
   lineinfile:
-    dest: "~/.zshrc"
+    dest: "~/.zprofile"
     line: "PATH='$PATH:~/.rbenv/bin'"
-    insert_after: "# PATH config:"
+    insertafter: "# PATH config:"
   with_items: "{{ users }}"
 
 - name: Initialize rbenv
