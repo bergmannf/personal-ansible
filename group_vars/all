@@ -14,6 +14,7 @@ users:
       - IdeaVIM
     vscodeextensions:
       - christian-kohler.path-intellisense
+      - castwide.solargraph
       - donjayamanne.githistory
       - kalitaalexey.vscode-rust
       - lextudio.restructuredtext
