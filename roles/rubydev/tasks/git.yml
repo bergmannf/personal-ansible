@@ -30,6 +30,5 @@
   become: yes yum_repository
   become_user: "{{ user.username }}"
   git:
-    dest: "~/.rbenv/plugins/"
+    dest: "~/.rbenv/plugins/ruby-build/"
     repo: https://github.com/rbenv/ruby-build.git
-  when: not file_details.stat.exists
