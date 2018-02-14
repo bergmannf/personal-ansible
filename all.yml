@@ -1,4 +1,2 @@
 ---
-- hosts: all
-  roles:
-    - intellij
+- import_playbook: development.yml

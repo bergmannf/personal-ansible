@@ -1,0 +1,8 @@
+---
+- import_playbook: desktop.yml
+- hosts: all
+  roles:
+    - nodedev
+    - rubydev
+    - scala
+    - sbt

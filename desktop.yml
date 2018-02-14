@@ -1,0 +1,7 @@
+---
+- import_playbook: base.yml
+- hosts: all
+  roles:
+    - fonts
+    - i3wm
+    - xfce-terminal
