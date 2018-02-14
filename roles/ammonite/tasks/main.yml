@@ -1,7 +1,7 @@
 ---
 # tasks file for ammonite
 - name: Install ammonite scripting environment
-  get_urL:
+  get_url:
     url: https://git.io/vHr1V
     dest: /usr/local/bin/amm
     checksum: sha256:cdff969fd161a74c96a82d42174044051e1a063f601ff80d8adbede2336f4f4a
