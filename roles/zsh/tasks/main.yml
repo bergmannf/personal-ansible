@@ -31,7 +31,7 @@
     dest: "~/.zshrc"
   with_items: "{{ users }}"
 
-- name: Install zprofile configuration
+- name: Install zshenv configuration
   become: true
   become_user: "{{ item.username }}"
   template:

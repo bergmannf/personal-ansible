@@ -32,6 +32,15 @@
   with_subelements:
     - "{{ users }}"
     - vscodeextensions
+    
+- name: Set as default editor
+  become: yes
+  become_user: "{{ item.username }}"
+  lineinfile:
+    path: "~/.zshenv"
+    regexp: "^export EDITOR="
+    line: "export EDITOR='code -r -w'"
+  with_items: "{{ users }}"
   
 - name: Create font rendering work around for fontconfig 2.8.*
   template:

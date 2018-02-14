@@ -4,5 +4,4 @@
   roles:
     - nodedev
     - rubydev
-    - scala
-    - sbt
+    - vs-code
