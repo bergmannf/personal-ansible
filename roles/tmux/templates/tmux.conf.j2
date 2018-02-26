@@ -3,6 +3,11 @@ source "$HOME/.tmux.theme"
 # correct colors
 set -g default-terminal "screen-256color"
 
+# Keep DISPLAY and XAUTHORITY
+set -g update-environment "\
+DISPLAY \
+XAUTHORITY"
+
 # Activity
 setw -g monitor-activity on
 set -g visual-activity off
