@@ -1,0 +1,34 @@
+---
+
+- name: Install pyenv (user only)
+  become: yes
+  become_user: "{{ user.username }}"
+  git:
+    dest: "~/.pyenv"
+    repo: https://github.com/pyenv/pyenv.git
+
+- name: Check pyenv-plugins directory exists.
+  become: yes
+  become_user: "{{ user.username }}"
+  stat:
+    path: "~/.pyenv/plugins"
+  register: file_details
+
+- debug:
+    var: file_details
+
+- name: Create pyenv-plugins directory
+  become: yes
+  become_user: "{{ user.username }}"
+  file:
+    path: "~/.pyenv/plugins"
+    state: directory
+    owner: "{{ user.username }}"
+  when: not file_details.stat.exists
+
+- name: Install pyenv-virtualenv
+  become: yes
+  become_user: "{{ user.username }}"
+  git:
+    dest: "~/.pyenv/plugins/pyenv-virtualenv/"
+    repo: https://github.com/pyenv/pyenv-virtualenv.git
