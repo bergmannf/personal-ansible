@@ -27,7 +27,7 @@
   when: not file_details.stat.exists
 
 - name: Install ruby-build
-  become: yes yum_repository
+  become: yes
   become_user: "{{ user.username }}"
   git:
     dest: "~/.rbenv/plugins/ruby-build/"
