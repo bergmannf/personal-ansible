@@ -65,3 +65,14 @@
     dest: "/usr/local/bin/i3lock_wrapper.sh"
     owner: root
     mode: 0777
+
+# This config prevents dunst from from capturing Ctrl+`
+- name: Copy dunstrc
+  become: yes
+  become_user: "{{ item.username }}"
+  template:
+    src: dunstrc.j2
+    dest: "~/.config/dunst/dunstrc"
+    owner: "{{ item.username }}"
+    mode: 0777
+  with_items: "{{ users }}"
