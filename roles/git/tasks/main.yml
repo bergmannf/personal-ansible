@@ -10,6 +10,8 @@
     - ssh-askpass-gnome
 
 - name: Configure name
+  become: yes
+  become_user: "{{ item.username }}"
   git_config:
     name: user.name
     value: "{{ item.fullname }}"
@@ -17,6 +19,8 @@
   with_items: "{{ users }}"
 
 - name: Create email
+  become: yes
+  become_user: "{{ item.username }}"
   git_config:
     name: user.email
     value: "{{ item.email }}"
