@@ -45,3 +45,12 @@ prompt pure
 if [ -f ~/.aliases ]; then
   source ~/.aliases
 fi
+
+function reset-gpg-card {
+  killall -9 ssh-agent gpg-agent
+  for keystub in $(gpg --with-keygrip --list-secret-keys '{{ item.email }}' | grep Keygrip | awk '{print $3}'); do
+    rm '/home/{{ item.username }}/.gnupg/private-keys-v1.d/$keystub.key';
+  done;
+  gpg --card-status
+  eval $(gpg --launch gpg-agent)
+}

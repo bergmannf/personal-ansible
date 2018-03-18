@@ -2,7 +2,9 @@
 - import_playbook: desktop.yml
 - hosts: all
   roles:
+    - git
     - nodedev
     - rubydev
     - pydev
+    - tmux
     - vs-code
