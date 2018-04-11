@@ -5,6 +5,8 @@
   with_items:
     - compton
     - i3
+    - rofi
+    - redshift
     - suckless-tools
     - x11-xserver-utils
     - gawk

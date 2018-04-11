@@ -14,6 +14,11 @@ label=
 command={{ I3BLOCKS_BASE_PATH }}cpu_usage
 interval=15
 
+[temperature]
+label=
+command={{ I3BLOCKS_BASE_PATH }}temperature
+interval=15
+
 [ram]
 label=
 command={{ I3BLOCKS_BASE_PATH }}memory | grep -E -o '[0-9].[0-9]?G'
