@@ -62,6 +62,7 @@ values."
      (scala :variables ensime-startup-notification nil
             ensime-startup-snapshot-notification nil)
      (ruby :variables ruby-version-manager 'rbenv)
+     priv-ext
      rust
      yaml
      )
@@ -72,7 +73,11 @@ values."
 
    ;; atomic-chrome: Allows editing text areas in browsers with emacs
    ;; edit-indirect: Allows using a separate buffer for code in markdown
-   dotspacemacs-additional-packages '(base16-theme atomic-chrome edit-indirect)
+   ;; editorconfig: Support one-config format for all editors
+   dotspacemacs-additional-packages '(base16-theme
+                                      atomic-chrome
+                                      edit-indirect
+                                      editorconfig)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
