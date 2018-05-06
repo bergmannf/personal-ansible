@@ -54,12 +54,15 @@ values."
      ;; Additional
      ansible
      dash
+     go
      haskell
      html
      javascript
      python
      (scala :variables ensime-startup-notification nil
             ensime-startup-snapshot-notification nil)
+     (ruby :variables ruby-version-manager 'rbenv)
+     priv-ext
      rust
      yaml
      )
@@ -67,7 +70,14 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(base16-theme atomic-chrome)
+
+   ;; atomic-chrome: Allows editing text areas in browsers with emacs
+   ;; edit-indirect: Allows using a separate buffer for code in markdown
+   ;; editorconfig: Support one-config format for all editors
+   dotspacemacs-additional-packages '(base16-theme
+                                      atomic-chrome
+                                      edit-indirect
+                                      editorconfig)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -316,6 +326,8 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq evil-escape-key-sequence "jk")
   (global-company-mode)
+  ; Switch neotree root whenever the projectile project changes.
+  (setq projectile-switch-project-action 'neotree-projectile-action)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

@@ -15,3 +15,11 @@
     dest: ~/.emacs.d/
     update: yes
   when: emacsd.stat.exists == False
+
+- name: Clone extension layer
+  become: yes
+  become_user: "{{ user.username }}"
+  git:
+    repo: https://github.com/bergmannf/private-extension-layer.git
+    dest: ~/.emacs.d/private/priv-ext/
+    update: yes

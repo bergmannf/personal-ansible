@@ -66,13 +66,14 @@
     owner: root
     mode: 0777
 
-- name: Create dunst config directory
+- name: Ensure dunstrc config folder exists
   become: yes
   become_user: "{{ item.username }}"
   file:
-    dest: "~/.config/dunst"
-    owner: "{{ item.username }}"
     state: directory
+    dest: "~/.config/dunst/"
+    owner: "{{ item.username }}"
+    mode: 0755
   with_items: "{{ users }}"
 
 # This config prevents dunst from from capturing Ctrl+`
