@@ -66,6 +66,15 @@
     owner: root
     mode: 0777
 
+- name: Create dunst config directory
+  become: yes
+  become_user: "{{ item.username }}"
+  file:
+    dest: "~/.config/dunst"
+    owner: "{{ item.username }}"
+    state: directory
+  with_items: "{{ users }}"
+
 # This config prevents dunst from from capturing Ctrl+`
 - name: Copy dunstrc
   become: yes
@@ -74,5 +83,5 @@
     src: dunstrc.j2
     dest: "~/.config/dunst/dunstrc"
     owner: "{{ item.username }}"
-    mode: 0777
+    mode: 0644
   with_items: "{{ users }}"
