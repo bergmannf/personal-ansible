@@ -11,7 +11,7 @@
     state: present
   with_items:
     - readline-devel
-    - gcc6 
+    - gcc
     - automake 
     - gdbm-devel 
     - libffi-devel 
