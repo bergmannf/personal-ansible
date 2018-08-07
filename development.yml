@@ -3,6 +3,7 @@
 - hosts: all
   roles:
     - git
+    - godev
     - nodedev
     - rubydev
     - pydev
