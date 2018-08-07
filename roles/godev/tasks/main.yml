@@ -1,5 +1,8 @@
 ---
 
+- name: Load variables
+  include_vars: "main.yml"
+
 - name: Clone goenv projects
   include_tasks: git.yml
   vars:
@@ -30,4 +33,22 @@
   lineinfile:
     dest: "~/.zshrc"
     line: 'eval "$(goenv init -)"'
+  with_items: "{{ users }}"
+
+- name: Set GOPATH
+  become: yes
+  become_user: "{{ item.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: 'GOPATH="{{ GOPATH }}"'
+    insertafter: "# PREPATH config:"
+  with_items: "{{ users }}"
+
+- name: Add GOPATH binary to PATH
+  become: yes
+  become_user: "{{ item.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: 'PATH="$GOPATH/bin:$PATH"'
+    insertafter: "# PATH config:"
   with_items: "{{ users }}"
