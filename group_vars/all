@@ -13,17 +13,4 @@ users:
       - org.scalafmt.ScalaFmt
       - org.rust.lang 
       - IdeaVIM
-    vscodeextensions:
-      - christian-kohler.path-intellisense
-      - castwide.solargraph
-      - donjayamanne.githistory
-      - kalitaalexey.vscode-rust
-      - lextudio.restructuredtext
-      - lukehoban.Go
-      - ms-python.python
-      - PeterJausovec.vscode-docker
-      - rebornix.Ruby
-      - stkb.rewrap
-      - streetsidesoftware.code-spell-checker
-      - vscodevim.vim
-      - vscoss.vscode-ansible
+    vscodeextensions: []
