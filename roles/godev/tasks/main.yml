@@ -52,3 +52,15 @@
     line: 'PATH="$GOPATH/bin:$PATH"'
     insertafter: "# PATH config:"
   with_items: "{{ users }}"
+
+- name: Install go
+  become: yes
+  become_user: "{{ item.username }}"
+  shell: goenv install -s "{{ GOVERSION }}"
+  with_items: "{{ users }}"
+
+- name: Set default go version
+  become: yes
+  become_user: "{{ item.username }}"
+  shell: goenv global "{{ GOVERSION }}"
+  with_items: "{{ users }}"

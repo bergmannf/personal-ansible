@@ -1,3 +1,5 @@
 ---
 
-GOPATH: '$HOME/go'
+GOPATH: '$HOME/Code/go'
+
+GOVERSION: '1.10.3'
