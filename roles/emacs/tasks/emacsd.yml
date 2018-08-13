@@ -14,6 +14,7 @@
     repo: https://github.com/syl20bnr/spacemacs.git
     dest: ~/.emacs.d/
     update: yes
+    version: develop
   when: emacsd.stat.exists == False
 
 - name: Clone extension layer
