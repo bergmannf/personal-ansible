@@ -22,3 +22,13 @@ setw -g mouse-select-window on
 setw -g mouse-select-pane on
 setw -g mouse-resize-pane on
 {% endif %}
+
+# Use | to split horizontally, _ to split vertically.
+bind | split-window -h
+bind _ split-window -v
+
+# Allow moving between splits using vi keybindings.
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
