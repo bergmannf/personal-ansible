@@ -12,3 +12,7 @@ alias dockerclean='dockercleanc || true && dockercleani'
 
 # Clean up no longer used volumes
 alias dockercleanvol='printf "\n>>> Deleting unused volumes\n\n" && docker volume ls -qf dangling=true | xargs -r docker volume rm'
+
+# Quick access emacsclient
+alias e='emacsclient $*'
+alias ae='emacsclient -n $*'
