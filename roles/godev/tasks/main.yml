@@ -57,10 +57,14 @@
   become: yes
   become_user: "{{ item.username }}"
   shell: goenv install -s "{{ GOVERSION }}"
+  args:
+    executable: "{{ ZSH_BIN }}"
   with_items: "{{ users }}"
 
 - name: Set default go version
   become: yes
   become_user: "{{ item.username }}"
   shell: goenv global "{{ GOVERSION }}"
+  args:
+    executable: "{{ ZSH_BIN }}"
   with_items: "{{ users }}"
