@@ -225,6 +225,8 @@ exec --no-startup-id xrandr {% for monitor in monitors['Monitors'] %} \
 --output {{ monitor }} --mode {{ values['Resolution'] }} \
 {% if not loop.last %}
 --right-of {{ monitors['Monitors'].keys()[loop.index] }} \
+{% else %}
+--primary
 {% endif %}
 {% endfor %}
 
