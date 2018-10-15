@@ -96,3 +96,13 @@
     owner: "{{ item.username }}"
     mode: 0644
   with_items: "{{ users }}"
+
+- name: Copy redshift config
+  become: yes
+  become_user: "{{ item.username }}"
+  template:
+    src: redshift.conf.j2
+    dest: "~/.config/redshift.conf"
+    owner: "{{ item.username }}"
+    mode: 0644
+  with_items: "{{ users }}"
