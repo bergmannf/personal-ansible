@@ -1,4 +1,4 @@
 - name: Install emacs package
   package:
-    name: "emacs25"
+    name: "emacs"
     state: present
