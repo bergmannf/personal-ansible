@@ -86,3 +86,13 @@
     owner: "{{ item.username }}"
     mode: 0644
   with_items: "{{ users }}"
+
+- name: Copy compton config
+  become: yes
+  become_user: "{{ item.username }}"
+  template:
+    src: compton.conf.j2
+    dest: "~/.config/compton.conf"
+    owner: "{{ item.username }}"
+    mode: 0644
+  with_items: "{{ users }}"
