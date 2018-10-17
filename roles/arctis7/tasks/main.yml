@@ -8,7 +8,7 @@
 
 - name: Copy steelseries usb audio configuration
   template:
-    src: "steelseries-arctis-input.conf"
+    src: "steelseries-arctis-usb-audio.conf"
     dest: "/usr/share/pulseaudio/alsa-mixer/profile-sets/steelseries-arctis-usb-audio.conf"
     owner: root
     mode: 0644
@@ -16,20 +16,20 @@
 - name: Copy steelseries mono output
   template:
     src: "steelseries-arctis-output-mono.conf"
-    dest: "/usr/share/pulseaudio/alsa-mixer/profile-sets/steelseries-arctis-output-mono.conf"
+    dest: "/usr/share/pulseaudio/alsa-mixer/paths/steelseries-arctis-output-mono.conf"
     owner: root
     mode: 0644
 
 - name: Copy steelseries stereo output
   template:
     src: "steelseries-arctis-output-stereo.conf"
-    dest: "/usr/share/pulseaudio/alsa-mixer/profile-sets/steelseries-arctis-output-stereo.conf"
+    dest: "/usr/share/pulseaudio/alsa-mixer/paths/steelseries-arctis-output-stereo.conf"
     owner: root
     mode: 0644
 
 - name: Copy steelseries input
   template:
     src: "steelseries-arctis-input.conf"
-    dest: "/usr/share/pulseaudio/alsa-mixer/profile-sets/steelseries-arctis-input.conf"
+    dest: "/usr/share/pulseaudio/alsa-mixer/paths/steelseries-arctis-input.conf"
     owner: root
     mode: 0644
