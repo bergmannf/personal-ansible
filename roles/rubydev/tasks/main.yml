@@ -5,17 +5,15 @@
 
 - name: Add rbenv to PATH
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.zshenv"
     line: 'PATH="$HOME/.rbenv/bin:$PATH"'
     insertafter: "# PATH config:"
-  with_items: "{{ users }}"
 
 - name: Initialize rbenv
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.zshrc"
     line: 'eval "$(rbenv init -)"'
-  with_items: "{{ users }}"

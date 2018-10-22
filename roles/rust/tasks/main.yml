@@ -8,24 +8,20 @@
 
 - name: Install the rustup toolchain for the user
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   command: /tmp/rustup.sh -y
-  with_items: "{{ users }}"
 
 - name: Install rust completions
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   shell: ~/.cargo/bin/rustup completions zsh > ~/.zfunctions/_rustup
-  with_items: "{{ users }}"
 
 - name: Install toolchain
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   command: ~/.cargo/bin/rustup install stable
-  with_items: "{{ users }}"
 
 - name: Install rust source
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   command: rustup component add rust-src
-  with_items: "{{ users }}"

@@ -4,15 +4,13 @@
   include: "{{ ansible_os_family }}.yml"
 
 - name: Spacemacs repository checkout for .emacs.d
-  include: emacsd.yml user="{{ item }}"
-  with_items: "{{ users }}"
+  include: emacsd.yml user="{{ desktop_user }}"
 
 - name: Spacemacs configuration file
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   template:
     src: spacemacs.j2
     dest: ~/.spacemacs
-    owner: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
     mode: 0644
-  with_items: "{{ users }}"

@@ -26,13 +26,12 @@
 
 - name: Create i3-config directory
   become: true
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   file:
     state: directory
     mode: 0755
-    owner: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
     dest: "~/.i3/"
-  with_items: "{{ users }}"
 
 - name: Debug monitors variable
   debug:
@@ -40,24 +39,22 @@
 
 - name: Copy configuration for i3
   become: true
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   template:
     src: i3config.j2
     dest: "~/.i3/config"
-    owner: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
     mode: 0644
-  with_items: "{{ users }}"
   notify: Set wallpaper in config
 
 - name: Copy i3blocks configuration
   become: true
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   template:
     src: i3blocks.j2
     dest: "~/.i3/i3blocks.conf"
-    owner: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
     mode: 0744
-  with_items: "{{ users }}"
 
 - name: Copy i3lock wrapper script
   template:
@@ -65,44 +62,41 @@
     dest: "/usr/local/bin/i3lock_wrapper.sh"
     owner: root
     mode: 0777
+    mode: 0777
 
 - name: Ensure dunstrc config folder exists
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   file:
     state: directory
     dest: "~/.config/dunst/"
-    owner: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
     mode: 0755
-  with_items: "{{ users }}"
 
 # This config prevents dunst from from capturing Ctrl+`
 - name: Copy dunstrc
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   template:
     src: dunstrc.j2
     dest: "~/.config/dunst/dunstrc"
-    owner: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
     mode: 0644
-  with_items: "{{ users }}"
 
 - name: Copy compton config
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   template:
     src: compton.conf.j2
     dest: "~/.config/compton.conf"
-    owner: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
     mode: 0644
-  with_items: "{{ users }}"
 
 - name: Copy redshift config
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   template:
     src: redshift.conf.j2
     dest: "~/.config/redshift.conf"
-    owner: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
     mode: 0644
-  with_items: "{{ users }}"

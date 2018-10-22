@@ -11,20 +11,18 @@
 
 - name: Copy tmux theme
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   copy:
     src: "{{ role_path }}/templates/tmux.theme.j2"
-    owner: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
     dest: "~/.tmux.theme"
     mode: 0644
-  with_items: "{{ users }}"
 
 - name: Copy tmux config
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   template:
     src: "tmux.conf.j2"
-    owner: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
     dest: "~/.tmux.conf"
     mode: 0644
-  with_items: "{{ users }}"

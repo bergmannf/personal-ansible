@@ -2,10 +2,9 @@
 # handlers file for wallpaper
 - name: Set wallpaper in config
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.i3/config"
     regexp: "exec feh --bg-scale"
     line: "exec feh --bg-scale /usr/share/wallpapers/{{ wallpaper }}"
-  with_items: "{{ users }}"
     

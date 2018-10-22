@@ -11,27 +11,23 @@
 
 - name: Create configuration directory
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   file:
     path: "~/.config/Code/User/"
     state: directory
-  with_items: "{{ users }}"
 
 - name: Copy personal configuration
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   template:
     src: "settings.json"
     dest: "~/.config/Code/User/settings.json"
-  with_items: "{{ users }}"
 
 - name: Install extensions
   become: yes
-  become_user: "{{ item.0.username }}"
+  become_user: "{{ desktop_user.username }}"
   command: /usr/bin/code --install-extension "{{ item.1 }}"
-  with_subelements:
-    - "{{ users }}"
-    - vscodeextensions
+  with_items: "{{ desktop_user.vscodeextensions }}"
   
 - name: Create font rendering work around for fontconfig 2.8.*
   template:

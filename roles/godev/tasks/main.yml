@@ -6,65 +6,57 @@
 - name: Clone goenv projects
   include_tasks: git.yml
   vars:
-    user: "{{ item }}"
-  with_items: "{{ users }}"
+    user: "{{ desktop_user }}"
 
 - name: Add GOENV_ROOT
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.zshenv"
     line: 'GOENV_ROOT="$HOME/.goenv"'
     insertafter: "# PREPATH config:"
-  with_items: "{{ users }}"
 
 - name: Add goenv to PATH
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.zshenv"
     line: 'PATH="$GOENV_ROOT/bin:$PATH"'
     insertafter: "# PATH config:"
-  with_items: "{{ users }}"
 
 - name: Initialize goenv
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.zshrc"
     line: 'eval "$(goenv init -)"'
-  with_items: "{{ users }}"
 
 - name: Set GOPATH
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.zshenv"
     line: 'GOPATH="{{ GOPATH }}"'
     insertafter: "# PREPATH config:"
-  with_items: "{{ users }}"
 
 - name: Add GOPATH binary to PATH
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.zshenv"
     line: 'PATH="$GOPATH/bin:$PATH"'
     insertafter: "# PATH config:"
-  with_items: "{{ users }}"
 
 - name: Install go
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   shell: goenv install -s "{{ GOVERSION }}"
   args:
     executable: "{{ ZSH_BIN }}"
-  with_items: "{{ users }}"
 
 - name: Set default go version
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   shell: goenv global "{{ GOVERSION }}"
   args:
     executable: "{{ ZSH_BIN }}"
-  with_items: "{{ users }}"

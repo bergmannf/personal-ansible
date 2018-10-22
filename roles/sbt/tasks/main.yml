@@ -10,33 +10,30 @@
 
 - name: Create plugin directory
   become: yes
-  become_user: "{{ item.key }}"
+  become_user: "{{ desktop_user.username }}"
   file:
     dest: "~/.sbt/{{ sbt_version }}/plugins/"
-    owner: "{{ item.username }}"
-    group: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
+    group: "{{ desktop_user.username }}"
     mode: 0755
     state: directory
-  with_items: "{{ users }}"
 
 - name: Create plugins file
   become: yes
-  become_user: "{{ item.key }}"
+  become_user: "{{ desktop_user.username }}"
   copy:
     content: ""
     dest: "~/.sbt/{{ sbt_version }}/plugins/plugins.sbt"
-    owner: "{{ item.username }}"
-    group: "{{ item.username }}"
+    owner: "{{ desktop_user.username }}"
+    group: "{{ desktop_user.username }}"
     force: no
     mode: 0644
-  with_items: "{{ users }}"
 
 - name: Global ensime plugin
   become: yes
-  become_user: "{{ item.username }}"
+  become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.sbt/{{ sbt_version }}/plugins/plugins.sbt"
     regexp: 'addSbtPlugin\("org.ensime" % "sbt-ensime" % ".*"\)'
     line: addSbtPlugin("org.ensime" % "sbt-ensime" % "{{ ensime_version }}")
     state: present
-  with_items: "{{ users }}"

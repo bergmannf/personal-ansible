@@ -2,18 +2,16 @@
 # tasks file for user
 - name: Create user-named group per user
   group:
-    name: "{{ item.username }}"
+    name: "{{ desktop_user.username }}"
     state: present
-  with_items: "{{ users }}"
 
-- name: Create users
+- name: Create user
   user:
-    name: "{{ item.username }}"
-    comment: "{{ item.get('comment', '') }}"
-    groups: "{{ item['groups'] | default(item.username) }}"
+    name: "{{ desktop_user.username }}"
+    comment: "{{ desktop_user.get('comment', '') }}"
+    groups: "{{ desktop_user['groups'] | default(desktop_user.username) }}"
     append: yes
     state: present
-  with_items: "{{ users }}"
 
 - name: Install sudo
   package:

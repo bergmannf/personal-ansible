@@ -1,16 +1,16 @@
 ---
-users:
-  - username: example
-    fullname: Example User
-    email: exampleuser@nowhere
-    default_editor: emacsclient
-    intellij_jdks:
-      - name: "1.9"
-        home: "/usr/lib/jvm/java-9-openjdk-amd64/"
-    intellij_default_jdk: "1.9"
-    intellij_plugins:
-      - org.intellij.scala
-      - org.scalafmt.ScalaFmt
-      - org.rust.lang 
-      - IdeaVIM
-    vscodeextensions: []
+desktop_user:
+  username: example
+  fullname: Example user
+  email: example@example.org
+  default_editor: emacsclient
+  intellij_jdks:
+    - name: "1.9"
+      home: "/usr/lib/jvm/java-9-openjdk-amd64/"
+  intellij_default_jdk: "1.9"
+  intellij_plugins:
+    - org.intellij.scala
+    - org.scalafmt.ScalaFmt
+    - org.rust.lang 
+    - IdeaVIM
+  vscodeextensions: []
