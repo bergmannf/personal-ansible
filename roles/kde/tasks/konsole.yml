@@ -1,0 +1,19 @@
+---
+
+- name: Add SSH_ASKPASS
+  become: yes
+  become_user: "{{ user.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: 'SSH_ASKPASS=ksshaskpass'
+    insertafter: "# PREPATH config:"
+
+- name: Add autostart ssh-script to load ssh-keys
+  become: yes
+  become_user: "{{ user.username }}"
+  template:
+    src: "add-ssh.sh"
+    dest: "~/.config/autostart/add-ssh.sh"
+    owner: "{{ user.username }}"
+    mode: 0744
+    

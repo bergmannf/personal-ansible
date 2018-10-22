@@ -1,0 +1,8 @@
+---
+- name: Switch screen keybinding
+  become: yes
+  become_user: "{{ user.username }}"
+  lineinfile:
+    path: ~/.config/kglobalshortcutsrc
+    regexp: 'Window to Next Screen=.*'
+    line: 'Window to Next Screen=Meta+X,none,Window to Next Screen'
