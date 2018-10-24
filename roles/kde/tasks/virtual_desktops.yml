@@ -1,15 +1,9 @@
 ---
-- name: Setup 4 virtual desktops
+- name: Setup virtual desktops
   become: yes
   become_user: "{{ user.username }}"
-  blockinfile:
-    path: "~/.config/kwinrc"
+  template:
+    src: kwinrc
+    dest: "~/.config/kwinrc"
     owner: "{{ user.username }}"
-    block: |
-      [Desktop]
-      Name_1=Web
-      Name_2=Dev
-      Name_3=Comm
-      Name_4=Games
-      Number=4
-      Rows=4
+    mode: 0600

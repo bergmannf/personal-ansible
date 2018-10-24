@@ -1,0 +1,10 @@
+[Compositing]
+OpenGLIsUnsafe=false
+
+[Desktops]
+Name_1=Web
+Name_2=Dev
+Name_3=Comm
+Name_4=Games
+Number=4
+Rows=4

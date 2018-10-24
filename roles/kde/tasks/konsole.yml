@@ -8,6 +8,15 @@
     line: 'SSH_ASKPASS=ksshaskpass'
     insertafter: "# PREPATH config:"
 
+- name: Create autostart directory
+  become: yes
+  become_user: "{{ user.username }}"
+  file:
+    path: "~/.config/autostart"
+    state: directory
+    owner: "{{ user.username }}"
+    mode: 0755
+
 - name: Add autostart ssh-script to load ssh-keys
   become: yes
   become_user: "{{ user.username }}"
@@ -16,4 +25,30 @@
     dest: "~/.config/autostart/add-ssh.sh"
     owner: "{{ user.username }}"
     mode: 0744
+
+- name: Create Konsole share directory
+  become: yes
+  become_user: "{{ user.username }}"
+  file:
+    path: "~/.local/share/konsole/"
+    state: directory
+    owner: "{{ user.username }}"
+    mode: 0755
     
+- name: Copy over Konsole profile
+  become: yes
+  become_user: "{{ user.username }}"
+  template:
+    src: konsole.profile
+    dest: "~/.local/share/konsole/Default.profile"
+    owner: "{{ user.username }}"
+    mode: 0600
+
+- name: Copy over Konsole configuration
+  become: yes
+  become_user: "{{ user.username }}"
+  template:
+    src: konsolerc
+    dest: "~/.config/konsolerc"
+    owner: "{{ user.username }}"
+    mode: 0600
