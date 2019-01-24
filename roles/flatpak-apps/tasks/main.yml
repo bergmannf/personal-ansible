@@ -1,0 +1,23 @@
+---
+
+- name: Install flatpak
+  package:
+    name: flatpak
+    state: present
+
+- name: Add flathub remote
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: "https://flathub.org/repo/flathub.flatpakrepo"
+    method: user
+
+- name: Install spotify flatpak
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  flatpak:
+    name: "com.spotify.Client"
+    state: present
+    method: user
