@@ -60,3 +60,16 @@
   shell: goenv global "{{ GOVERSION }}"
   args:
     executable: "{{ ZSH_BIN }}"
+
+- name: Install spacemacs required packages
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  shell: go get -u -v "{{ item }}"
+  args:
+    executable: "{{ ZSH_BIN }}"
+  with_items:
+    - "github.com/nsf/gocode"
+    - "github.com/rogpeppe/godef"
+    - "golang.org/x/tools/cmd/guru"
+    - "golang.org/x/tools/cmd/gorename"
+    - "golang.org/x/tools/cmd/goimports"
