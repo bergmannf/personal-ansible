@@ -1,0 +1,11 @@
+---
+
+- name: Import repository key
+  apt_key:
+    url: "https://download.opensuse.org/repositories/home:/strycore/Debian_{{ ansible_distribution_version }}/Release.key"
+    state: present
+
+- name: Add lutris build service repository for Debian
+  apt_repository:
+    repo: "deb http://download.opensuse.org/repositories/home:/strycore/Debian_{{ ansible_distribution_version }}/ ./"
+    state: present
