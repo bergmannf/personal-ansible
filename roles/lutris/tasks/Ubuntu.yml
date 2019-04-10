@@ -1,11 +1,6 @@
 ---
 
-- name: Import repository key
-  apt_key:
-    url: "https://download.opensuse.org/repositories/home:/strycore/xUbuntu_{{ ansible_distribution_version }}/Release.key"
-    state: present
-
 - name: Add lutris build service repository for Ubuntu
   apt_repository:
-    repo: "deb http://download.opensuse.org/repositories/home:/strycore/xUbuntu_{{ ansible_distribution_version }}/ ./"
+    repo: "ppa:lutris-team/lutris"
     state: present
