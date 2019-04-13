@@ -139,6 +139,7 @@ assign [class="jetbrains-idea-ce"] $ws2
 assign [class="Gvim"]              $ws2
 assign [class="Thunderbird"]       $ws4
 assign [class="TeamSpeak 3"]       $ws4
+assign [class="Riot"]              $ws4
 assign [instance="calibre-gui"]    $ws5
 assign [class="Foxit Reader"]      $ws5
 assign [class="evince"]            $ws5
@@ -231,5 +232,6 @@ exec --no-startup-id xrandr {% for monitor in monitors['Monitors'] %} \
 {% endfor %}
 
 exec_always --no-startup-id setxkbmap -layout us,de -option grp:rctrl_rshift_toggle,ctrl:nocaps
+exec_always --no-startup-id pasystray
 exec --no-startup-id compton --config ~/.config/compton.conf -b
 exec dropbox start
