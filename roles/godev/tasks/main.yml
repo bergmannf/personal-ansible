@@ -24,6 +24,14 @@
     line: 'PATH="$GOENV_ROOT/bin:$PATH"'
     insertafter: "# PATH config:"
 
+- name: Add goenv shims to PATH
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: 'PATH="$GOENV_ROOT/shims:$PATH"'
+    insertafter: "# PATH config:"
+
 - name: Initialize goenv
   become: yes
   become_user: "{{ desktop_user.username }}"
