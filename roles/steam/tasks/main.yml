@@ -7,7 +7,13 @@
     - steam
     - steam-devices
 
+- name: Check steam-devices file
+  stat:
+    path: /lib/udev/rules.d/99-steam-controller-perms.rules
+  register: steam_devices_file
+
 # This is a workaround, as the steam-devices udev-rule for the steam controller must be loaded
 # before the 71-seat.rules
 - name: Move the steam-devices rules file
   command: cp /lib/udev/rules.d/99-steam-controller-perms.rules /lib/udev/rules.d/69-steam-controller-perms.rules
+  when: steam_devices_file.exists == True
