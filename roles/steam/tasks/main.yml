@@ -16,4 +16,4 @@
 # before the 71-seat.rules
 - name: Move the steam-devices rules file
   command: cp /lib/udev/rules.d/99-steam-controller-perms.rules /lib/udev/rules.d/69-steam-controller-perms.rules
-  when: steam_devices_file.exists == True
+  when: steam_devices_file.stat.exists == True
