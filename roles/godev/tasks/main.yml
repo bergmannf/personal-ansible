@@ -29,7 +29,7 @@
   become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.zshenv"
-    line: 'PATH="$GOENV_ROOT/shims:$PATH"'
+    line: 'PATH="$GOENV_ROOT/bin:$PATH"'
     insertafter: "# PATH config:"
 
 # goenv must be initialized before the environment variables are set, otherwise
@@ -40,7 +40,7 @@
   lineinfile:
     dest: "~/.zshenv"
     line: 'eval "$(goenv init -)"'
-    insertbefore: "# PATH config:"
+    insertbefore: "export PATH"
 
 - name: Set GOPATH
   become: yes
@@ -48,7 +48,7 @@
   lineinfile:
     dest: "~/.zshenv"
     line: 'export GOPATH="{{ GOPATH }}"'
-    insertafter: "# PREPATH config:"
+    insertbefore: "export PATH"
 
 - name: Add GOPATH binary to PATH
   become: yes
@@ -56,7 +56,7 @@
   lineinfile:
     dest: "~/.zshenv"
     line: 'PATH="$GOPATH/bin:$PATH"'
-    insertafter: "# PATH config:"
+    insertbefore: "export PATH"
 
 - name: Install go
   become: yes
