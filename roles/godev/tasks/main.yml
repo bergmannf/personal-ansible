@@ -32,12 +32,15 @@
     line: 'PATH="$GOENV_ROOT/shims:$PATH"'
     insertafter: "# PATH config:"
 
+# goenv must be initialized before the environment variables are set, otherwise
+# the PATH will point to the wrong binaries.
 - name: Initialize goenv
   become: yes
   become_user: "{{ desktop_user.username }}"
   lineinfile:
-    dest: "~/.zshrc"
+    dest: "~/.zshenv"
     line: 'eval "$(goenv init -)"'
+    insertbefore: "# PATH config:"
 
 - name: Set GOPATH
   become: yes
