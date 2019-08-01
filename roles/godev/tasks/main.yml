@@ -16,6 +16,14 @@
     line: 'export GOENV_ROOT="$HOME/.goenv"'
     insertafter: "# PREPATH config:"
 
+- name: Make goenv not do GOPATH configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: 'export GOENV_DISABLE_GOPATH=1'
+    insertafter: "# PREPATH config:"
+
 - name: Add goenv to PATH
   become: yes
   become_user: "{{ desktop_user.username }}"
@@ -38,9 +46,8 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   lineinfile:
-    dest: "~/.zshenv"
+    dest: "~/.zshrc"
     line: 'eval "$(goenv init -)"'
-    insertbefore: "export PATH"
 
 - name: Set GOPATH
   become: yes
