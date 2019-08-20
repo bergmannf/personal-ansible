@@ -2,6 +2,6 @@
 
 GOPATH: '$HOME/Code/go'
 
-GOVERSION: '1.11.5'
+GOVERSION: '1.12.9'
 
 ZSH_BIN: '/usr/bin/zsh'
