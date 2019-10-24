@@ -57,6 +57,14 @@
     line: 'export GOPATH="{{ GOPATH }}"'
     insertbefore: "export PATH"
 
+- name: Ensure GOPATH exists
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    path: "{{ GOPATH }}"
+    state: directory
+    mode: '0755'
+
 - name: Add GOPATH binary to PATH
   become: yes
   become_user: "{{ desktop_user.username }}"
