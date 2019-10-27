@@ -3,13 +3,20 @@
   get_url:
     dest: /tmp/rustup.sh
     url:  https://sh.rustup.rs
-    sha256sum: 22aa1f7f4c4b9be99a9d7e13ad45b2aec6714165a0578dd5ef81ca11f55ea24e
     mode: 0755
 
 - name: Install the rustup toolchain for the user
   become: yes
   become_user: "{{ desktop_user.username }}"
   command: /tmp/rustup.sh -y
+
+- name: Add .cargo/bin to PATH
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: 'PATH="$HOME/.cargo/bin:$PATH"'
+    insertafter: "# PATH config:"
 
 - name: Install rust completions
   become: yes
@@ -21,7 +28,12 @@
   become_user: "{{ desktop_user.username }}"
   command: ~/.cargo/bin/rustup install stable
 
-- name: Install rust source
+- name: Set default toolchain
   become: yes
   become_user: "{{ desktop_user.username }}"
-  command: rustup component add rust-src
+  command: "~/.cargo/bin/rustup default stable-x86_64-unknown-linux-gnu"
+
+- name: Install dev components
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  command: ~/.cargo/bin/rustup component add rls rustfmt
