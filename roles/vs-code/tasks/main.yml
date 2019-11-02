@@ -23,6 +23,12 @@
     src: "settings.json"
     dest: "~/.config/Code/User/settings.json"
 
+- name: Install required extensions
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  command: /usr/bin/code --install-extension "{{ item }}"
+  with_items: "{{ extensions }}"
+
 - name: Install extensions
   become: yes
   become_user: "{{ desktop_user.username }}"

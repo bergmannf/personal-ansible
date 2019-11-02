@@ -1,0 +1,14 @@
+---
+
+- name: Install packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gnupg
+    - scdaemon
+
+- name: Import own public key
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  command: gpg --no-tty --recv-keys "{{ desktop_user.gpgkey }}"

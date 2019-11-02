@@ -1,0 +1,9 @@
+---
+
+- name: Add repository
+  include: "{{ ansible_distribution }}.yml"
+
+- name: Install lutris
+  package:
+    name: "lutris"
+    state: present

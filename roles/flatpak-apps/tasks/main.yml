@@ -11,7 +11,7 @@
   flatpak_remote:
     name: flathub
     state: present
-    flatpakrepo_url: "https://flathub.org/repo/flathub.flatpakrepo"
+    flatpakrepo_url: "https://dl.flathub.org/repo/flathub.flatpakrepo"
     method: user
 
 - name: Install spotify flatpak
@@ -19,5 +19,29 @@
   become_user: "{{ desktop_user.username }}"
   flatpak:
     name: "com.spotify.Client"
+    state: present
+    method: user
+
+- name: Install intellij community flatpak
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  flatpak:
+    name: "com.jetbrains.IntelliJ-IDEA-Community"
+    state: present
+    method: user
+
+- name: Install riot flatpak
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  flatpak:
+    name: "im.riot.Riot"
+    state: present
+    method: user
+
+- name: Install foliate flatpak
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  flatpak:
+    name: "com.github.johnfactotum.Foliate"
     state: present
     method: user

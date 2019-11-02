@@ -16,6 +16,14 @@
     line: 'export GOENV_ROOT="$HOME/.goenv"'
     insertafter: "# PREPATH config:"
 
+- name: Make goenv not do GOPATH configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: 'export GOENV_DISABLE_GOPATH=1'
+    insertafter: "# PREPATH config:"
+
 - name: Add goenv to PATH
   become: yes
   become_user: "{{ desktop_user.username }}"
@@ -24,6 +32,16 @@
     line: 'PATH="$GOENV_ROOT/bin:$PATH"'
     insertafter: "# PATH config:"
 
+- name: Add goenv shims to PATH
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: 'PATH="$GOENV_ROOT/bin:$PATH"'
+    insertafter: "# PATH config:"
+
+# goenv must be initialized before the environment variables are set, otherwise
+# the PATH will point to the wrong binaries.
 - name: Initialize goenv
   become: yes
   become_user: "{{ desktop_user.username }}"
@@ -37,7 +55,15 @@
   lineinfile:
     dest: "~/.zshenv"
     line: 'export GOPATH="{{ GOPATH }}"'
-    insertafter: "# PREPATH config:"
+    insertbefore: "export PATH"
+
+- name: Ensure GOPATH exists
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    path: "{{ GOPATH }}"
+    state: directory
+    mode: '0755'
 
 - name: Add GOPATH binary to PATH
   become: yes
@@ -45,7 +71,7 @@
   lineinfile:
     dest: "~/.zshenv"
     line: 'PATH="$GOPATH/bin:$PATH"'
-    insertafter: "# PATH config:"
+    insertbefore: "export PATH"
 
 - name: Install go
   become: yes
@@ -73,3 +99,4 @@
     - "golang.org/x/tools/cmd/guru"
     - "golang.org/x/tools/cmd/gorename"
     - "golang.org/x/tools/cmd/goimports"
+    - "golang.org/x/tools/gopls"

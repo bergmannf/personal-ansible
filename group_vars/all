@@ -14,3 +14,4 @@ desktop_user:
     - org.rust.lang 
     - IdeaVIM
   vscodeextensions: []
+  gpgkey: ""

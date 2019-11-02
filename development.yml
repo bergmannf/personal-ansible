@@ -2,6 +2,7 @@
 - import_playbook: desktop.yml
 - hosts: all
   roles:
+    - shell-tools
     - git
     - godev
     - nodedev
@@ -10,3 +11,4 @@
     - tmux
     - vs-code
     - emacs
+    - gpg

@@ -6,3 +6,5 @@
     - i3wm
     - xfce-terminal
     - steam
+    - gstreamer
+    - flatpak-apps

@@ -14,7 +14,7 @@ set -g visual-activity off
 
 # Mouse stuff
 
-{% if tmux_version.stdout >= 2.1 %}
+{% if tmux_version.stdout >= "2.1" %}
 set -g mouse on
 {% else %}
 setw -g mode-mouse on

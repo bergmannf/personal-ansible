@@ -1,0 +1,6 @@
+---
+
+- name: Add lutris build service repository for Ubuntu
+  apt_repository:
+    repo: "ppa:lutris-team/lutris"
+    state: present
