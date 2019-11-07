@@ -12,3 +12,8 @@
   package:
     name: "fonts-font-awesome"
     state: present
+
+- name: Install font powerline
+  package:
+    name: "fonts-powerline"
+    state: present
