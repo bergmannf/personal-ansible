@@ -45,13 +45,20 @@
     dest: "~/.zfunctions/async"
     owner: "{{ desktop_user.username }}"
 
-- name: Copy pure theme
-  become: true
+- name: Clone powerline theme
+  become: yes
   become_user: "{{ desktop_user.username }}"
-  copy:
-    src: "{{ role_path }}/templates/pure.zsh"
-    dest: "~/.zfunctions/prompt_pure_setup"
-    owner: "{{ desktop_user.username }}"
+  git:
+    repo: https://github.com/bhilburn/powerlevel9k.git
+    dest: ~/.powerlevel9k
+    update: yes
+
+- name: Use powerline theme
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshrc"
+    line: "source ~/.powerlevel9k/powerlevel9k.zsh-theme"
 
 - name: Copy aliases
   become: true
