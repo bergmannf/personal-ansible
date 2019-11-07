@@ -13,7 +13,7 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   copy:
-    src: "{{ role_path }}/templates/tmux.theme.j2"
+    src: "{{ role_path }}/templates/{{ tmux_theme }}"
     owner: "{{ desktop_user.username }}"
     dest: "~/.tmux.theme"
     mode: 0644
