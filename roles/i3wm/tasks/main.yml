@@ -16,7 +16,7 @@
   shell: |
     xrandr |\
     grep --extended-regexp "\bconnected" |\
-    gawk 'BEGIN { print "{\"Monitors\": {" } { print t "\"" $1 "\": {\"Name\": \"" $1 "\","}; match($0, /[0-9]{2,}x[0-9]+/, ary) { print "\"Resolution\": \"" ary[0] "\"}" } { t="," } END { print "}}"}'
+    gawk 'BEGIN { print "{\"Displays\": {" } { print t "\"" $1 "\": {\"Name\": \"" $1 "\","}; match($0, /[0-9]{2,}x[0-9]+/, ary) { print "\"Resolution\": \"" ary[0] "\"}" } { t="," } END { print "}}"}'
   register: monitors
 
 # Turn the 
