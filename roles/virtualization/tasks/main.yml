@@ -1,0 +1,44 @@
+---
+# tasks file for roles/virtualization
+- name: Install required packages for virtualization
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - virt-manager
+      - vagrant
+      - bridge-utils
+      - vagrant-lxc
+      - vagrant-libvirt
+      - vagrant-sshfs
+      - vagrant-mutate
+      - qemu-kvm
+      - libvirt-clients
+      - libvirt-daemon
+      - libvirt-daemon-system
+      - bridge-utils
+      - iptables
+      - virt-top
+      - virt-manager
+      # ansible dependencies:
+      - python-libvirt
+
+- name: Add {{ desktop_user.username }} to libvirt group
+  user:
+    name: "{{ desktop_user.username }}"
+    groups: "libvirt,libvirt-qemu"
+    append: yes
+  become: yes
+
+- name: Enable libvirtd
+  service:
+    name: libvirtd
+    state: started
+    enabled: yes
+
+- name: Use libvirt as default vagrant provider
+  lineinfile:
+    dest: "/home/{{ desktop_user.username }}/.zshrc"
+    line: 'export VAGRANT_DEFAULT_PROVIDER="libvirt"'
