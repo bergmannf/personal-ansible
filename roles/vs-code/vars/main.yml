@@ -1,3 +1,4 @@
 ---
 extensions:
   - vscodevim.vim
+  - ms-vscode-remote.vscode-remote-extensionpack
