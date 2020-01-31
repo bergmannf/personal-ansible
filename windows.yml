@@ -1,0 +1,4 @@
+---
+- hosts: win
+  roles:
+    - vs-code

@@ -1,0 +1,6 @@
+---
+
+- name: Install vscode
+  win_chocolatey:
+    name: vscode
+    state: latest

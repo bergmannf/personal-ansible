@@ -1,0 +1,33 @@
+---
+- name: Create configuration directory
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    path: "{{ code_config_path }}"
+    state: directory
+
+- name: Copy personal configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: "settings.json"
+    dest: "{{ code_config_path }}settings.json"
+
+- name: Install required extensions
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  command: /usr/bin/code --install-extension "{{ item }}"
+  with_items: "{{ extensions }}"
+
+- name: Install extensions
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  command: /usr/bin/code --install-extension "{{ item.1 }}"
+  with_items: "{{ desktop_user.vscodeextensions }}"
+  
+- name: Create font rendering work around for fontconfig 2.8.*
+  template:
+    mode: 0644
+    src: 99-vscode.conf
+    dest: /etc/fonts/conf.d/99-vscode.conf
+  when: ansible_os_family == "Debian"
