@@ -1,0 +1,4 @@
+---
+
+- name: Install minikube
+  include: "install_minikube_{{ ansible_os_family }}.yml"

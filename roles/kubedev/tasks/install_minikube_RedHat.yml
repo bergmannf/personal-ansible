@@ -1,0 +1,5 @@
+---
+
+- name: Install minikube
+  dnf:
+    name: "https://storage.googleapis.com/minikube/releases/latest/minikube-{{ minikube_version }}-0.x86_64.rpm"
