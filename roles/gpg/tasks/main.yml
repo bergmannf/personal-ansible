@@ -1,12 +1,7 @@
 ---
 
-- name: Install packages
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - gnupg
-    - scdaemon
+- name: Install distribution specific
+  include_tasks: "install_{{ ansible_os_family }}.yml"
 
 - name: Import own public key
   become: yes

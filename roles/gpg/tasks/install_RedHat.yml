@@ -1,0 +1,10 @@
+---
+- name: Install packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gnupg
+    - pcsc-tools
+    - pcsc-lite
+    - pcsc-lite-ccid
