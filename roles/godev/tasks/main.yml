@@ -1,8 +1,4 @@
 ---
-
-- name: Load variables
-  include_vars: "main.yml"
-
 - name: Clone goenv projects
   include_tasks: git.yml
   vars:
