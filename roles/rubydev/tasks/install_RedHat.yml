@@ -1,8 +1,8 @@
 ---
-- name: Install rbenv & ruby-build
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - rbenv
-    - ruby-build
+
+- name: Install rbenv (user only)
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  git:
+    dest: "~/.rbenv"
+    repo: https://github.com/rbenv/rbenv.git

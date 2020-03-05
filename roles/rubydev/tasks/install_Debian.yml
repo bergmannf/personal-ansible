@@ -1,8 +1,7 @@
 ---
 - name: Install rbenv & ruby-build
   package:
-    name: "{{ item }}"
+    name:
+      - rbenv
+      - ruby-build
     state: present
-  with_items:
-    - rbenv
-    - ruby-build
