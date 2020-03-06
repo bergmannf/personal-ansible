@@ -1,0 +1,12 @@
+- name: Install required packages
+  package:
+    name: python3-psutil
+    state: present
+
+- name: Write gnome settings
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_items: "{{ dconfsettings }}"
