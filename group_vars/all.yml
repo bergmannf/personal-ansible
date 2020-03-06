@@ -1,0 +1,17 @@
+---
+desktop_user:
+  username: florian
+  fullname: Florian Bergmann
+  email: Bergmann.F@gmail.com
+  default_editor: emacsclient
+  intellij_jdks:
+    - name: "1.9"
+      home: "/usr/lib/jvm/java-9-openjdk-amd64/"
+  intellij_default_jdk: "1.9"
+  intellij_plugins:
+    - org.intellij.scala
+    - org.scalafmt.ScalaFmt
+    - org.rust.lang 
+    - IdeaVIM
+  vscodeextensions: []
+  gpgkey: ""
