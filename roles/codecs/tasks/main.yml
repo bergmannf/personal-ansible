@@ -1,0 +1,4 @@
+---
+
+- name: Install based on distribution
+  include_tasks: "install_{{ ansible_os_family }}.yml"
