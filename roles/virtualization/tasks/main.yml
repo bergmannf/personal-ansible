@@ -24,6 +24,17 @@
       - virt-manager
       # ansible dependencies:
       - python-libvirt
+  when: ansible_os_family == "Debian"
+
+- name: Install required packages for virtualization
+  dnf:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - "@Virtualization"
+  when: ansible_os_family == "RedHat"
 
 - name: Add {{ desktop_user.username }} to libvirt group
   user:
