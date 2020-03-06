@@ -12,3 +12,4 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   command: gpg --no-tty --recv-keys "{{ desktop_user.gpgkey }}"
+  when: desktop_user.gpgkey
