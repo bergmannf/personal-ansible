@@ -1,3 +1,5 @@
 dconfsettings:
   - key: "/org/gnome/desktop/input-sources/xkb-options"
     value: "['caps:ctrl_modifier']"
+  - key: "/org/gnome/desktop/input-sources/sources"
+    value: "[('xkb', 'us'),('xkb','de')]"
