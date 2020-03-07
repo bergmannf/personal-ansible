@@ -1,4 +1,7 @@
 ---
+- name: Load variables for distribution
+  include_vars: "{{ ansible_os_family }}.yml"
+
 # tasks file for roles/virtualization
 - name: Install required packages for virtualization
   apt:
@@ -39,7 +42,7 @@
 - name: Add {{ desktop_user.username }} to libvirt group
   user:
     name: "{{ desktop_user.username }}"
-    groups: "libvirt,libvirt-qemu"
+    groups: "{{ libvirt_groups }}"
     append: yes
   become: yes
 
