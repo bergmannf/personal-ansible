@@ -1,6 +1,0 @@
----
-- name: debops.java
-  src: debops.java
-
-- name: gantsign.intellij
-  src: gantsign.intellij
