@@ -37,6 +37,10 @@
   vars:
     packages:
       - "@Virtualization"
+      - vagrant
+      - vagrant-sshfs
+      - vagrant-lxc
+      - vagrant-libvirt
   when: ansible_os_family == "RedHat"
 
 - name: Add {{ desktop_user.username }} to libvirt group
