@@ -1,0 +1,16 @@
+---
+
+- name: Install firacode
+  package:
+    name: mozilla-fira-mono-fonts
+    state: present
+
+- name: Install powerline fonts
+  package:
+    name: powerline-fonts
+    state: present
+
+- name: Install awesome fonts
+  package:
+    name: fontawesome-fonts
+    state: present

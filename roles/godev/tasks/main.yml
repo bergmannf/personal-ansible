@@ -1,8 +1,4 @@
 ---
-
-- name: Load variables
-  include_vars: "main.yml"
-
 - name: Clone goenv projects
   include_tasks: git.yml
   vars:
@@ -76,21 +72,21 @@
 - name: Install go
   become: yes
   become_user: "{{ desktop_user.username }}"
-  shell: goenv install -s "{{ GOVERSION }}"
+  shell: source ~/.zshrc; goenv install -s "{{ GOVERSION }}"
   args:
     executable: "{{ ZSH_BIN }}"
 
 - name: Set default go version
   become: yes
   become_user: "{{ desktop_user.username }}"
-  shell: goenv global "{{ GOVERSION }}"
+  shell: source ~/.zshrc; goenv global "{{ GOVERSION }}"
   args:
     executable: "{{ ZSH_BIN }}"
 
 - name: Install spacemacs required packages
   become: yes
   become_user: "{{ desktop_user.username }}"
-  shell: go get -u -v "{{ item }}"
+  shell: source ~/.zshrc; go get -u -v "{{ item }}"
   args:
     executable: "{{ ZSH_BIN }}"
   with_items:

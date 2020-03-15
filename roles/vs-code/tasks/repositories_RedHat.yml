@@ -1,0 +1,8 @@
+---
+- name: Add microsoft repository
+  yum_repository:
+    name: VSCode
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    gpgcakey: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+    description: "Microsoft repository for vscode"

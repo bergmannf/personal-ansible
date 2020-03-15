@@ -5,6 +5,5 @@
     - fonts
     - i3wm
     - xfce-terminal
-    - steam
-    - gstreamer
+    - codecs
     - flatpak-apps

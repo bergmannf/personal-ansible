@@ -1,0 +1,6 @@
+---
+
+- name: Install the emacs package
+  package:
+    name: emacs
+    state: present

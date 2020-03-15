@@ -8,7 +8,7 @@
 - name: Install the rustup toolchain for the user
   become: yes
   become_user: "{{ desktop_user.username }}"
-  command: /tmp/rustup.sh -y
+  command: /tmp/rustup.sh -y --no-modify-path
 
 - name: Add .cargo/bin to PATH
   become: yes
@@ -27,13 +27,25 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   command: ~/.cargo/bin/rustup install stable
+  args:
+    creates: ~/.rustup
 
 - name: Set default toolchain
   become: yes
   become_user: "{{ desktop_user.username }}"
   command: "~/.cargo/bin/rustup default stable-x86_64-unknown-linux-gnu"
+  args:
+    creates: "~/.rustup/toolchains"
 
 - name: Install dev components
   become: yes
   become_user: "{{ desktop_user.username }}"
-  command: ~/.cargo/bin/rustup component add rls rustfmt
+  command: "~/.cargo/bin/rustup component add {{ item }}"
+  args:
+    creates: "~/.cargo/bin/{{ item }}"
+  with_items:
+    - rls
+    - rust-analysis
+    - rust-src
+    - rustfmt
+

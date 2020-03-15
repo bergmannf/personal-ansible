@@ -1,0 +1,23 @@
+---
+
+- name: install the rpmfusion repo packages
+  dnf:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm
+    - http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm
+
+# sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+- name: Upgrade the codecs
+  dnf:
+    name: "@multimedia"
+    install_weak_deps: no
+    state: latest
+    exclude: "PackageKit-gstreamer-plugin"
+
+# sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+- name: Upgrade the codecs
+  dnf:
+    name: "@sound-and-video"
+    state: latest

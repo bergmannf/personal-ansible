@@ -1,5 +1,10 @@
 ---
 
+- name: Install pipenv
+  package:
+    name: pipenv
+    state: present
+
 - name: Clone pyenv git repositories
   include_tasks: git.yml
   vars:

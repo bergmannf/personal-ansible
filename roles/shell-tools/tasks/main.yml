@@ -1,8 +1,4 @@
 ---
 
-- name: Install better command line tools
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - silversearcher-ag
+- name: Setup shell tools for distribution
+  include_tasks: "{{ ansible_os_family }}.yml"

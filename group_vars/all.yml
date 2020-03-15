@@ -1,8 +1,8 @@
 ---
 desktop_user:
-  username: example
-  fullname: Example user
-  email: example@example.org
+  username: florian
+  fullname: Florian Bergmann
+  email: Bergmann.F@gmail.com
   default_editor: emacsclient
   intellij_jdks:
     - name: "1.9"

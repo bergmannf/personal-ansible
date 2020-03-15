@@ -1,0 +1,13 @@
+---
+
+- name: Install the Gnome group
+  dnf:
+    name: 
+      - "@GNOME Desktop Environment"
+      - dconf-editor
+      - gnome-shell-extensions
+      - pinentry-gnome3
+      - firefox
+      - webext-https-everywhere
+      - mozilla-ublock-origin
+    state: present

@@ -33,6 +33,8 @@
   with_items:
     - gnupg
     - scdaemon
+- name: Install distribution specific
+  include_tasks: "install_{{ ansible_os_family }}.yml"
 
 - name: Import own public key
   become: yes
@@ -44,3 +46,4 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   shell: echo "{{ desktop_user.gpgkey }}:6:" | gpg --import-ownertrust
+  when: desktop_user.gpgkey

@@ -1,0 +1,16 @@
+---
+- name: Install gnome-desktop
+  include_tasks: "install_{{ ansible_os_family }}.yml"
+
+- name: Install required packages to use dconf
+  package:
+    name: python3-psutil
+    state: present
+
+- name: Write gnome settings
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_items: "{{ dconfsettings }}"
