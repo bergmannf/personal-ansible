@@ -1,0 +1,17 @@
+---
+
+- name: Install kubectl
+  win_chocolatey:
+    name: kubernetes-cli
+    state: present
+
+- name: Install helm
+  win_chocolatey:
+    name: kubernetes-helm
+    state: present
+
+- name: Install minikube
+  win_chocolatey:
+    name: minikube
+    state: present
+  when: install_minikube

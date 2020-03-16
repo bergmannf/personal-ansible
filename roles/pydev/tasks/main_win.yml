@@ -1,0 +1,6 @@
+---
+
+- name: Install python on Windows
+  win_chocolatey:
+    name: python
+    state: present

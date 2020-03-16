@@ -1,0 +1,11 @@
+---
+
+- name: Install some basic cli tools for windows
+  win_chocolatey:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ag
+    - fd
+    - ripgrep
+    - mls-software-openssh

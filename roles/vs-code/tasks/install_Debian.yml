@@ -1,5 +1,0 @@
----
-- name: Install visual studio code
-  package:
-    name: code
-    state: present

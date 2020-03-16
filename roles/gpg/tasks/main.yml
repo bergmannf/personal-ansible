@@ -1,38 +1,5 @@
 ---
 
-- block:
-  - name: Install gpg on windows
-    win_chocolatey:
-      name: gpg4win
-      state: present
-
-#  - name: Install npiperelay
-#    TODO: must compile https://github.com/jstarks/npiperelay/pull/6 for libasuan support
-
-  - name: Import the gpg-key
-    win_command: gpg --no-tty --recv-keys "{{ desktop_user.gpgkey }}"
-    when: "{{ desktop_user.gpgkey }}"
-  
-  - name: Trust the gpg-key ultimately
-    win_shell: echo "{{ desktop_user.gpgkey }}:6:" | gpg --import-ownertrust
-    when: "{{ desktop_user.gpgkey }}"
-
-  - name: Put gpg-agent into autostart
-    win_shortcut:
-      src: "%ProgramFiles%\GnuPG\bin\gpg-connect-agent.exe"
-      dest: "%AppData%\Roaming\Microsoft\Windows\Start Menu\Programs\Start-up\gpg-connect-agent.lnk"
-      directory: "%ProgramFiles%\GnuPG\bin\"
-      arguments: "/bye"
-      windowstyle: minimized
-  when: ansible_os_family == "Windows"
-
-- name: Install packages
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - gnupg
-    - scdaemon
 - name: Install distribution specific
   include_tasks: "install_{{ ansible_os_family }}.yml"
 
@@ -40,7 +7,7 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   command: gpg --no-tty --recv-keys "{{ desktop_user.gpgkey }}"
-  when: "{{ desktop_user.gpgkey }}"
+  when: desktop_user.gpgkey
 
 - name: Trust own key ultimately
   become: yes

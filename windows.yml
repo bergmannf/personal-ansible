@@ -1,4 +1,23 @@
 ---
-- hosts: win
-  roles:
-    - vs-code
+- hosts: windows
+  tasks:
+    - include_role:
+        name: shell-tools
+        tasks_from: main_win
+    - include_role:
+        name: pydev
+        tasks_from: main_win
+    - include_role:
+        name: vs-code
+        tasks_from: main_win
+    - include_role:
+        name: gpg
+        tasks_from: main_win
+    - include_role:
+        name: emacs
+        tasks_from: main_win
+    - include_role:
+        name: kubernetes
+        tasks_from: main_win
+      vars:
+        install_minikube: no

@@ -1,3 +1,5 @@
 ---
 
 minikube_version: "1.7.2"
+
+install_minikube: yes

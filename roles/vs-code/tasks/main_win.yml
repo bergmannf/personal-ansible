@@ -1,4 +1,12 @@
 ---
+- name: Load Windows variables
+  include_vars: "windows.yml"
+
+- name: Install vscode
+  win_chocolatey:
+    name: vscode
+    state: latest
+
 - name: Create configuration directory
   win_file:
     path: "{{ code_config_path }}"
