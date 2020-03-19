@@ -5,9 +5,8 @@
     name: 
       - "@GNOME Desktop Environment"
       - dconf-editor
-      - gnome-shell-extensions
+      - gnome-shell-extension-pomodoro
       - pinentry-gnome3
       - firefox
-      - webext-https-everywhere
       - mozilla-ublock-origin
     state: present
