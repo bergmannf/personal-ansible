@@ -45,3 +45,11 @@
     name: "com.github.johnfactotum.Foliate"
     state: present
     method: user
+
+- name: Install nextcloud client flatpak
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  flatpak:
+    name: "org.nextcloud.Nextcloud"
+    state: present
+    method: user
