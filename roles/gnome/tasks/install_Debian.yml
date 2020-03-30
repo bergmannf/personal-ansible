@@ -9,6 +9,7 @@
       - gnome-software-plugin-flatpak
       - gnome-shell-pomodoro
       - gnome-shell-extensions
+      - gnome-shell-extension-appindicator
       - pinentry-gnome3
       - firefox
       - webext-https-everywhere

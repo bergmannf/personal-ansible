@@ -6,6 +6,7 @@
       - "@GNOME Desktop Environment"
       - dconf-editor
       - gnome-shell-extension-pomodoro
+      - gnome-shell-extension-appindicator
       - pinentry-gnome3
       - firefox
       - mozilla-ublock-origin
