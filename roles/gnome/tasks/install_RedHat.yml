@@ -7,6 +7,7 @@
       - dconf-editor
       - gnome-shell-extension-pomodoro
       - gnome-shell-extension-appindicator
+      - gnome-shell-auto-move-windows
       - pinentry-gnome3
       - firefox
       - mozilla-ublock-origin
