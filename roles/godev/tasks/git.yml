@@ -1,8 +1,0 @@
----
-
-- name: Install goenv (user only)
-  become: yes
-  become_user: "{{ user.username }}"
-  git:
-    dest: "~/.goenv"
-    repo: https://github.com/syndbg/goenv.git

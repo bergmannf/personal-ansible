@@ -1,85 +1,32 @@
 ---
-- name: Clone goenv projects
-  include_tasks: git.yml
-  vars:
-    user: "{{ desktop_user }}"
 
-- name: Add GOENV_ROOT
+- name: Check installed plugins
   become: yes
   become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'export GOENV_ROOT="$HOME/.goenv"'
-    insertafter: "# PREPATH config:"
-
-- name: Make goenv not do GOPATH configuration
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'export GOENV_DISABLE_GOPATH=1'
-    insertafter: "# PREPATH config:"
-
-- name: Add goenv to PATH
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'PATH="$GOENV_ROOT/bin:$PATH"'
-    insertafter: "# PATH config:"
-
-- name: Add goenv shims to PATH
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'PATH="$GOENV_ROOT/bin:$PATH"'
-    insertafter: "# PATH config:"
-
-# goenv must be initialized before the environment variables are set, otherwise
-# the PATH will point to the wrong binaries.
-- name: Initialize goenv
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshrc"
-    line: 'eval "$(goenv init -)"'
-
-- name: Set GOPATH
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'export GOPATH="{{ GOPATH }}"'
-    insertbefore: "export PATH"
-
-- name: Ensure GOPATH exists
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  file:
-    path: "{{ GOPATH }}"
-    state: directory
-    mode: '0755'
-
-- name: Add GOPATH binary to PATH
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'PATH="$GOPATH/bin:$PATH"'
-    insertbefore: "export PATH"
-
-- name: Install go
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; goenv install -s "{{ GOVERSION }}"
+  shell: source ~/.zshrc; asdf plugin list
+  register: asdf_plugins
   args:
     executable: "{{ ZSH_BIN }}"
 
-- name: Set default go version
+- name: Install golang plugin for asdf
   become: yes
   become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; goenv global "{{ GOVERSION }}"
+  shell: source ~/.zshrc; asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
+  args:
+    executable: "{{ ZSH_BIN }}"
+  when: '"golang" not in asdf_plugins.stdout'
+
+- name: Install golang version
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  shell: source ~/.zshrc; asdf install golang "{{ GOVERSION }}"
+  args:
+    executable: "{{ ZSH_BIN }}"
+
+- name: Set default golang version
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  shell: source ~/.zshrc; asdf global golang "{{ GOVERSION }}"
   args:
     executable: "{{ ZSH_BIN }}"
 

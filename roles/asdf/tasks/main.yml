@@ -1,0 +1,24 @@
+---
+
+- name: Install ASDF from git
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  git:
+    dest: "~/.asdf"
+    repo: https://github.com/asdf-vm/asdf.git
+    version: "{{ asdf_version }}"
+
+- name: Add ASDF to path
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshrc"
+    line: "source $HOME/.asdf/asdf.sh"
+
+- name: Add completions for zsh
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshrc"
+    line: "fpath=(${ASDF_DIR}/completions $fpath)"
+    insertbefore: "autoload -Uz compinit"
