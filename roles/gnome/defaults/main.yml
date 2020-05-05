@@ -3,3 +3,5 @@ dconfsettings:
     value: "['caps:ctrl_modifier']"
   - key: "/org/gnome/desktop/input-sources/sources"
     value: "[('xkb', 'us'),('xkb','de')]"
+  - key: "/org/gnome/shell/extensions/auto-move-windows/application-list"
+    value: "['emacs.desktop:2', 'firefox.desktop:1', 'chromium-browser.desktop:1', 'org.gnome.Terminal.desktop:2']"
