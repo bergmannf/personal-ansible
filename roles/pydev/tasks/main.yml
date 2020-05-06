@@ -5,22 +5,18 @@
     name: pipenv
     state: present
 
-- name: Clone pyenv git repositories
-  include_tasks: git.yml
-  vars:
-    user: "{{ desktop_user }}"
-
-- name: Add pyenv to PATH
+- name: Check installed plugins
   become: yes
   become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'PATH="$HOME/.pyenv/bin:$PATH"'
-    insertafter: "# PATH config:"
+  shell: source ~/.zshrc; asdf plugin list
+  register: asdf_plugins
+  args:
+    executable: "{{ ZSH_BIN }}"
 
-- name: Initialize pyenv
+- name: Install python plugin for asdf
   become: yes
   become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshrc"
-    line: 'eval "$(pyenv init -)"'
+  shell: source ~/.zshrc; asdf plugin-add python
+  args:
+    executable: "{{ ZSH_BIN }}"
+  when: '"python" not in asdf_plugins.stdout'
