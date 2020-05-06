@@ -101,3 +101,10 @@
   lineinfile:
     dest: ~/.zshrc
     line: "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+- name: Install zsh-syntaxhighlighting
+  become: true
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: ~/.zshrc
+    line: "source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
