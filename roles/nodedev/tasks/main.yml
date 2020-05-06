@@ -1,21 +1,17 @@
 ---
 
-- name: Clone nodenv projects
-  include_tasks: git.yml
-  vars:
-    user: "{{ desktop_user }}"
-
-- name: Add nodenv to PATH
+- name: Check installed plugins
   become: yes
   become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'PATH="$HOME/.nodenv/bin:$PATH"'
-    insertafter: "# PATH config:"
+  shell: source ~/.zshrc; asdf plugin list
+  register: asdf_plugins
+  args:
+    executable: "{{ ZSH_BIN }}"
 
-- name: Initialize nodenv
+- name: Install node plugin for asdf
   become: yes
   become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshrc"
-    line: 'eval "$(nodenv init -)"'
+  shell: source ~/.zshrc; asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+  args:
+    executable: "{{ ZSH_BIN }}"
+  when: '"nodejs" not in asdf_plugins.stdout'
