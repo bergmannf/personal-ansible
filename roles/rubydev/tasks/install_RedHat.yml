@@ -1,8 +1,0 @@
----
-
-- name: Install rbenv (user only)
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  git:
-    dest: "~/.rbenv"
-    repo: https://github.com/rbenv/rbenv.git

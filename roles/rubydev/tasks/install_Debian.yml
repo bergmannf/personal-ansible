@@ -1,7 +1,0 @@
----
-- name: Install rbenv & ruby-build
-  package:
-    name:
-      - rbenv
-      - ruby-build
-    state: present

@@ -6,7 +6,6 @@
     - git
     - godev
     - nodedev
-    - rubydev
     - rustdev
     - pydev
     - tmux
