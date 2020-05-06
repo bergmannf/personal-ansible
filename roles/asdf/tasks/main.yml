@@ -22,3 +22,11 @@
     dest: "~/.zshrc"
     line: "fpath=(${ASDF_DIR}/completions $fpath)"
     insertbefore: "autoload -Uz compinit"
+
+- name: Add shim folder to regular PATH
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: 'PATH="$HOME/.asdf/shims/:$PATH"'
+    insertafter: "# PATH config:"
