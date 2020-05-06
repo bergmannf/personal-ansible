@@ -2,7 +2,9 @@
 # tasks file for zsh
 - name: Install zsh package
   package:
-    name: zsh
+    name:
+      - zsh
+      - zsh-syntax-highlighting
     state: present
 
 - name: Set as default shell
@@ -99,18 +101,3 @@
   lineinfile:
     dest: ~/.zshrc
     line: "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-
-- name: Clone zsh syntax highlighting
-  become: true
-  become_user: "{{ desktop_user.username }}"
-  git:
-    repo: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: ~/.zsh/zsh-syntax-highlighting
-    update: yes
-
-- name: Install zsh syntax highlighting
-  become: true
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: ~/.zshrc
-    line: "source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
