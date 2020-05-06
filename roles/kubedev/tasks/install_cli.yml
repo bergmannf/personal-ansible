@@ -27,7 +27,7 @@
 - name: "Install k9s version {{ k9s_version }}"
   become: yes
   become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf install k8s "{{ k9s_version }}"
+  shell: source ~/.zshrc; asdf install k9s "{{ k9s_version }}"
   args:
     executable: "{{ ZSH_BIN }}"
   when: '"k9s" not in asdf_plugins.stdout'
