@@ -1,0 +1,10 @@
+---
+- name: Rebuild initramfs
+  become: yes
+  command: "dracut --force"
+  when: ansible_os_family == "RedHat"
+
+- name: Rebuild initramfs
+  become: yes
+  command: "update-initramfs"
+  when: ansible_os_family == "Debian"

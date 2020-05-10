@@ -1,0 +1,11 @@
+---
+
+- name: Create a hid_apple.conf modprobe file
+  become: yes
+  copy:
+    content: |
+      options hid_apple fnmode=2
+    dest: /etc/modprobe.d/hid_apple.conf
+    owner: root
+    group: root
+  notify: Rebuild initramfs
