@@ -47,29 +47,8 @@
     dest: "~/.zfunctions/async"
     owner: "{{ desktop_user.username }}"
 
-- name: Clone powerline theme
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  git:
-    repo: https://github.com/romkatv/powerlevel10k.git
-    dest: ~/.powerlevel10k
-    depth: 1
-    update: yes
-
-- name: Use powerline theme
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshrc"
-    line: "source ~/.powerlevel10k/powerlevel10k.zsh-theme"
-
-- name: Copy powerline 10k configuration
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  copy:
-    src: "{{ role_path }}/templates/p10k.zsh"
-    dest: "~/.p10k.zsh"
-    owner: "{{ desktop_user.username }}"
+- name: Install zsh theme
+  include_tasks: install_theme.yml
 
 - name: Copy aliases
   become: true
