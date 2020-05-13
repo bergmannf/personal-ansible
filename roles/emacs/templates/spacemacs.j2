@@ -49,9 +49,7 @@ This function should only modify configuration layer settings."
           org-enable-github-support t
           org-enable-reveal-js-support t)
      treemacs
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables shell-default-term-shell "/bin/zsh")
      spell-checking
      syntax-checking
      (version-control :variables version-control-diff-tool 'diff-hl)
