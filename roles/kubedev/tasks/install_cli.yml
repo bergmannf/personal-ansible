@@ -11,7 +11,7 @@
 - name: Check installed plugins
   become: yes
   become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf plugin list
+  shell: source ~/.zshrc; asdf plugin list || echo ""
   register: asdf_plugins
   args:
     executable: "{{ ZSH_BIN }}"
