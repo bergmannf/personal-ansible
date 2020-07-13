@@ -55,6 +55,17 @@
     dest: "~/.i3/i3blocks.conf"
     owner: "{{ desktop_user.username }}"
     mode: 0744
+  when: ansible_os_family == "Debian"
+
+- name: Copy i3status-rs configuration
+  become: true
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: i3status.toml.j2
+    dest: "~/.i3/i3status.toml"
+    owner: "{{ desktop_user.username }}"
+    mode: 0744
+  when: ansible_os_family == "RedHat"
 
 - name: Copy i3lock wrapper script
   template:
