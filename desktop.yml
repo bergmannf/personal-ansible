@@ -4,7 +4,6 @@
   roles:
     - fonts
     - i3wm
-    - xfce-terminal
     - codecs
     - flatpak-apps
     - gnome
