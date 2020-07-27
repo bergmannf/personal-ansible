@@ -1,0 +1,55 @@
+---
+- name: Copy i3blocks configuration
+  become: true
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: i3blocks.j2
+    dest: "~/.i3/i3blocks.conf"
+    owner: "{{ desktop_user.username }}"
+    mode: 0744
+  when: i3_bar == "i3blocks"
+
+- name: Copy i3status-rs configuration
+  become: true
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: i3status.toml.j2
+    dest: "~/.i3/i3status.toml"
+    owner: "{{ desktop_user.username }}"
+    mode: 0744
+  when: i3_bar == "i3status-rs"
+
+- block:
+  - name: Create polybar config folder
+    become: yes
+    become_user: "{{ desktop_user.username }}"
+    file:
+      path: "~/.config/polybar"
+      owner: "{{ desktop_user.username }}"
+      state: directory
+
+  - name: Copy polybar configuration
+    become: true
+    become_user: "{{ desktop_user.username }}"
+    template:
+      src: polybar.ini.j2
+      dest: "~/.config/polybar/config.ini"
+      owner: "{{ desktop_user.username }}"
+      mode: 0744
+
+  - name: Copy polybar launch script
+    become: true
+    become_user: "{{ desktop_user.username }}"
+    template:
+      src: polybar.launch.sh.j2
+      dest: "~/.config/polybar/launch.sh"
+      owner: "{{ desktop_user.username }}"
+      mode: 0744
+
+  - name: Clone polybar scripts
+    become: true
+    become_user: "{{ desktop_user.username }}"
+    git:
+      repo: https://github.com/polybar/polybar-scripts.git
+      dest: "~/.config/polybar/polybar-scripts"
+  when: i3_bar == "polybar"
