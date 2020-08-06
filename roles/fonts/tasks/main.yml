@@ -2,3 +2,28 @@
 # tasks file for fonts
 - name: Load distribution specific font setup
   include: "{{ ansible_os_family }}.yml"
+
+- block:
+  - name: Create fonts directory
+    become: yes
+    become_user: "{{ desktop_user.username }}"
+    file:
+      path: "~/.fonts"
+      state: directory
+      mode: '0755'
+      owner: "{{ desktop_user.username }}"
+
+  - name: Clone siji repo
+    become: yes
+    become_user: "{{ desktop_user.username }}"
+    git:
+      repo: 'https://github.com/stark/siji.git'
+      dest: "/tmp/siji"
+
+  - name: Install the fonts
+    become: yes
+    become_user: "{{ desktop_user.username }}"
+    copy:
+      src: /tmp/siji/pcf/siji.pcf
+      dest: "~/.fonts/siji.pcf"
+      remote_src: yes
