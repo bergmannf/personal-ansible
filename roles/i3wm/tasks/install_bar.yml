@@ -52,4 +52,10 @@
     git:
       repo: https://github.com/polybar/polybar-scripts.git
       dest: "~/.config/polybar/polybar-scripts"
+      force: "yes"
+
+  - name: Make polybar scripts executable
+    become: true
+    become_user: "{{ desktop_user.username }}"
+    shell: 'find ~/.config/polybar/polybar-scripts/ -type f -iname "*.sh" | xargs ls -la'
   when: i3_bar == "polybar"
