@@ -237,7 +237,7 @@ exec --no-startup-id xrandr {% for monitor in monitors['Displays'] %} \
 {% endif %}
 {% endfor %}
 
-exec_always "setxkbmap -layout us,de -option grp:win_space_toggle,ctrl:nocaps"
+exec_always "setxkbmap -layout us,de -option grp:ctrls_toggle,ctrl:nocaps"
 exec_always --no-startup-id pasystray
 exec --no-startup-id compton --config ~/.config/compton.conf -b
 exec dropbox start
