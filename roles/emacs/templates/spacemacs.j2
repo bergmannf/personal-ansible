@@ -47,7 +47,10 @@ This function should only modify configuration layer settings."
      markdown
      (org :variables
           org-enable-github-support t
-          org-enable-reveal-js-support t)
+          org-enable-reveal-js-support t
+          org-enable-hugo-support t
+          org-enable-org-journal-support t
+          org-projectile-file "TODOs.org")
      treemacs
      (shell :variables shell-default-term-shell "/bin/zsh")
      spell-checking
@@ -469,6 +472,15 @@ you should place your code here."
   (setq evil-escape-key-sequence "jk")
   (global-company-mode)
   (ido-mode -1)
+  ; Change the journal directory for emacs
+  (setq org-journal-dir "~/Nextcloud/Orgzly/Journal/")
+  ; Push projectile TODOs onto the org-agenda
+  (with-eval-after-load 'org-agenda
+    (require 'org-projectile)
+    (mapcar '(lambda (file)
+               (when (file-exists-p file)
+                 (push file org-agenda-files)))
+            (org-projectile-todo-files)))
   ; Switch neotree root whenever the projectile project changes.
   (setq projectile-switch-project-action 'neotree-projectile-action)
   )
