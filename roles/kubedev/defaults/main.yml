@@ -1,6 +1,8 @@
 ---
 
-k9s_version: "0.19.4"
-minikube_version: "1.7.2"
+k9s_version: "0.22.1"
+minikube_version: "1.13.0"
 
 install_minikube: yes
+
+ZSH_BIN: "/usr/bin/zsh"
