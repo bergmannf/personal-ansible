@@ -469,6 +469,12 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (defun setup-compilation-ansi-colors ()
+    (require 'ansi-color)
+    (defun my/ansi-colorize-buffer ()
+      (let ((buffer-read-only nil))
+        (ansi-color-apply-on-region (point-min) (point-max))))
+    (add-hook 'compilation-filter-hook 'my/ansi-colorize-buffer))
   (setq evil-escape-key-sequence "jk")
   (global-company-mode)
   (ido-mode -1)
@@ -483,6 +489,7 @@ you should place your code here."
             (org-projectile-todo-files)))
   ; Switch neotree root whenever the projectile project changes.
   (setq projectile-switch-project-action 'neotree-projectile-action)
+  (setup-compilation-ansi-colors)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
