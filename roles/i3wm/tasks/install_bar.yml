@@ -57,5 +57,5 @@
   - name: Make polybar scripts executable
     become: true
     become_user: "{{ desktop_user.username }}"
-    shell: 'find ~/.config/polybar/polybar-scripts/ -type f -iname "*.sh" | xargs ls -la'
+    shell: 'find ~/.config/polybar/polybar-scripts/ -type f -iname "*.sh" | xargs chmod u+x'
   when: i3_bar == "polybar"
