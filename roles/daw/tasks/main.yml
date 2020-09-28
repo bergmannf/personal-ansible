@@ -1,0 +1,19 @@
+---
+
+- name: Install DAW packages
+  package:
+    name:
+      - ardour5
+      - guitarix
+      - lv2-guitarix-plugins
+      - hydrogen
+      - qjackctl
+      - jack-audio-connection-kit
+      - Cadence
+    state: present
+
+- name: Add the user to the jackuser groups
+  user:
+    append: yes
+    groups: jackuser
+    name: "{{ desktop_user.username }}"
