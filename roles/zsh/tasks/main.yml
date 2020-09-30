@@ -12,14 +12,17 @@
     name: "{{ desktop_user.username }}"
     shell: /bin/zsh
 
-- name: Create zfunction directory
+- name: Create zsh directories
   become: true
   become_user: "{{ desktop_user.username }}"
   file:
     state: directory
     mode: 0755
     owner: "{{ desktop_user.username }}"
-    dest: "~/.zfunctions"
+    dest: "{{ item }}"
+  with_items:
+    - "~/.zfunctions"
+    - "~/.zsh"
 
 - name: Install zsh configuration
   become: true
@@ -38,6 +41,15 @@
     src: zshenv.j2
     owner: "{{ desktop_user.username }}"
     dest: "~/.zshenv"
+
+- name: Install ssh-agent.zsh
+  become: true
+  become_user: "{{ desktop_user.username }}"
+  template:
+    mode: 0644
+    src: ssh-agent.zsh
+    owner: "{{ desktop_user.username }}"
+    dest: "~/.zsh/ssh-agent.zsh"
 
 - name: Copy async library
   become: true
