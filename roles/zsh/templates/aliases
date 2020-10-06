@@ -16,3 +16,11 @@ alias dockercleanvol='printf "\n>>> Deleting unused volumes\n\n" && docker volum
 # Quick access emacsclient
 alias e='emacsclient $*'
 alias ae='emacsclient -n $*'
+
+function url-unquote () {
+  python3 -c "from urllib import parse; print(parse.unquote('$1'))"
+}
+
+function url-quote () {
+  python3 -c "from urllib import parse; print(parse.quote('$1'))"
+}
