@@ -14,3 +14,8 @@
   package:
     name: fontawesome-fonts
     state: present
+
+- name: Install unifont
+  package:
+    name: unifont-fonts
+    state: present

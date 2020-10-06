@@ -20,6 +20,12 @@
   when: i3_bar == "i3status-rs"
 
 - block:
+  - name: Install polybar and required packages
+    package:
+      state: present
+      name:
+        - polybar
+
   - name: Create polybar config folder
     become: yes
     become_user: "{{ desktop_user.username }}"
