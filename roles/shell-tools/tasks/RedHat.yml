@@ -1,6 +1,8 @@
 ---
 
-- name: Install ag
+- name: Install better greps
   package:
-    name: the_silver_searcher
+    name:
+      - the_silver_searcher
+      - ripgrep
     state: present
