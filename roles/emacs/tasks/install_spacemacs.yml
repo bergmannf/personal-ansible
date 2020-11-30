@@ -1,0 +1,27 @@
+- name: Clone .emacs.d
+  become: yes
+  become_user: "{{ user.username }}"
+  git:
+    repo: https://github.com/syl20bnr/spacemacs.git
+    dest: ~/.emacs.d/
+    update: yes
+    depth: 1
+    version: develop
+  when: emacsd.stat.exists == False
+
+- name: Clone extension layer
+  become: yes
+  become_user: "{{ user.username }}"
+  git:
+    repo: https://github.com/bergmannf/private-extension-layer.git
+    dest: ~/.emacs.d/private/priv-ext/
+    update: yes
+
+- name: Spacemacs configuration file
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: spacemacs.j2
+    dest: ~/.spacemacs
+    owner: "{{ desktop_user.username }}"
+    mode: 0644

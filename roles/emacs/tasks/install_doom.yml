@@ -1,0 +1,38 @@
+- name: Clone .emacs.d
+  become: yes
+  become_user: "{{ user.username }}"
+  git:
+    repo: https://github.com/hlissner/doom-emacs
+    dest: ~/.emacs.d/
+    update: yes
+    depth: 1
+    version: develop
+  when: emacsd.stat.exists == False
+
+- name: Make sure $HOME/.doom.d exists
+  become: yes
+  become_user: "{{ user.username }}"
+  file:
+    path: $HOME/.doom.d/
+    state: directory
+    owner: "{{ user.username }}"
+
+- name: Copy doom configuration files
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: "doom-{{ item }}.el"
+    dest: "~/.doom.d/{{ item }}.el"
+    owner: "{{ desktop_user.username }}"
+    mode: 0644
+  with_items:
+    - init
+    - config
+
+- name: Add .emacs.d/bin to PATH
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: 'PATH="$HOME/.emacs.d/bin:$PATH"'
+    insertafter: "# PATH config:"
