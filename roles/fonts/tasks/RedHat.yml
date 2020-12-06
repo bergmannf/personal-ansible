@@ -2,7 +2,9 @@
 
 - name: Install firacode
   package:
-    name: mozilla-fira-mono-fonts
+    name:
+      - mozilla-fira-mono-fonts
+      - fira-code-fonts
     state: present
 
 - name: Install powerline fonts
