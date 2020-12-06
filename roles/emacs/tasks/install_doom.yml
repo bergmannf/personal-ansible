@@ -1,6 +1,6 @@
 - name: Clone .emacs.d
   become: yes
-  become_user: "{{ user.username }}"
+  become_user: "{{ desktop_user.username }}"
   git:
     repo: https://github.com/hlissner/doom-emacs
     dest: ~/.emacs.d/
@@ -11,11 +11,11 @@
 
 - name: Make sure $HOME/.doom.d exists
   become: yes
-  become_user: "{{ user.username }}"
+  become_user: "{{ desktop_user.username }}"
   file:
     path: $HOME/.doom.d/
     state: directory
-    owner: "{{ user.username }}"
+    owner: "{{ desktop_user.username }}"
 
 - name: Copy doom configuration files
   become: yes
