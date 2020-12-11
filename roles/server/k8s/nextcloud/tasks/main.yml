@@ -32,3 +32,8 @@
     release_namespace: "{{ k8s_nextcloud_namespace }}"
     create_namespace: true
     values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+
+- name: Patch ingress resource to include the path
+  command:
+    cmd: |
+      microk8s.kubectl patch -n "{{ k8s_nextcloud_namespace }}" ingress/mimir-nextcloud --type=json -p '[{"op": "replace", "path": "/spec/rules/0/http/paths/0/path", "value": "/nextcloud(/|$)(.*)"}]'
