@@ -1,0 +1,16 @@
+---
+
+- name: Install fail2ban
+  package:
+    name: fail2ban
+    state: present
+
+- name: Copy fail2ban configuration
+  copy:
+    src: jail.conf
+    dest: /etc/fail2ban/jail.local
+
+- name: Restart fail2ban
+  service:
+    name: fail2ban
+    state: restarted

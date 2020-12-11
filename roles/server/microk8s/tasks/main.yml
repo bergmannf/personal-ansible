@@ -1,0 +1,49 @@
+---
+
+- name: Install snapd if not present
+  package:
+    name: snapd
+    state: present
+
+- name: Install microk8s stable
+  community.general.snap:
+    name: microk8s
+    classic: yes
+    channel: 1.19/stable
+
+- name: Enable required addons
+  command: "/snap/bin/microk8s enable {{ item }}"
+  loop: "{{ microk8s_addons }}"
+
+- name: Disable HA
+  command: "/snap/bin/microk8s disable ha-cluster"
+
+- name: Get kubeconfig
+  command: "/snap/bin/microk8s config"
+  register: kubeconfig
+
+- name: Create kube folder for remote_user
+  file:
+    path: "/root/.kube/"
+    state: directory
+    owner: "root"
+
+- name: Store kubeconfig for remote_user
+  copy:
+    dest: "/root/.kube/config"
+    content: "{{ kubeconfig.stdout }}"
+    owner: "root"
+
+- block:
+  - name: Install required packages
+    package:
+      name:
+        - python3-pip
+        - python3-venv
+      state: present
+
+  - name: Create a virtualenv to interact with k8s module
+    pip:
+      name: openshift
+      virtualenv: "{{ k8s_virtualenv }}"
+      virtualenv_command: "/usr/bin/python3 -m venv"

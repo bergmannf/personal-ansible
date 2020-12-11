@@ -1,0 +1,39 @@
+---
+
+- name: Install ufw package
+  package:
+    name: ufw
+    state: present
+
+- name: Allow ssh port
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    port: "{{ sshd_port }}"
+    state: enabled
+
+- name: Allow http/s port
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    port: "443"
+    state: enabled
+  loop:
+    - "80"
+    - "443"
+
+- name: Allow microk8s interface
+  community.general.ufw:
+    direction: "{{ item }}"
+    interface: cni0
+    rule: allow
+    state: enabled
+  with_items:
+    - in
+    - out
+
+- name: Allow routing
+  community.general.ufw:
+    default: allow
+    direction: routed
+    state: enabled

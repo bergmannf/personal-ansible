@@ -1,0 +1,22 @@
+---
+
+- name: Install certmanager
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('file', '01-cert-manager.yml') }}"
+
+- name: Create a staging issuer
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', '01-staging-issuer.yml') }}"
+
+- name: Create a production issuer
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', '01-production-issuer.yml') }}"

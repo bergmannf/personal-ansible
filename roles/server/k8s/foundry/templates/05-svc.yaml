@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foundryvtt-web
+  labels:
+    name: foundryvtt-web
+  namespace: "{{ k8s_foundryvtt_namespace }}"
+spec:
+  selector:
+    app: foundryvtt
+  ports:
+    - name: web
+      port: 80
+      targetPort: 30000

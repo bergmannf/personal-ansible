@@ -1,0 +1,28 @@
+---
+
+- name: Ensure sudo is installed
+  package:
+    name: sudo
+    state: present
+
+- name: Create the wheel group
+  group:
+    name: wheel
+    state: present
+
+- name: Allow 'wheel' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: Add sudoers user to wheel group
+  user:
+    name: "{{ ssh_remote_user }}"
+    groups: wheel
+    append: yes
+    state: present
+    shell: /bin/bash
+    createhome: yes

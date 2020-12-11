@@ -1,0 +1,13 @@
+---
+- name: Apply required resources for foundryvtt
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', item) }}"
+  loop:
+    - 01-namespace.yaml
+    - 03-pvc.yaml
+    - 04-deployment.yaml
+    - 05-svc.yaml
+    - 06-ingress.yaml

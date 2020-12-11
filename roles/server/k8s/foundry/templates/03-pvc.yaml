@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: foundryvtt-data-pv-claim
+  namespace: "{{ k8s_foundryvtt_namespace }}"
+spec:
+  storageClassName: "{{ k8s_storageclass_name }}"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "{{ k8s_foundry_storage_size }}"

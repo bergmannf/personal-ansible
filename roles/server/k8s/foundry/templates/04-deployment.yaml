@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: "{{ k8s_foundryvtt_namespace }}"
+  name: foundryvtt
+  labels:
+    app: foundryvtt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: foundryvtt
+  template:
+    metadata:
+      labels:
+        app: foundryvtt
+    spec:
+      containers:
+        - name: foundryvtt-web
+          image: felddy/foundryvtt:release
+          env:
+            - name: FOUNDRY_PROXY_SSL
+              value: "true"
+            - name: FOUNDRY_RELEASE_URL
+              value: "{{ k8s_foundry_release_url }}"
+            - name: FOUNDRY_ROUTE_PREFIX
+              value: "foundry"
+            - name: CONTAINER_CACHE
+              value: /data/container_cache/
+            - name: CONTAINER_PRESERVE_CONFIG
+              value: "true"
+          ports:
+            - name: web
+              containerPort: 30000
+          volumeMounts:
+            - name: foundryvtt-data-persistent-storage
+              mountPath: /data
+      volumes:
+        - name: foundryvtt-data-persistent-storage
+          persistentVolumeClaim:
+            claimName: foundryvtt-data-pv-claim

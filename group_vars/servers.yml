@@ -1,0 +1,26 @@
+---
+# SSH Setup
+sshd_port: "2200"
+
+ssh_authorized_keys:
+  - ""
+
+ssh_remote_user: "mimir"
+
+# K8S Setup
+k8s_virtualenv: "/home/{{ ssh_remote_user }}/k8svenv"
+
+k8s_letsencrypt_email: ""
+k8s_ingress_hostname: ""
+
+k8s_storageclass_name: "microk8s-hostpath"
+
+# K8S: Foundry settings
+k8s_foundry_storage_size: "40G"
+k8s_foundry_release_url: ""
+
+# K8S: Nextcloud settings
+k8s_nextcloud_storage_size: "250Gi"
+k8s_nextcloud_namespace: "nextcloud"
+k8s_nextcloud_password: ''
+k8s_nextcloud_mariadb_password: ''

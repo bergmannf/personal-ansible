@@ -1,0 +1,9 @@
+- name: Bootstrap
+  hosts: servers
+  become: yes
+  vars:
+    ansible_user: ubuntu
+    ansible_port: 22
+  roles:
+    - server/users
+    - server/ssh

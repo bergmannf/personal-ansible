@@ -1,0 +1,10 @@
+- name: Install services
+  become: yes
+  hosts: servers
+  roles:
+    - server/fail2ban
+    - server/firewall
+    - server/microk8s
+    - server/k8s/certmanager
+    - server/k8s/foundry
+    - server/k8s/nextcloud

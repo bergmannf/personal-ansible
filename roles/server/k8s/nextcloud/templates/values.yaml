@@ -1,0 +1,21 @@
+---
+nextcloud:
+  host: "{{ k8s_ingress_hostname }}"
+  password: '{{ k8s_nextcloud_password }}'
+mariadb:
+  enabled: true
+  db:
+    password: '{{ k8s_nextcloud_mariadb_password }}'
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+  tls:
+    - hosts:
+        - "{{ k8s_ingress_hostname }}"
+      secretName: nextcloud-web-tls-cert
+persistence:
+  enabled: true
+  storageClass: "{{ k8s_storageclass_name }}"
+  size: "{{ k8s_nextcloud_storage_size }}"

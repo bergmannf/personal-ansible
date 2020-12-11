@@ -1,0 +1,41 @@
+---
+- name: Setup correct port to use for ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#Port"
+    line: "Port {{ sshd_port }}"
+
+- name: Disable SSH PasswordAuthentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#PasswordAuthentication yes"
+    line: "PasswordAuthentication no"
+
+- name: Set SSH AuthenticationMethods
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    line: 'AuthenticationMethods publickey'
+
+- name: Set SSH UsePrivilegeSeparation
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    line: 'UsePrivilegeSeparation sandbox'
+
+- name: Disable SSH root login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#PermitRootLogin'
+    line: 'PermitRootLogin no'
+
+- name: Install SSH keys
+  authorized_key:
+    user: "{{ ssh_remote_user }}"
+    key: "{{ item }}"
+  loop: "{{ ssh_authorized_keys }}"
+
+- name: Restart SSHd
+  service:
+    name: sshd
+    state: restarted
