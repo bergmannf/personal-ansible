@@ -1,26 +1,29 @@
 ---
 # SSH Setup
 sshd_port: "2200"
+ansible_port: "{{ sshd_port }}"
 
 ssh_authorized_keys:
-  - ""
+  - "{{ lookup('community.general.passwordstore', 'server/bergmann.f.ssh.pub') }}"
 
 ssh_remote_user: "mimir"
+ansible_user: "{{ ssh_remote_user }}"
 
 # K8S Setup
 k8s_virtualenv: "/home/{{ ssh_remote_user }}/k8svenv"
 
 k8s_letsencrypt_email: ""
-k8s_ingress_hostname: ""
+k8s_ingress_hostname: "mimir.niflheim.cc"
 
 k8s_storageclass_name: "microk8s-hostpath"
 
 # K8S: Foundry settings
 k8s_foundry_storage_size: "40G"
 k8s_foundry_release_url: ""
+k8s_foundry_admin_key: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.foundry.adminkey') }}"
 
 # K8S: Nextcloud settings
 k8s_nextcloud_storage_size: "250Gi"
 k8s_nextcloud_namespace: "nextcloud"
-k8s_nextcloud_password: ''
-k8s_nextcloud_mariadb_password: ''
+k8s_nextcloud_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.nextcloud.password') }}"
+k8s_nextcloud_mariadb_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.nextcloud.mariadb.password') }}"

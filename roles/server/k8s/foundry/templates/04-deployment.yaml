@@ -20,6 +20,11 @@ spec:
         - name: foundryvtt-web
           image: felddy/foundryvtt:release
           env:
+            - name: FOUNDRY_ADMIN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: foundryvtt-secret
+                  key: "adminkey"
             - name: FOUNDRY_PROXY_SSL
               value: "true"
             - name: FOUNDRY_RELEASE_URL
