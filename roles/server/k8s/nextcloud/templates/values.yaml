@@ -12,8 +12,20 @@ nextcloud:
       value: "https"
 mariadb:
   enabled: true
+  rootUser:
+    password: '{{ k8s_nextcloud_mariadb_password }}'
   db:
     password: '{{ k8s_nextcloud_mariadb_password }}'
+  master:
+    persistence:
+      enabled: true
+internalDatabase:
+  enabled: false
+externalDatabase:
+  enabled: true
+  host: mimir-nextcloud-mariadb
+  type: mysql
+  password: '{{ k8s_nextcloud_mariadb_password }}'
 ingress:
   enabled: true
   annotations:
