@@ -4,6 +4,7 @@
   roles:
     - server/fail2ban
     - server/firewall
+    - server/git
     - server/microk8s
     - server/k8s/certmanager
     - server/k8s/foundry

@@ -1,0 +1,13 @@
+---
+
+- name: Ensure a git user exists
+  user:
+    name: "git"
+    shell: /usr/bin/git-shell
+    createhome: yes
+
+- name: Allow ssh access for the git user
+  authorized_key:
+    user: "git"
+    key: "{{ item }}"
+  loop: "{{ ssh_authorized_keys }}"
