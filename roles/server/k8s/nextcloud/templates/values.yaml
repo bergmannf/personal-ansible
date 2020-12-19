@@ -1,4 +1,6 @@
 ---
+image:
+  tag: 19.0.6-apache
 nextcloud:
   host: "{{ k8s_ingress_hostname }}"
   password: '{{ k8s_nextcloud_password }}'
@@ -31,6 +33,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: "/$2"
+    nginx.ingress.kubernetes.io/proxy-body-size: "256m"
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
   tls:
     - hosts:
