@@ -3,6 +3,13 @@
 - name: Install distribution specific
   include_tasks: "install_{{ ansible_os_family }}.yml"
 
+- name: Copy gpg-agent.conf
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: gpg-agent.conf
+    dest: ~/.gnupg/gpg-agent.conf
+
 - name: Import own public key
   become: yes
   become_user: "{{ desktop_user.username }}"
