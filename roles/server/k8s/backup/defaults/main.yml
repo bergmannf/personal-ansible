@@ -1,0 +1,17 @@
+---
+# The restic cron job should live in the same namespace as the pvc to backup
+k8s_restic_namespace: "default"
+
+# Directory to backup files to
+k8s_restic_backup_dir: "default"
+
+# The secret that store the encryption password
+k8s_restic_secret: "restic-secret"
+k8s_restic_password: ""
+
+# The path on the hostsystem that will be (preferrably) mounted from some
+# storage server
+k8s_restic_host_path: "/mnt/backup"
+
+# The PVC to backup
+k8s_restic_backup_pvc: ""
