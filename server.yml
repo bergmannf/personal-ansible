@@ -8,4 +8,14 @@
     - server/microk8s
     - server/k8s/certmanager
     - server/k8s/foundry
+    - role: server/k8s/backup
+      k8s_restic_namespace: foundryvtt
+      k8s_restic_backup_dir: foundry
+      k8s_restic_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.foundryvtt.restic') }}"
+      k8s_restic_backup_pvc: "{{ k8s_foundryvtt_pvc_name }}"
     - server/k8s/nextcloud
+    - role: server/k8s/backup
+      k8s_restic_namespace: nextcloud
+      k8s_restic_backup_dir: nextcloud
+      k8s_restic_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.nextcloud.restic') }}"
+      k8s_restic_backup_pvc: "mimir-nextcloud-nextcloud"
