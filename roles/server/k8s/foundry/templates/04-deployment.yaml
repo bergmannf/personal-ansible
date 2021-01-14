@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: foundryvtt-web
-          image: felddy/foundryvtt:release
+          image: felddy/foundryvtt:0.7.9
           env:
             - name: FOUNDRY_ADMIN_KEY
               valueFrom:
