@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: foundryvtt-data-pv-claim
+  name: "{{ k8s_foundryvtt_pvc_name }}"
   namespace: "{{ k8s_foundryvtt_namespace }}"
 spec:
   storageClassName: "{{ k8s_storageclass_name }}"

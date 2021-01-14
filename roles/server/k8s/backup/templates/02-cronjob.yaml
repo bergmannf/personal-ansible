@@ -1,0 +1,73 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: backup-{{ k8s_restic_backup_pvc }}
+  namespace: "{{ k8s_restic_namespace }}"
+spec:
+  schedule: "0 0 * * 0"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          initContainers:
+          - name: backup-init-{{ k8s_restic_backup_pvc }}
+            image: restic/restic
+            imagePullPolicy: IfNotPresent
+            command:
+              - /bin/sh
+              - "-c"
+              - 'restic init --password-file /var/restic/password/password --repo "/var/restic/dst/{{ k8s_restic_backup_dir }}" || exit 0'
+            volumeMounts:
+              - name: restic-password
+                mountPath: /var/restic/password
+              - name: src-folder
+                mountPath: /var/restic/src/
+                readOnly: true
+              - name: backup-folder
+                mountPath: /var/restic/dst/
+          volumes:
+            - name: restic-password
+              secret:
+                secretName: "{{ k8s_restic_secret }}"
+            - name: backup-folder
+              hostPath:
+                path: "{{ k8s_restic_host_path }}"
+                type: Directory
+            - name: src-folder
+              persistentVolumeClaim:
+                claimName: "{{ k8s_restic_backup_pvc }}"
+                readOnly: true
+          containers:
+          - name: backup-{{ k8s_restic_backup_pvc }}
+            image: restic/restic
+            imagePullPolicy: IfNotPresent
+            args:
+            - --repo
+            - "/var/restic/dst/{{ k8s_restic_backup_dir }}"
+            - --password-file
+            - /var/restic/password/password
+            - --verbose
+            - backup
+            - "/var/restic/src/"
+            volumeMounts:
+              - name: restic-password
+                mountPath: /var/restic/password
+              - name: src-folder
+                mountPath: /var/restic/src/
+                readOnly: true
+              - name: backup-folder
+                mountPath: /var/restic/dst/
+          volumes:
+            - name: restic-password
+              secret:
+                secretName: "{{ k8s_restic_secret }}"
+            - name: backup-folder
+              hostPath:
+                path: "{{ k8s_restic_host_path }}"
+                type: Directory
+            - name: src-folder
+              persistentVolumeClaim:
+                claimName: "{{ k8s_restic_backup_pvc }}"
+                readOnly: true
+          restartPolicy: OnFailure

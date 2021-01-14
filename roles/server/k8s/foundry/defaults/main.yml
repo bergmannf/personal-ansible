@@ -1,2 +1,4 @@
 ---
 k8s_foundryvtt_namespace: "foundryvtt"
+
+k8s_foundryvtt_pvc_name: "foundryvtt-data-pv-claim"

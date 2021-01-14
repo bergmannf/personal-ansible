@@ -10,6 +10,7 @@ ssh_remote_user: "mimir"
 ansible_user: "{{ ssh_remote_user }}"
 
 # K8S Setup
+k8s_kubectl: "microk8s.kubectl"
 k8s_virtualenv: "/home/{{ ssh_remote_user }}/k8svenv"
 
 k8s_letsencrypt_email: ""
@@ -27,3 +28,6 @@ k8s_nextcloud_storage_size: "250Gi"
 k8s_nextcloud_namespace: "nextcloud"
 k8s_nextcloud_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.nextcloud.password') }}"
 k8s_nextcloud_mariadb_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.nextcloud.mariadb.password') }}"
+
+# K8S: Generic backup settings
+k8s_restic_host_path: /mnt/backup/
