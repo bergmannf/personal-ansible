@@ -1,0 +1,5 @@
+Host "{{ storagebox_fqdn }}"
+        User "{{ storagebox_user }}"
+        Port "{{ storagebox_ssh_port }}"
+        StrictHostKeyChecking no
+        IdentityFile /root/.ssh/id_ed25519

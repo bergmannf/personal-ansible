@@ -1,0 +1,24 @@
+---
+
+- name: Install the required key for mounting the backup store
+  copy:
+    dest: /root/.ssh/id_ed25519
+    content: |
+      {{ lookup('community.general.passwordstore', 'server/u253630.your-storagebox.de.private_key returnall=yes') }}
+
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Ensure sshfs is installed
+  package:
+    name: sshfs
+    state: present
+
+- name: Install sshfs mountpoint in fstab
+  mount:
+    path: /mnt/storagebox
+    src: 'sshfs#{{ storagebox_user }}@{{ storagebox_fqdn }}:'
+    opts: "IdentityFile=/root/.ssh/id_ed25519,StrictHostKeyChecking=no,port={{ storagebox_ssh_port }},users,idmap=user,noatime,allow_other,_netdev,reconnect"
+    fstype: fuse
+    state: mounted
