@@ -9,6 +9,8 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 export ZSH_CUSTOM="$HOME/.zsh"
+# Skip out of any initialization in dumb terminals. Otherwise can not SSH to machines running this with Tramp
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 setopt autocd nomatch
 bindkey -e
 
