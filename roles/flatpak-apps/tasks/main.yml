@@ -42,6 +42,6 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   flatpak:
-    name: "org.nextcloud.Nextcloud"
+    name: "com.nextcloud.desktopclient.nextcloud"
     state: present
     method: user
