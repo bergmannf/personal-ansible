@@ -22,14 +22,6 @@
     state: present
     method: user
 
-- name: Install intellij community flatpak
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  flatpak:
-    name: "com.jetbrains.IntelliJ-IDEA-Community"
-    state: present
-    method: user
-
 - name: Install riot flatpak
   become: yes
   become_user: "{{ desktop_user.username }}"
