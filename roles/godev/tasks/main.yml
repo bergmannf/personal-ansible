@@ -56,3 +56,5 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   shell: "source ~/.zshrc; asdf reshim"
+  args:
+    executable: "{{ ZSH_BIN }}"
