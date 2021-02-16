@@ -1,6 +1,3 @@
 ---
 # defaults file for zsh
 users: {}
-
-# Can be 'starship' or 'p10k'
-theme: starship
