@@ -47,3 +47,13 @@
       name: openshift
       virtualenv: "{{ k8s_virtualenv }}"
       virtualenv_command: "/usr/bin/python3 -m venv"
+
+- name: Add a kubectl alias to bash
+  lineinfile:
+    path: /home/{{ ssh_remote_user }}/.bashrc
+    line: "alias kubectl='microk8s.kubectl'"
+    owner: "{{ ssh_remote_user }}"
+    regexp: "^alias kubectl='microk8s.kubectl'"
+    state: present
+    insertafter: EOF
+    create: True
