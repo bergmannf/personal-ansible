@@ -1,36 +1,8 @@
 ---
-- name: Clone powerline theme
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  git:
-    repo: https://github.com/romkatv/powerlevel10k.git
-    dest: ~/.powerlevel10k
-    depth: 1
-    update: yes
-  when: theme == 'p10k'
-
-- name: Use powerline theme
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshrc"
-    line: "source ~/.powerlevel10k/powerlevel10k.zsh-theme"
-  when: theme == 'p10k'
-
-- name: Copy powerline 10k configuration
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  copy:
-    src: "{{ role_path }}/templates/p10k.zsh"
-    dest: "~/.p10k.zsh"
-    owner: "{{ desktop_user.username }}"
-  when: theme == 'p10k'
-
 - name: Install starship
   package:
     name: starship
     state: present
-  when: theme == 'starship'
 
 - name: Use starship theme
   become: yes
@@ -38,4 +10,3 @@
   lineinfile:
     dest: "~/.zshrc"
     line: 'eval "$(starship init zsh)"'
-  when: theme == 'starship'

@@ -28,6 +28,7 @@
   with_items:
     - init
     - config
+    - packages
 
 - name: Add .emacs.d/bin to PATH
   become: yes

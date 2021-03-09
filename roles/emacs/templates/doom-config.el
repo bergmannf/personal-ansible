@@ -54,3 +54,29 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(use-package! indium
+  :config
+  (set-company-backend! 'indium-repl-mode 'company-indium-repl))
+
+(defun poetry-find-virtualenv-path ()
+  "Find the virtualenv path that poetry is using."
+  (let ((output (shell-command-to-string "poetry show -v")))
+    (save-match-data
+      (and (string-match "Using virtualenv: \\(.*\\)" output)
+           (match-string 1 output)))))
+
+(defun poetry-to-pyright ()
+  (if projectile-project-root
+      ((let ((pyright-config-path (concat projectile-project-root "pyrightconfig.json"))
+             (venv-dir (poetry-find-virtualenv-path)))
+         (if (not (file-exists-p pyright-config-path))
+             (progn
+               (message "Writing new pyright config file")
+               (write-region (json-encode '(("venvPath" . venv-dir))) nil pyright-config-path))
+           (progn
+             (message "Pyright config exists - adjusting it")
+             (let ((pyright-alist (json-read-file pyright-config-path)))
+               (setf (alist-get 'venvPath pyright-alist venv-dir) venv-dir)
+               (write-region (json-encode pyright-alist) nil pyright-config-path))))))
+    (message "Not inside a projectile project. Will not setup pyrightconfig.")))

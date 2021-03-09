@@ -47,9 +47,6 @@ if [ -f ~/.zsh/ssh-agent.zsh ]; then
   source ~/.zsh/ssh-agent.zsh
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 function reset-gpg-card {
   killall -9 ssh-agent gpg-agent
   for keystub in $(gpg --with-keygrip --list-secret-keys '{{ desktop_user.email }}' | grep Keygrip | awk '{print $3}'); do

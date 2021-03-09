@@ -36,3 +36,10 @@
   shell: source ~/.zshrc; asdf global nodejs "{{ node_version }}"
   args:
     executable: "{{ ZSH_BIN }}"
+
+- name: Install indium package for emacs
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  shell: source ~/.zshrc; npm install -g indium
+  args:
+    executable: "{{ ZSH_BIN }}"
