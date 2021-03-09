@@ -26,7 +26,7 @@ k8s_storageclass_name: "microk8s-hostpath"
 # K8S: Foundry settings
 k8s_foundry_storage_size: "40G"
 k8s_foundry_release_url: ""
-k8s_foundry_admin_key: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.foundry.adminkey') }}"
+k8s_foundry_admin_key: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.foundryvtt.adminkey') }}"
 k8s_foundryvtt_pvc_name: "foundryvtt-data-pv-claim"
 
 # K8S: Nextcloud settings
