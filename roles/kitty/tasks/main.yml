@@ -1,0 +1,25 @@
+- name: Install Kitty
+  package:
+    state: present
+    name: kitty
+
+- name: Create configuration folder
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    state: directory
+    dest: "~/.config/kitty"
+
+- name: Copy theme
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: "Misterioso.conf"
+    dest: "~/.config/kitty/theme.conf"
+
+- name: Copy kitty configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: "kitty.conf"
+    dest: "~/.config/kitty/kitty.conf"
