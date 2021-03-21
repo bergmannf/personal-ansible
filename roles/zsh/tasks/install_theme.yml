@@ -1,8 +1,22 @@
 ---
-- name: Install starship
+- name: Install starship (RedHat)
   package:
     name: starship
     state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Install starship (Debian)
+  block:
+  - name: Download the installation script
+    get_url:
+      url: https://starship.rs/install.sh
+      dest: /tmp/install_starship.sh
+      mode: 0755
+
+  - name: Install starship
+    become: yes
+    command: "/tmp/install_starship.sh -y"
+  when: ansible_os_family == "Debian"
 
 - name: Use starship theme
   become: yes
