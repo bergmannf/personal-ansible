@@ -52,3 +52,4 @@
 
 (package! k8s-mode)
 (package! indium)
+(package! atomic-chrome)
