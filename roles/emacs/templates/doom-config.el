@@ -80,3 +80,9 @@
                (setf (alist-get 'venvPath pyright-alist venv-dir) venv-dir)
                (write-region (json-encode pyright-alist) nil pyright-config-path))))))
     (message "Not inside a projectile project. Will not setup pyrightconfig.")))
+
+;; This is apparently needed because evil has some problems with dir-locals.
+(defadvice! fix-local-vars (&rest _)
+  :before #'turn-on-evil-mode
+  (when (eq major-mode 'fundamental-mode)
+    (hack-local-variables)))
