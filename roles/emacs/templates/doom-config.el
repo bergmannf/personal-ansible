@@ -66,21 +66,25 @@
       (and (string-match "Using virtualenv: \\(.*\\)" output)
            (match-string 1 output)))))
 
+
 (defun poetry-to-pyright ()
   "Create the configuration for pyright to point to the correct virtualenv."
   (interactive)
   (if (vc-root-dir)
-      (let ((pyright-config-path (concat (vc-root-dir) "pyrightconfig.json"))
-            (venv-dir (poetry-find-virtualenv-path)))
-        (if (not (file-exists-p pyright-config-path))
-            (progn
-              (message "Writing new pyright config file")
-              (write-region (json-encode '(("venvPath" . venv-dir))) nil pyright-config-path))
-          (progn
-            (message "Pyright config exists - adjusting it")
-            (let ((pyright-alist (json-read-file pyright-config-path)))
-              (setf (alist-get 'venvPath pyright-alist venv-dir) venv-dir)
-              (write-region (json-encode pyright-alist) nil pyright-config-path)))))
+      (let* ((pyright-config-path (concat (vc-root-dir) "pyrightconfig.json"))
+            (venv-name (car (last (split-string (poetry-find-virtualenv-path) "/"))))
+            (dir-parts (remove venv-name (split-string (poetry-find-virtualenv-path) "/")))
+            (venv-dir (mapconcat 'identity dir-parts "/")))
+         (if (not (file-exists-p pyright-config-path))
+             (progn
+               (message "Writing new pyright config file")
+               (write-region (json-encode '(("venvPath" . venv-dir) ("venv" . venv-name))) nil pyright-config-path))
+           (progn
+             (message "Pyright config exists - adjusting it")
+             (let ((pyright-alist (json-read-file pyright-config-path)))
+               (setf (alist-get 'venvPath pyright-alist venv-dir) venv-dir)
+               (setf (alist-get 'venv pyright-alist venv-name) venv-name)
+               (write-region (json-encode pyright-alist) nil pyright-config-path)))))
     (message "Not inside a projectile project. Will not setup pyrightconfig.")))
 
 ;; This is apparently needed because evil has some problems with dir-locals.
