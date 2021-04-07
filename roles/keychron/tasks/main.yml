@@ -4,7 +4,7 @@
   become: yes
   copy:
     content: |
-      options hid_apple fnmode=2
+      options hid_apple fnmode=2 swap_opt_cmd=1
     dest: /etc/modprobe.d/hid_apple.conf
     owner: root
     group: root
