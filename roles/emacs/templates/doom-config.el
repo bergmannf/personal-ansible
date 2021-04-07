@@ -92,3 +92,7 @@
   :before #'turn-on-evil-mode
   (when (eq major-mode 'fundamental-mode)
     (hack-local-variables)))
+
+; Make local-variables ask for confirmations
+;; This was changed: https://github.com/hlissner/doom-emacs/commit/5e7864838a7f65204b8ad3fe96febc603675e24a
+(setq enable-local-variables 't)
