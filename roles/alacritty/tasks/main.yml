@@ -1,0 +1,19 @@
+---
+- name: Install alacritty
+  package:
+    state: present
+    name: alacritty
+
+- name: Create configuration folder
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    state: directory
+    dest: "~/.config/alacritty"
+
+- name: Copy alacritty configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: "alacritty.yml"
+    dest: "~/.config/alacritty/alacritty.yml"
