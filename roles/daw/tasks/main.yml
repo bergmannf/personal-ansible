@@ -3,7 +3,7 @@
 - name: Install DAW packages
   package:
     name:
-      - ardour5
+      - ardour6
       - guitarix
       - lv2-guitarix-plugins
       - hydrogen
