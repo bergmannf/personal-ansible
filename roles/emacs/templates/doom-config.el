@@ -59,13 +59,15 @@
   :config
   (set-company-backend! 'indium-repl-mode 'company-indium-repl))
 
+(after! lsp-rust-analyzer
+  (setq lsp-rust-analyzer-server-display-inlay-hints t))
+
 (defun poetry-find-virtualenv-path ()
   "Find the virtualenv path that poetry is using."
   (let ((output (shell-command-to-string "poetry show -v")))
     (save-match-data
       (and (string-match "Using virtualenv: \\(.*\\)" output)
            (match-string 1 output)))))
-
 
 (defun poetry-to-pyright ()
   "Create the configuration for pyright to point to the correct virtualenv."
