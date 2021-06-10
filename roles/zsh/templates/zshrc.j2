@@ -55,3 +55,8 @@ function reset-gpg-card {
   gpg --card-status
   eval $(gpg --launch gpg-agent)
 }
+
+# ZSHRC FOOTER
+if command -v kubectl &> /dev/null; then
+  source <(kubectl completion zsh)
+fi

@@ -14,6 +14,7 @@
   lineinfile:
     dest: "~/.zshrc"
     line: "source $HOME/.asdf/asdf.sh"
+    insertbefore: "# ZSHRC FOOTER"
 
 - name: Add completions for zsh
   become: yes
