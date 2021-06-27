@@ -1,7 +1,6 @@
-source "$HOME/.tmux.theme"
-
 # correct colors
-set -g default-terminal "screen-256color"
+set -g default-terminal "tmux-256color"
+set -as terminal-overrides ",*alacritty*:RGB"
 
 # Keep DISPLAY and XAUTHORITY
 set -g update-environment "\
@@ -32,3 +31,5 @@ bind h select-pane -L
 bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
+
+source "$HOME/.tmux.theme"
