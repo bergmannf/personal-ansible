@@ -45,3 +45,11 @@
     name: "com.nextcloud.desktopclient.nextcloud"
     state: present
     method: user
+
+- name: Setup autostart for nextcloud flatpak
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    src: "{{ lookup('env', 'HOME') }}/.local/share/flatpak/exports/share/applications/com.nextcloud.desktopclient.nextcloud.desktop"
+    dest: "{{ lookup('env', 'HOME') }}/.config/autostart/com.nextcloud.desktopclient.nextcloud.desktop"
+    state: link

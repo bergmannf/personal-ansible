@@ -3,6 +3,7 @@
     name: "{{ item }}"
     state: present
   with_items:
+    - dex
     - compton
     - i3
     - rofi
