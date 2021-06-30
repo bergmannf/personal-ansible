@@ -69,10 +69,10 @@
       (and (string-match "Using virtualenv: \\(.*\\)" output)
            (match-string 1 output)))))
 
-(defun poetry-to-pyright ()
+(defun poetry-to-pyright (&optional source-control-witness)
   "Create the configuration for pyright to point to the correct virtualenv."
   (interactive)
-  (if (vc-root-dir)
+  (if (vc-find-root (buffer-file-name (current-buffer)) (or source-control-witness ".git"))
       (let* ((pyright-config-path (concat (vc-root-dir) "pyrightconfig.json"))
             (venv-name (car (last (split-string (poetry-find-virtualenv-path) "/"))))
             (dir-parts (remove venv-name (split-string (poetry-find-virtualenv-path) "/")))
