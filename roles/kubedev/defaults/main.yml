@@ -1,7 +1,8 @@
 ---
 
-k9s_version: "0.24.9"
+k9s_version: "latest"
 minikube_version: "1.20.0"
+kind_version: "latest"
 
 install_minikube: yes
 
