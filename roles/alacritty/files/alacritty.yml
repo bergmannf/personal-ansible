@@ -42,3 +42,5 @@ colors:
     magenta: '0x614a73'
     cyan: '0x186c60'
     white: '0x63686d'
+env:
+  TERM: xterm-direct
