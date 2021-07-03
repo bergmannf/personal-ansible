@@ -13,10 +13,3 @@
     - gawk
     # - i3blocks does not exist for centos without copr
     - pasystray
-
-- name: Add an alias for dex-autostart
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: ~/.aliases
-    line: "alias dex='dex-autostart'"
