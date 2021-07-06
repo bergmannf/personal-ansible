@@ -13,9 +13,11 @@ alias dockerclean='dockercleanc || true && dockercleani'
 # Clean up no longer used volumes
 alias dockercleanvol='printf "\n>>> Deleting unused volumes\n\n" && docker volume ls -qf dangling=true | xargs -r docker volume rm'
 
+alias emacs='TERM=xterm-emacs emacs -nw $*'
+
 # Quick access emacsclient
-alias e='emacsclient $*'
-alias ae='emacsclient -n $*'
+alias e='TERM=xterm-emacs emacsclient $*'
+alias ae='TERM=xterm-emacs emacsclient -n $*'
 
 function url-unquote () {
   python3 -c "from urllib import parse; print(parse.unquote('$1'))"

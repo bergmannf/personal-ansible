@@ -43,4 +43,4 @@ colors:
     cyan: '0x186c60'
     white: '0x63686d'
 env:
-  TERM: xterm-direct
+  TERM: xterm-emacs

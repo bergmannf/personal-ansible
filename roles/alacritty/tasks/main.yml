@@ -17,3 +17,8 @@
   copy:
     src: "alacritty.yml"
     dest: "~/.config/alacritty/alacritty.yml"
+
+- name: Compile the terminfo file
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  command: "tic -x -o ~/.terminfo {{ role_path }}/files/custom-terminfo"
