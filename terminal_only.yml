@@ -9,6 +9,7 @@
     - godev
     - nodedev
     - rustdev
+    - terminfo
     - tmux
     - emacs
     - gpg
