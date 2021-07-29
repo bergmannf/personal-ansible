@@ -21,12 +21,12 @@
     state: present
 
 - name: Install chart repository for nextcloud
-  community.kubernetes.helm_repository:
+  kubernetes.core.helm_repository:
     name: nextcloud
     repo_url: https://nextcloud.github.io/helm/
 
 - name: Install nextcloud helm chart
-  community.kubernetes.helm:
+  kubernetes.core.helm:
     release_name: mimir-nextcloud
     chart_ref: nextcloud/nextcloud
     release_namespace: "{{ k8s_nextcloud_namespace }}"
@@ -41,14 +41,16 @@
 - name: Install a cronjob for webcron
   vars:
     ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
-  community.kubernetes.k8s:
-    api_version: batch/v1beta1
+  kubernetes.core.k8s:
+    api_version: batch/v1
     kind: CronJob
     definition:
       metadata:
         name: mimir-nextcloud-webcron
         namespace: "{{ k8s_nextcloud_namespace }}"
       spec:
+        successfulJobsHistoryLimit: 0
+        failedJobsHistoryLimit: 1
         schedule: "0 */12 * * *"
         jobTemplate:
           spec:
@@ -64,3 +66,55 @@
                   - "-L"
                   - "https://{{ k8s_ingress_hostname }}/nextcloud/cron.php"
                 restartPolicy: OnFailure
+
+- name: Create a configmap for cronjob news updater
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: ConfigMap
+    definition:
+      metadata:
+        name: mimir-nextcloud-news-updater
+        namespace: "{{ k8s_nextcloud_namespace }}"
+      data:
+        config.ini: |
+          [updater]
+          user = {{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.nextcloud.news.password subkey=username') }}
+          password = {{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.nextcloud.news.password') }}
+          threads = 1
+          interval = 900
+          logleve = error
+          url = https://your-nextcloud.com/
+          apilevel = v15
+          mode = singlerun
+
+- name: Install a cronjob for news
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  kubernetes.core.k8s:
+    api_version: batch/v1
+    kind: CronJob
+    definition:
+      metadata:
+        name: mimir-nextcloud-news-updater
+        namespace: "{{ k8s_nextcloud_namespace }}"
+      spec:
+        schedule: "0 */12 * * *"
+        jobTemplate:
+          spec:
+            template:
+              spec:
+                containers:
+                - name: news-updater
+                  image: ghcr.io/bergmannf/nextcloud-news-updater-image:main
+                  imagePullPolicy: IfNotPresent
+                  args:
+                  - "--config"
+                  - "/var/updater/config.ini"
+                  volumeMounts:
+                    - name: configuration
+                      mountPath: /var/updater
+                restartPolicy: Never
+                volumes:
+                  - name: configuration
+                    configMap:
+                      name: news-updater

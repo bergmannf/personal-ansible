@@ -3,7 +3,7 @@
 - name: Create a backup cronjob for the passed pvc
   vars:
     ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     definition: "{{ lookup('template', item) }}"
   loop:
