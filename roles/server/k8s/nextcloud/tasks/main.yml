@@ -68,6 +68,8 @@
                 restartPolicy: OnFailure
 
 - name: Create a configmap for cronjob news updater
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
   kubernetes.core.k8s:
     api_version: v1
     kind: ConfigMap
@@ -82,8 +84,8 @@
           password = {{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.nextcloud.news.password') }}
           threads = 1
           interval = 900
-          logleve = error
-          url = https://your-nextcloud.com/
+          loglevel = error
+          url = https://{{ k8s_ingress_hostname }}/nextcloud/
           apilevel = v15
           mode = singlerun
 
@@ -117,4 +119,4 @@
                 volumes:
                   - name: configuration
                     configMap:
-                      name: news-updater
+                      name: mimir-nextcloud-news-updater
