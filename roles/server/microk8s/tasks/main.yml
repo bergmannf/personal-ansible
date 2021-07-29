@@ -44,7 +44,8 @@
 
   - name: Create a virtualenv to interact with k8s module
     pip:
-      name: openshift
+      name:
+        - 'kubernetes>=12'
       virtualenv: "{{ k8s_virtualenv }}"
       virtualenv_command: "/usr/bin/python3 -m venv"
 
