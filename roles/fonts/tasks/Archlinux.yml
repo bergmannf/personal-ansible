@@ -1,0 +1,23 @@
+---
+
+- name: Install firacode
+  package:
+    name:
+      - ttf-fira-mono
+      - ttf-fira-code
+    state: present
+
+- name: Install powerline fonts
+  package:
+    name: powerline-fonts
+    state: present
+
+- name: Install awesome fonts
+  package:
+    name: ttf-font-awesome
+    state: present
+
+- name: Install unifont
+  package:
+    name: bdf-unifont
+    state: present
