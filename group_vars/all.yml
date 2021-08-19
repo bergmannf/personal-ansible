@@ -2,6 +2,6 @@
 desktop_user:
   username: florian
   fullname: Florian Bergmann
-  email: Bergmann.F@gmail.com
+  email: bergmann.f@gmail.com
   default_editor: emacsclient
   gpgkey: ""

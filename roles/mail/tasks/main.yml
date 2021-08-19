@@ -1,0 +1,28 @@
+---
+- name: Install required packages
+  include: "{{ ansible_os_family }}.yml"
+
+- name: Install mysyncrc
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: mbsyncrc
+    dest: "~/.mbsyncrc"
+
+- name: Create the mbsync destination directory
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    dest: "~/mail/gmail"
+    state: directory
+    owner: "{{ desktop_user.username }}"
+
+- name: Run mu init
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  command: "mu init --maildir ~/mail --my-address {{ desktop_user.email }}"
+
+- name: Index mails
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  command: "mu index"
