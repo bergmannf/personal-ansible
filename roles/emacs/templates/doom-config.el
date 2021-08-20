@@ -98,3 +98,18 @@
 ; Make local-variables ask for confirmations
 ;; This was changed: https://github.com/hlissner/doom-emacs/commit/5e7864838a7f65204b8ad3fe96febc603675e24a
 (setq enable-local-variables 't)
+
+;; Setup MU4E
+(setq smtpmail-smtp-server "smtp.gmail.com")
+(setq smtpmail-smtp-service 587)
+
+(set-email-account! "gmail.com"
+  '((mu4e-sent-folder       . "/gmail/Sent")
+    (mu4e-drafts-folder     . "/gmail/[Google Mail]/Drafts")
+    (mu4e-trash-folder      . "/gmail/Trash")
+    (mu4e-refile-folder     . "/gmail/[Google Mail]/All Mail")
+    (smtpmail-smtp-user     . "bergmann.f@gmail.com")
+    (user-mail-address      . "bergmann.f@gmail.com")    ;; only needed for mu < 1.4
+    (user-full-name         . "Florian Bergmann")
+    (mu4e-compose-signature . "Florian Bergmann"))
+  t)
