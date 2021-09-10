@@ -62,6 +62,9 @@
 (after! lsp-rust-analyzer
   (setq lsp-rust-analyzer-server-display-inlay-hints t))
 
+(after! poetry
+  (setq poetry-tracking-strategy 'projectile))
+
 (defun poetry-find-virtualenv-path ()
   "Find the virtualenv path that poetry is using."
   (let ((output (shell-command-to-string "poetry show -v")))
