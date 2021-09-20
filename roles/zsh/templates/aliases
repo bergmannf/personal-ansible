@@ -23,11 +23,19 @@ function yaml-to-json () {
   SCRIPT="\
 #!/usr/bin/env python3
 
+import os
 import sys
 import json
 import yaml
 
-d = yaml.safe_load(open(sys.argv[1]))
+arg = sys.argv[1]
+
+if os.path.isfile(arg):
+    content = open(arg).read()
+else:
+    content = arg
+
+d = yaml.safe_load(content)
 print(json.dumps(d))"
   python -c "$SCRIPT" "$1"
 }
@@ -36,11 +44,19 @@ function json-to-yaml () {
   SCRIPT="\
 #!/usr/bin/env python3
 
+import os
 import sys
 import json
 import yaml
 
-d = json.loads(open(sys.argv[1]).read())
+arg = sys.argv[1]
+
+if os.path.isfile(arg):
+    content = open(arg).read()
+else:
+    content = arg
+
+d = json.loads(arg)
 print(yaml.dump(d))"
   python -c "$SCRIPT" "$1"
 }
