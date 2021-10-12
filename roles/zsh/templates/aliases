@@ -15,6 +15,8 @@ alias dockercleanvol='printf "\n>>> Deleting unused volumes\n\n" && docker volum
 
 alias emacs='TERM=xterm-emacs emacs -nw $*'
 
+alias k='kubectl'
+
 # Quick access emacsclient
 alias e='TERM=xterm-emacs emacsclient $*'
 alias ae='TERM=xterm-emacs emacsclient -n $*'
