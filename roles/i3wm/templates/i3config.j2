@@ -105,6 +105,7 @@ set $ws6 6:
 set $ws7 7:
 set $ws8 8:
 set $ws9 9:
+set $ws10 10
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -114,8 +115,8 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+exclam move container to workspace $ws1
@@ -126,8 +127,8 @@ bindsym $mod+Shift+percent move container to workspace $ws5
 bindsym $mod+Shift+asciicircum move container to workspace $ws6
 bindsym $mod+Shift+ampersand move container to workspace $ws7
 bindsym $mod+Shift+asterisk move container to workspace $ws8
-bindsym $mod+Shift+parenleft move container to workspace 9
-bindsym $mod+Shift+parenright move container to workspace 10
+bindsym $mod+Shift+parenleft move container to workspace $ws9
+bindsym $mod+Shift+parenright move container to workspace $ws10
 
 # Assigning applications to special workspaces
 
