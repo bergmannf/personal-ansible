@@ -14,20 +14,20 @@ nextcloud:
       value: "https"
 mariadb:
   enabled: true
-  rootUser:
+  auth:
+    database: nextcloud
     password: '{{ k8s_nextcloud_mariadb_password }}'
-  db:
-    password: '{{ k8s_nextcloud_mariadb_password }}'
-  master:
+    username: nextcloud
+    rootPassword: '{{ k8s_nextcloud_mariadb_password }}'
+  primary:
     persistence:
       enabled: true
+      accessMode: ReadWriteOnce
+      size: 8Gi
+  volumePermissions:
+    enabled: true
 internalDatabase:
   enabled: false
-externalDatabase:
-  enabled: true
-  host: mimir-nextcloud-mariadb
-  type: mysql
-  password: '{{ k8s_nextcloud_mariadb_password }}'
 ingress:
   enabled: true
   className: "public"
@@ -43,3 +43,5 @@ persistence:
   enabled: true
   storageClass: "{{ k8s_storageclass_name }}"
   size: "{{ k8s_nextcloud_storage_size }}"
+cronjob:
+  enabled: true
