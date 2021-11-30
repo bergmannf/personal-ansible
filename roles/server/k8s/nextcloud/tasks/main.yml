@@ -32,6 +32,7 @@
     release_namespace: "{{ k8s_nextcloud_namespace }}"
     create_namespace: true
     values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+    update_repo_cache: true
 
 - name: Patch ingress resource to include the path
   command:
