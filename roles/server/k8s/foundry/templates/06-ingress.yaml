@@ -1,5 +1,5 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: foundryvtt
@@ -14,9 +14,12 @@ spec:
       http:
         paths:
           - path: "/foundry"
+            pathType: "Prefix"
             backend:
-              serviceName: foundryvtt-web
-              servicePort: 80
+              service:
+                name: foundryvtt-web
+                port:
+                  number: 80
   tls:
     - hosts:
         - "{{ k8s_ingress_hostname }}"
