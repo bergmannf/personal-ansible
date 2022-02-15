@@ -14,7 +14,7 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   copy:
-    src: "Misterioso.conf"
+    src: "Alucard.conf"
     dest: "~/.config/kitty/theme.conf"
 
 - name: Copy kitty configuration
