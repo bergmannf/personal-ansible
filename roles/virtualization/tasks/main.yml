@@ -11,12 +11,7 @@
   vars:
     packages:
       - virt-manager
-      - vagrant
       - bridge-utils
-      - vagrant-lxc
-      - vagrant-libvirt
-      - vagrant-sshfs
-      - vagrant-mutate
       - qemu-kvm
       - libvirt-clients
       - libvirt-daemon
@@ -37,10 +32,6 @@
   vars:
     packages:
       - "@Virtualization"
-      - vagrant
-      - vagrant-sshfs
-      - vagrant-lxc
-      - vagrant-libvirt
   when: ansible_os_family == "RedHat"
 
 - name: Add {{ desktop_user.username }} to libvirt group
@@ -55,8 +46,3 @@
     name: libvirtd
     state: started
     enabled: yes
-
-- name: Use libvirt as default vagrant provider
-  lineinfile:
-    dest: "/home/{{ desktop_user.username }}/.zshrc"
-    line: 'export VAGRANT_DEFAULT_PROVIDER="libvirt"'
