@@ -6,7 +6,7 @@
     dest: ~/.emacs.d/
     update: yes
     depth: 1
-    version: develop
+    version: master
   when: emacsd.stat.exists == False
 
 - name: Make sure $HOME/.doom.d exists
