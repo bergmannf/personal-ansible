@@ -8,8 +8,9 @@
     - i3
     - i3status-rs
     - rofi
-    - redshift
-    - xorg-x11-server-utils
+    - gammastep
+    - gammastep-indicator
+    - xrandr
     - gawk
     # - i3blocks does not exist for centos without copr
     - pasystray
