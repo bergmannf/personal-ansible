@@ -16,13 +16,6 @@
     executable: "{{ ZSH_BIN }}"
   when: '"nodejs" not in asdf_plugins.stdout'
 
-- name: Install gpg keys for nodejs
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: ${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring
-  args:
-    executable: "{{ ZSH_BIN }}"
-
 - name: "Install nodejs {{ node_version }}"
   become: yes
   become_user: "{{ desktop_user.username }}"
