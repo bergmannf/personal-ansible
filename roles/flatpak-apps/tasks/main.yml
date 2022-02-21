@@ -46,6 +46,14 @@
     state: present
     method: user
 
+- name: Create the autostart folder
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config/autostart"
+    state: directory
+    owner: "{{ desktop_user.username }}"
+
 - name: Setup autostart for nextcloud flatpak
   become: yes
   become_user: "{{ desktop_user.username }}"
