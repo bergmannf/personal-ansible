@@ -65,5 +65,5 @@ function reset-gpg-card {
 # ZSHRC FOOTER
 if command -v kubectl &> /dev/null; then
   source <(kubectl completion zsh)
-  complete -F __start_kubectl k
+  compdef __start_kubectl k
 fi
