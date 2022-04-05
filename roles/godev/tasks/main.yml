@@ -33,24 +33,24 @@
 - name: Install spacemacs required packages
   become: yes
   become_user: "{{ desktop_user.username }}"
-  shell: "source ~/.zshrc; go get {{ item.flags | join(' ') }} {{ item.url }}"
+  shell: "source ~/.zshrc; go install {{ item.flags | join(' ') }} {{ item.url }}"
   args:
     executable: "{{ ZSH_BIN }}"
   with_items:
-    - flags: ["-u", "-v"]
-      url: "github.com/nsf/gocode"
-    - flags: ["-u", "-v"]
-      url: "github.com/rogpeppe/godef"
-    - flags: ["-u", "-v"]
-      url: "golang.org/x/tools/cmd/guru"
-    - flags: ["-u", "-v"]
-      url: "golang.org/x/tools/cmd/gorename"
-    - flags: ["-u", "-v"]
-      url: "golang.org/x/tools/cmd/goimports"
     - flags: []
-      url: "golang.org/x/tools/gopls"
-    - flags: ["-u"]
-      url: "github.com/cweill/gotests/..."
+      url: "github.com/nsf/gocode@latest"
+    - flags: []
+      url: "github.com/rogpeppe/godef@latest"
+    - flags: []
+      url: "golang.org/x/tools/cmd/guru@latest"
+    - flags: []
+      url: "golang.org/x/tools/cmd/gorename@latest"
+    - flags: []
+      url: "golang.org/x/tools/cmd/goimports@latest"
+    - flags: []
+      url: "golang.org/x/tools/gopls@latest"
+    - flags: []
+      url: "github.com/cweill/gotests/...@latest"
 
 - name: Reshim ASDF
   become: yes
