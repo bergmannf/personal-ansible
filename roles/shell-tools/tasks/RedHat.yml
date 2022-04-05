@@ -5,4 +5,5 @@
     name:
       - the_silver_searcher
       - ripgrep
+      - direnv
     state: present
