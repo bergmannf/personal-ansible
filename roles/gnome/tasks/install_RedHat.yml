@@ -8,6 +8,9 @@
       - gnome-shell-extension-pomodoro
       - gnome-shell-extension-appindicator
       - gnome-shell-extension-auto-move-windows
+      - gnome-shell-extension-pop-shell
+      # Needed by the pop-shell extension
+      - gnome-shell-extension-vertical-overview
       - pinentry-gnome3
       - firefox
       - mozilla-ublock-origin
