@@ -7,7 +7,6 @@
     - godev
     - nodedev
     - rustdev
-    - terminfo
     - alacritty
     - tmux
     - emacs

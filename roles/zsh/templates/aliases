@@ -13,13 +13,13 @@ alias dockerclean='dockercleanc || true && dockercleani'
 # Clean up no longer used volumes
 alias dockercleanvol='printf "\n>>> Deleting unused volumes\n\n" && docker volume ls -qf dangling=true | xargs -r docker volume rm'
 
-alias emacs='TERM=xterm-emacs emacs -nw $*'
+alias emacs='TERM=xterm-direct emacs -nw $*'
 
 alias k='kubectl'
 
 # Quick access emacsclient
-alias e='TERM=xterm-emacs emacsclient $*'
-alias ae='TERM=xterm-emacs emacsclient -n $*'
+alias e='TERM=xterm-direct emacsclient $*'
+alias ae='TERM=xterm-direct emacsclient -n $*'
 
 function yaml-to-json () {
   SCRIPT="\
