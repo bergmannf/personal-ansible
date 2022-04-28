@@ -21,6 +21,10 @@ alias k='kubectl'
 alias e='TERM=xterm-direct emacsclient $*'
 alias ae='TERM=xterm-direct emacsclient -n $*'
 
+# Some aliases to quickly switch the shell theme.
+alias kitty-light="kitty +kitten themes --reload-in=all 'Atom One Light'"
+alias kitty-dark="kitty +kitten themes --reload-in=all 'Tokyo Night Storm'"
+
 function yaml-to-json () {
   SCRIPT="\
 #!/usr/bin/env python3
