@@ -67,3 +67,5 @@ if command -v kubectl &> /dev/null; then
   source <(kubectl completion zsh)
   compdef __start_kubectl k
 fi
+
+eval "$(direnv hook zsh)"
