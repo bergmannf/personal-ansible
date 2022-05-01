@@ -10,6 +10,13 @@
     src: gpg-agent.conf
     dest: ~/.gnupg/gpg-agent.conf
 
+- name: Copy scdaemon.conf
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: scdaemon.conf
+    dest: ~/.gnupg/scdaemon.conf
+
 - name: Import own public key
   become: yes
   become_user: "{{ desktop_user.username }}"
