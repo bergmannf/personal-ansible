@@ -64,8 +64,17 @@ function reset-gpg-card {
 
 # ZSHRC FOOTER
 if command -v kubectl &> /dev/null; then
-  source <(kubectl completion zsh)
-  compdef __start_kubectl k
+  if [ -z $HOME/.zfunctions/_kubectl ]; then
+    kubectl completion zsh > $HOME/.zfunctions/_kubectl
+  fi
+  compdef _kubectl kubectl
+  compdef _kubectl k
+fi
+if command -v oc &> /dev/null; then
+  if [ -z $HOME/.zfunctions/_oc ]; then
+    oc completion zsh > $HOME/.zfunctions/_oc
+  fi
+  compdef _oc oc
 fi
 
 eval "$(direnv hook zsh)"
