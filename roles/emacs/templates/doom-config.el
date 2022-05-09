@@ -116,3 +116,12 @@
     (user-full-name         . "Florian Bergmann")
     (mu4e-compose-signature . "Florian Bergmann"))
   t)
+
+; Define own layer for lsp-shortcuts
+(map! :leader
+      (:prefix-map ("l" . "lsp")
+       (:desc "Find references" "r" #'lsp-find-references
+        (:prefix ("d" . "debug")
+         :desc "Add new breakpoint" "a" #'dap-breakpoint-add
+         :desc "Delete breakpoing" "d" #'dap-breakpoint-delete
+         :desc "Toggle breakpoint" "t" #'dap-breakpoint-toggle))))
