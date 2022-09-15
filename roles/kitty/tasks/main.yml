@@ -14,7 +14,7 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   copy:
-    src: "Alucard.conf"
+    src: "Tokyo_Night_Storm.theme"
     dest: "~/.config/kitty/theme.conf"
 
 - name: Copy kitty configuration
