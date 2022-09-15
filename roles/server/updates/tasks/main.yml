@@ -1,0 +1,6 @@
+---
+
+- name: Install unattended upgrades
+  package:
+    name: unattended-upgrades
+    state: present
