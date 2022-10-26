@@ -53,6 +53,10 @@ if [ -f ~/.zsh/ssh-agent.zsh ]; then
   source ~/.zsh/ssh-agent.zsh
 fi
 
+if [ -f /usr/share/fzf/shell/key-bindings.zsh ]; then
+  source /usr/share/fzf/shell/key-bindings.zsh
+fi
+
 function reset-gpg-card {
   killall -9 ssh-agent gpg-agent
   for keystub in $(gpg --with-keygrip --list-secret-keys '{{ desktop_user.email }}' | grep Keygrip | awk '{print $3}'); do

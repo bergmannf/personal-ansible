@@ -6,4 +6,5 @@
       - the_silver_searcher
       - ripgrep
       - direnv
+      - fzf
     state: present
