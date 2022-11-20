@@ -1,6 +1,6 @@
 ---
 image:
-  tag: 24.0.5-apache
+  tag: 25.0.1-apache
 nextcloud:
   host: "{{ k8s_ingress_hostname }}"
   password: '{{ k8s_nextcloud_password }}'

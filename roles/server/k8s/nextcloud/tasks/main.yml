@@ -29,7 +29,7 @@
   kubernetes.core.helm:
     release_name: mimir-nextcloud
     chart_ref: nextcloud/nextcloud
-    chart_version: 2.9.0
+    chart_version: 3.3.3
     release_namespace: "{{ k8s_nextcloud_namespace }}"
     create_namespace: true
     values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
@@ -39,11 +39,6 @@
   command:
     cmd: |
       {{ k8s_kubectl }} patch -n "{{ k8s_nextcloud_namespace }}" ingress/mimir-nextcloud --type=json -p '[{"op": "replace", "path": "/spec/rules/0/http/paths/0/path", "value": "/nextcloud(/|$)(.*)"}]'
-
-- name: Patch the cronjob to curl the correct URL
-  command:
-    cmd: |
-      {{ k8s_kubectl }} patch -n {{ k8s_nextcloud_namespace }} cronjob/mimir-nextcloud-cron --type json -p '[{"op": "replace", "path": "/spec/jobTemplate/spec/template/spec/containers/0/args/2", "value": "https://{{ k8s_ingress_hostname }}/nextcloud/cron.php"}]'
 
 - name: Create a configmap for cronjob news updater
   vars:
