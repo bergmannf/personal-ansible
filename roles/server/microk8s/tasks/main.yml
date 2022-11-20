@@ -9,7 +9,7 @@
   community.general.snap:
     name: microk8s
     classic: yes
-    channel: 1.22/stable
+    channel: 1.25/stable
 
 - name: Enable required addons
   command: "/snap/bin/microk8s enable {{ item }}"
