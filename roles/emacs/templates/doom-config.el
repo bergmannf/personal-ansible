@@ -65,6 +65,10 @@
 (after! poetry
   (setq poetry-tracking-strategy 'projectile))
 
+;; Use <C-l> to move further down the selection - same as ivy.
+(after! vertico
+  (define-key vertico-map (kbd "C-l") 'vertico-insert))
+
 (defun poetry-find-virtualenv-path ()
   "Find the virtualenv path that poetry is using."
   (let ((output (shell-command-to-string "poetry show -v")))
