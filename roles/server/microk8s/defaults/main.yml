@@ -4,6 +4,6 @@ microk8s_addons:
   - dns
   - helm3
   - ingress
-  - storage
+  - hostpath-storage
 
 k8s_virtualenv: /opt/microk8svenv
