@@ -20,3 +20,4 @@
       k8s_restic_backup_dir: nextcloud
       k8s_restic_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.nextcloud.restic') }}"
       k8s_restic_backup_pvc: "mimir-nextcloud-nextcloud"
+    - server/k8s/mumble

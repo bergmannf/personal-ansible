@@ -1,0 +1,177 @@
+---
+- name: Open required tcp firewall ports
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    port: "{{ item }}"
+    state: enabled
+  loop:
+    - "64738"
+
+- name: Open required udp firewall ports
+  community.general.ufw:
+    rule: allow
+    proto: udp
+    port: "{{ item }}"
+    state: enabled
+  loop:
+    - "64738"
+
+- name: Setup UDP forwarding for nginx-ingress
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: ConfigMap
+    definition:
+      metadata:
+        name: nginx-ingress-udp-microk8s-conf
+        namespace: "ingress"
+      data:
+        64738: mumble/mumble:64738
+
+- name: Setup TCP forwarding for nginx-ingress
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: ConfigMap
+    definition:
+      metadata:
+        name: nginx-ingress-tcp-microk8s-conf
+        namespace: "ingress"
+      data:
+        64738: mumble/mumble:64738
+
+- name: Create mumble namespace
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: Namespace
+    definition:
+      metadata:
+        name: mumble
+
+- name: Setup mumble server storage
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: PersistentVolumeClaim
+    definition:
+      metadata:
+        name: "mumble"
+        namespace: "mumble"
+      spec:
+        storageClassName: "{{ k8s_storageclass_name }}"
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: "1Gi"
+
+- name: Create mumble secret
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: Secret
+    definition:
+      metadata:
+        name: mumble-secret
+        namespace: "{{ k8s_mumble_namespace }}"
+      data:
+        adminpassword: "{{ k8s_mumble_admin_password | b64encode }}"
+        serverpassword: "{{ k8s_mumble_server_password | b64encode }}"
+
+- name: Setup mumble server
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: Deployment
+    definition:
+      metadata:
+        name: mumble
+        namespace: "mumble"
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: mumble
+        template:
+          metadata:
+            labels:
+              app: mumble
+          spec:
+            containers:
+              - name: mumble
+                image: mumblevoip/mumble-server:v1.4.287
+                env:
+                  - name: MUMBLE_SUPERUSER_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: mumble-secret
+                        key: "adminpassword"
+                  - name: MUMBLE_CONFIG_SERVER_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: mumble-secret
+                        key: "serverpassword"
+                volumeMounts:
+                  - name: mumble-storage
+                    mountPath: /data
+            volumes:
+              - name: mumble-storage
+                persistentVolumeClaim:
+                  claimName: mumble
+
+- name: Setup mumble service
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: Service
+    definition:
+      metadata:
+        name: mumble
+        namespace: "mumble"
+      spec:
+        selector:
+          app: mumble
+        ports:
+          - name: udp
+            protocol: UDP
+            port: 64738
+            targetPort: 64738
+          - name: tcp
+            protocol: TCP
+            port: 64738
+            targetPort: 64738
+
+- name: Add new required ports to the daemonset
+  vars:
+    ansible_python_interpreter: "{{ k8s_virtualenv }}/bin/python"
+  kubernetes.core.k8s_json_patch:
+    api_version: apps/v1
+    kind: DaemonSet
+    namespace: ingress
+    name: nginx-ingress-microk8s-controller
+    patch:
+      - op: add
+        path: "/spec/template/spec/containers/0/ports/-"
+        value:
+          name: mumble-tcp
+          containerPort: 64738
+          port: 64738
+          hostPort: 64738
+          protocol: TCP
+      - op: add
+        path: "/spec/template/spec/containers/0/ports/-"
+        value:
+          name: mumble-udp
+          containerPort: 64738
+          port: 64738
+          hostPort: 64738
+          protocol: UDP
