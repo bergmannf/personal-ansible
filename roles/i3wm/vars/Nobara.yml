@@ -1,0 +1,6 @@
+---
+I3STATUS_COMMAND: 'i3status-rs'
+I3STATUS_CONFIG: '~/.i3/i3status.toml'
+I3BLOCKS_BASE_PATH: '/usr/share/i3blocks/'
+
+DEX_COMMAND: 'dex-autostart'

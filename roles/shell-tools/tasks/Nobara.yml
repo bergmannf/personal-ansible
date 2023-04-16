@@ -1,0 +1,10 @@
+---
+
+- name: Install better greps
+  package:
+    name:
+      - the_silver_searcher
+      - ripgrep
+      - direnv
+      - fzf
+    state: present

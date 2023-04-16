@@ -1,0 +1,16 @@
+- name: Install i3wm packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - dex-autostart
+    - picom
+    - i3
+    - i3status-rs
+    - rofi
+    - gammastep
+    - gammastep-indicator
+    - xrandr
+    - gawk
+    # - i3blocks does not exist for centos without copr
+    - pasystray

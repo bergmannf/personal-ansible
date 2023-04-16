@@ -1,0 +1,11 @@
+---
+
+- name: Install the emacs package
+  package:
+    name:
+      - emacs
+      - cmake
+      - libtool
+      - libvterm
+      - libvterm-devel
+    state: present
