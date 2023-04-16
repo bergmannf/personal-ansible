@@ -5,3 +5,5 @@ desktop_user:
   email: bergmann.f@gmail.com
   default_editor: emacsclient
   gpgkey: ""
+asdf_user: "{{ desktop_user.username }}"
+asdf_group: "{{ desktop_user.username }}"

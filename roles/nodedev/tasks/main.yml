@@ -1,34 +1,13 @@
 ---
-
-- name: Check installed plugins
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf plugin list || echo ""
-  register: asdf_plugins
-  args:
-    executable: "{{ ZSH_BIN }}"
-
-- name: Install node plugin for asdf
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-  args:
-    executable: "{{ ZSH_BIN }}"
-  when: '"nodejs" not in asdf_plugins.stdout'
-
-- name: "Install nodejs {{ node_version }}"
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf install nodejs "{{ node_version }}"
-  args:
-    executable: "{{ ZSH_BIN }}"
-
-- name: Set default golang version
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf global nodejs "{{ node_version }}"
-  args:
-    executable: "{{ ZSH_BIN }}"
+- name: Install golang via asdf
+  include_role:
+    name: cimon-io.asdf
+  vars:
+    asdf_plugins:
+      - name: "nodejs"
+        versions:
+          - latest
+        global: latest
 
 - name: Install indium package for emacs
   become: yes

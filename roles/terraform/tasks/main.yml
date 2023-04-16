@@ -1,0 +1,16 @@
+---
+
+- name: Install terraform via asdf
+  include_role:
+    name: cimon-io.asdf
+  vars:
+    asdf_plugins:
+      - name: "terraform"
+        versions:
+          - latest
+        global: latest
+      - name: "terraform-ls"
+        versions:
+          - latest
+        global: latest
+    asdf_user: "{{ desktop_user.username }}"

@@ -9,6 +9,7 @@
     - nodedev
     - rustdev
     - pydev
+    - terraform
     - tmux
     - emacs
     - gpg

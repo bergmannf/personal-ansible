@@ -12,19 +12,3 @@
     state: present
     extra_args: --user
   when: ansible_os_family == "Debian"
-
-- name: Check installed plugins
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf plugin list || echo ""
-  register: asdf_plugins
-  args:
-    executable: "{{ ZSH_BIN }}"
-
-- name: Install python plugin for asdf
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf plugin-add python
-  args:
-    executable: "{{ ZSH_BIN }}"
-  when: '"python" not in asdf_plugins.stdout'
