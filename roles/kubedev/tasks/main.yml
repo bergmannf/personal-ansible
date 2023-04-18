@@ -3,8 +3,5 @@
 - name: Install minikube
   include_tasks: "install_minikube.yml"
 
-- name: Install kind
-  include_tasks: "install_kind.yml"
-
 - name: Install kubectl/helm
   include_tasks: "install_cli.yml"
