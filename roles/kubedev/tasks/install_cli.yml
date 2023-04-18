@@ -7,27 +7,3 @@
   package:
     name: kubectl
     state: present
-
-- name: Check installed plugins
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf plugin list || echo ""
-  register: asdf_plugins
-  args:
-    executable: "{{ ZSH_BIN }}"
-
-- name: Install k9s plugin for asdf
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf plugin-add k9s
-  args:
-    executable: "{{ ZSH_BIN }}"
-  when: '"k9s" not in asdf_plugins.stdout'
-
-- name: "Install k9s version {{ k9s_version }}"
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  shell: source ~/.zshrc; asdf install k9s "{{ k9s_version }}"; asdf global k9s "{{ k9s_version }}"
-  args:
-    executable: "{{ ZSH_BIN }}"
-  when: '"k9s" not in asdf_plugins.stdout'

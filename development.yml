@@ -5,11 +5,11 @@
     - shell-tools
     - kitty
     - git
+    - asdf
     - godev
     - nodedev
     - rustdev
     - pydev
-    - terraform
     - tmux
     - emacs
     - gpg

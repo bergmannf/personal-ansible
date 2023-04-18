@@ -1,14 +1,4 @@
 ---
-- name: Install golang via asdf
-  include_role:
-    name: cimon-io.asdf
-  vars:
-    asdf_plugins:
-      - name: "nodejs"
-        versions:
-          - latest
-        global: latest
-
 - name: Install indium package for emacs
   become: yes
   become_user: "{{ desktop_user.username }}"

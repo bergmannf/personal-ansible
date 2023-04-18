@@ -1,16 +1,5 @@
 ---
 
-- name: Install golang via asdf
-  include_role:
-    name: cimon-io.asdf
-  vars:
-    asdf_plugins:
-      - name: "golang"
-        versions:
-          - latest
-        global: latest
-    asdf_user: "{{ desktop_user.username }}"
-
 - name: Install spacemacs required packages
   become: yes
   become_user: "{{ desktop_user.username }}"
