@@ -26,3 +26,14 @@
           - latest
         global: latest
     asdf_user: "{{ desktop_user.username }}"
+
+- name: Ensure asdf is loaded in shell-startup
+  become: true
+  become_user: "{{ desktop_user.username }}"
+  blockinfile:
+    dest: ~/.zshrc
+    block: |
+      if [ -f ~/.asdf/asdf.sh ]; then
+        source "$HOME/.asdf/asdf.sh"
+      fi
+    insertafter: "# ZSHRC FOOTER"
