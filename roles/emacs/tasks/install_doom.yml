@@ -3,7 +3,7 @@
   become_user: "{{ desktop_user.username }}"
   git:
     repo: https://github.com/hlissner/doom-emacs
-    dest: ~/.emacs.d/
+    dest: ~/.config/emacs/
     update: yes
     depth: 1
     version: master
@@ -13,7 +13,7 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   file:
-    path: $HOME/.doom.d/
+    path: $HOME/.config/doom/
     state: directory
     owner: "{{ desktop_user.username }}"
 
@@ -22,7 +22,7 @@
   become_user: "{{ desktop_user.username }}"
   template:
     src: "doom-{{ item }}.el"
-    dest: "~/.doom.d/{{ item }}.el"
+    dest: "~/.config/doom/{{ item }}.el"
     owner: "{{ desktop_user.username }}"
     mode: 0644
   with_items:
@@ -35,5 +35,5 @@
   become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.zshenv"
-    line: 'PATH="$HOME/.emacs.d/bin:$PATH"'
+    line: 'PATH="$HOME/.config/emacs/bin:$PATH"'
     insertafter: "# PATH config:"
