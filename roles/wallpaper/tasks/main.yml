@@ -12,11 +12,3 @@
     state: directory
     mode: 0755
     dest: "/usr/share/wallpapers/"
-
-- name: Download wallpaper
-  become: yes
-  become_user: root
-  get_url:
-    url: "{{ wallpaper_url }}"
-    dest: "/usr/share/wallpapers/{{ wallpaper }}"
-    checksum: "sha1:39ade81328e42c1ef07f74f144fb92d81c712483"

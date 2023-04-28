@@ -2,7 +2,10 @@
 
 - name: Install the sway window manager
   package:
-    name: sway
+    name: 
+      - sway
+      - waybar
+      - light
     state: present
 
 - name: Create the sway configuration folder
