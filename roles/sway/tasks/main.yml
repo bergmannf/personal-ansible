@@ -6,6 +6,7 @@
       - sway
       - waybar
       - light
+      - wofi
     state: present
 
 - name: Create the sway configuration folder
