@@ -1,6 +1,0 @@
----
-I3STATUS_COMMAND: 'i3blocks -c '
-I3STATUS_CONFIG: '~/.i3/i3blocks.conf'
-I3BLOCKS_BASE_PATH: '/usr/share/i3blocks/'
-
-DEX_COMMAND: 'dex'

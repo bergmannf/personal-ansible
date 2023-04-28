@@ -1,0 +1,23 @@
+---
+
+- name: Install the sway window manager
+  package:
+    name: sway
+    state: present
+
+- name: Create the sway configuration folder
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    dest: "~/.config/sway"
+    state: directory
+    owner: "{{ desktop_user.username }}"
+
+- name: Copy over the sway configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: "config"
+    dest: "~/.config/sway/config"
+    owner: "{{ desktop_user.username }}"
+    mode: 0644
