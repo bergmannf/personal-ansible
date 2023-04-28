@@ -1,8 +1,15 @@
 ---
 - name: Install starship (RedHat)
-  package:
-    name: starship
-    state: present
+  block:
+  - name: Add COPR repo
+    community.general.copr:
+      name: atim/starship
+      state: enabled
+
+  - name: Install starship
+    package:
+      name: starship
+      state: present
   when: ansible_os_family in ["RedHat", "Archlinux"]
 
 - name: Install starship (Debian)
