@@ -200,6 +200,9 @@ input "type:touchpad" {
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+    # Allow moving workspaces between outputs
+    bindsym $mod+x move workspace to output right
 #
 # Resizing containers:
 #
