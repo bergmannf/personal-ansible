@@ -44,8 +44,7 @@
   args:
     creates: "~/.cargo/bin/{{ item }}"
   with_items:
-    - rls
     - rust-analysis
     - rust-src
     - rustfmt
-
+    - rust-analyzer
