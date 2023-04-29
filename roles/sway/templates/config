@@ -153,6 +153,13 @@ input "type:touchpad" {
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+    # Automatically move some applications:
+    assign [app_id="firefox"] workspace number 1
+    assign [app_id="kitty"] workspace number 2
+    assign [instance="emacs"] workspace number 2
+    assign [instance="spotify"] workspace number 6
+    assign [instance="steamwebhelper"] workspace number 6
+    assign [class="Dungeondraft"] workspace number 7
 #
 # Layout stuff:
 #
@@ -236,4 +243,4 @@ bar {
 
 include /etc/sway/config.d/*
 
-exec wlsunset -l 50 -L 9
+exec wlsunset -l 50 -L 10
