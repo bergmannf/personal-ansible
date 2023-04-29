@@ -90,6 +90,9 @@ input "type:touchpad" {
     bindsym --locked XF86MonBrightnessDown exec light -U 5
     bindsym --locked XF86MonBrightnessUp exec light -A 5
 
+    # Screenlocking
+    bindsym Ctrl+Alt+l exec swaylock
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
