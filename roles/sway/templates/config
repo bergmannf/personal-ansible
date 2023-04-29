@@ -79,7 +79,7 @@ input "type:touchpad" {
 
     # Start your launcher
     bindsym $mod+d exec $menu
-    bindsym $mod+p exec wofi --show "drun,run" -I
+    bindsym $mod+p exec wofi --show "drun,run" -I -i
 
     # Control audio
     bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
