@@ -160,9 +160,12 @@ input "type:touchpad" {
     assign [app_id="firefox"] workspace number 1
     assign [app_id="kitty"] workspace number 2
     assign [instance="emacs"] workspace number 2
-    assign [instance="spotify"] workspace number 6
+    assign [instance="spotify"] workspace number 4
     assign [instance="steamwebhelper"] workspace number 6
     assign [class="Dungeondraft"] workspace number 7
+
+    # Always float the sharing indicator in firefox
+    for_window [title="Firefox — Sharing Indicator"] floating enable;
 #
 # Layout stuff:
 #
