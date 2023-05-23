@@ -74,3 +74,7 @@ function url-unquote () {
 function url-quote () {
   python3 -c "from urllib import parse; print(parse.quote('$1'))"
 }
+
+function decode-jwt () {
+  jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' <<< "$1"
+}
