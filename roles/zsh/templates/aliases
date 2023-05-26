@@ -1,3 +1,4 @@
+#!/usr/bin/zsh -f
 # Kill all running containers.
 alias dockerkillall='docker kill $(docker ps -q)'
 
@@ -21,9 +22,23 @@ alias k='kubectl'
 alias e='TERM=xterm-direct emacsclient $*'
 alias ae='TERM=xterm-direct emacsclient -n $*'
 
-# Some aliases to quickly switch the shell theme.
-alias kitty-light="kitty +kitten themes --reload-in=all 'Atom One Light'"
-alias kitty-dark="kitty +kitten themes --reload-in=all 'Dracula'"
+function light-theme() {
+  kitty +kitten themes --reload-in=all 'Atom One Light'
+  gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+  if pgrep 'emacs' > /dev/null; then
+    emacsclient -e "(load-theme 'doom-one-light :no-confirm)"
+  fi
+}
+
+function dark-theme() {
+  kitty +kitten themes --reload-in=all 'Dracula'
+  gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+  if pgrep 'emacs' > /dev/null; then
+    emacsclient -e "(load-theme 'doom-one :no-confirm)"
+  fi
+}
 
 function yaml-to-json () {
   SCRIPT="\
