@@ -30,7 +30,7 @@
     - config
     - packages
 
-- name: Add .emacs.d/bin to PATH
+- name: Add .config/emacs/bin to PATH
   become: yes
   become_user: "{{ desktop_user.username }}"
   lineinfile:
