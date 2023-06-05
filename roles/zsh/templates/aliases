@@ -14,13 +14,13 @@ alias dockerclean='dockercleanc || true && dockercleani'
 # Clean up no longer used volumes
 alias dockercleanvol='printf "\n>>> Deleting unused volumes\n\n" && docker volume ls -qf dangling=true | xargs -r docker volume rm'
 
-alias emacs='TERM=xterm-direct emacsclient -a '' -c -nw $*'
+alias emacs="TERM=xterm-direct emacsclient -a '' -c -nw $*"
 
 alias k='kubectl'
 
 # Quick access emacsclient
-alias e='TERM=xterm-direct emacsclient -a '' -c -nw $*'
-alias ae='TERM=xterm-direct emacsclient -n $*'
+alias e="TERM=xterm-direct emacsclient -a '' -c -nw $*"
+alias ae="TERM=xterm-direct emacsclient -n $*"
 
 function light-theme() {
   kitty +kitten themes --reload-in=all 'Atom One Light'
