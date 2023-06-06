@@ -12,6 +12,11 @@
     name: jetbrains-mono-fonts-all
     state: present
 
+- name: Install cascadia fonts
+  package:
+    name: cascadia-fonts-all
+    state: present
+
 - name: Install powerline fonts
   package:
     name: powerline-fonts
