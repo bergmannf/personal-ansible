@@ -27,3 +27,11 @@
       src: /tmp/siji/pcf/siji.pcf
       dest: "~/.fonts/siji.pcf"
       remote_src: yes
+
+- name: Set default monospace font using fontconfig
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: "fonts.conf"
+    dest: "~/.config/fontconfig/fonts.conf"
+    owner: "{{ desktop_user.username }}"
