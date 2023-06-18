@@ -5,6 +5,17 @@
     state: present
     name: fish
 
+- name: Create user fish config directory
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    state: directory
+    path: "~/.config/{{ item }}"
+    owner: "{{ desktop_user.username }}"
+  with_items:
+    - fish
+    - fish/conf.d
+
 - name: Install fish.config
   become: yes
   become_user: "{{ desktop_user.username }}"
