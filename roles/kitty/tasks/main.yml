@@ -14,8 +14,8 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   copy:
-    src: "Dracula.theme"
-    dest: "~/.config/kitty/Dracula.conf"
+    src: "Tokyo_Night_Storm.theme"
+    dest: "~/.config/kitty/theme.conf"
 
 - name: Copy kitty configuration
   become: yes
