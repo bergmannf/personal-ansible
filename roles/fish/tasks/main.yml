@@ -1,0 +1,26 @@
+---
+
+- name: Install fish shell
+  package:
+    state: present
+    name: fish
+
+- name: Install fish.config
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: config.fish
+    dest: "~/.config/fish/config.fish"
+    owner: "{{ desktop_user.username }}"
+
+- name: Install additional scripts to conf.d
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: "{{ item }}"
+    dest: "~/.config/fish/conf.d/{{ item }}"
+    owner: "{{ desktop_user.username }}"
+  with_items:
+    - path.fish
+    - gnupg-ssh-agent.fish
+    - aliases.fish
