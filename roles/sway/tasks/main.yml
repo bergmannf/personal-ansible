@@ -3,11 +3,13 @@
 - name: Install the sway window manager
   package:
     name: 
+      - light
+      - lxpolkit
+      - mako
       - sway
       - waybar
-      - light
-      - wofi
       - wlsunset
+      - wofi
     state: present
 
 - name: Create the sway configuration folder

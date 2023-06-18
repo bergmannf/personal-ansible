@@ -252,4 +252,6 @@ bar {
 
 include /etc/sway/config.d/*
 
+exec lxpolkit
+exec mako
 exec wlsunset -l 50 -L 10
