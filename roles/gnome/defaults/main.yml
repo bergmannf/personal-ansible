@@ -11,5 +11,5 @@ dconfsettings:
     value: "false"
   - key: "/org/gnome/desktop/wm/preferences/num-workspaces"
     value: "4"
-  - key: "org/gnome/desktop/interface/monospace-font-name"
-    value: "Cascadia Code 12"
+  - key: "/org/gnome/desktop/interface/monospace-font-name"
+    value: "'Cascadia Code 12'"
