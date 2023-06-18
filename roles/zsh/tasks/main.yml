@@ -66,9 +66,12 @@
   become: true
   become_user: "{{ desktop_user.username }}"
   copy:
-    src: "{{ role_path }}/templates/aliases"
-    dest: "~/.aliases"
+    src: "{{ role_path }}/templates/{{ item }}"
+    dest: "~/.{{ item }}"
     owner: "{{ desktop_user.username }}"
+  with_items:
+    - aliases
+    - aliases.zsh
 
 - name: Add additional zsh-completions
   become: true
