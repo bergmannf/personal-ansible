@@ -58,3 +58,13 @@
     state: present
     insertafter: EOF
     create: True
+
+- name: Add a k alias to bash
+  lineinfile:
+    path: /home/{{ ssh_remote_user }}/.bashrc
+    line: "alias k='microk8s.kubectl'"
+    owner: "{{ ssh_remote_user }}"
+    regexp: "^alias kubectl='microk8s.kubectl'"
+    state: present
+    insertafter: EOF
+    create: True
