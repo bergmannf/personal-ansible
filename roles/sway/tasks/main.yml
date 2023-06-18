@@ -8,6 +8,7 @@
       - mako
       - sway
       - waybar
+      - wl-clipboard
       - wlsunset
       - wofi
     state: present
