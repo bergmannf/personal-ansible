@@ -59,7 +59,7 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 # Read `man 5 sway-input` for more information about this section.
 
 input "type:keyboard" {
-    xkb_options caps:ctrl_modifier
+    xkb_options "compose:ralt,caps:ctrl_modifier"
 }
 
 input "type:touchpad" {
