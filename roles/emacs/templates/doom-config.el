@@ -129,3 +129,19 @@
          :desc "Add new breakpoint" "a" #'dap-breakpoint-add
          :desc "Delete breakpoing" "d" #'dap-breakpoint-delete
          :desc "Toggle breakpoint" "t" #'dap-breakpoint-toggle))))
+
+(defun my-update-env (fn)
+  ;; Update the environment in emacs - should be called from a shell with the
+  ;; desired environment
+  (let ((str
+         (with-temp-buffer
+           (insert-file-contents fn)
+           (buffer-string))) lst)
+    (setq lst (split-string str "\000"))
+    (while lst
+      (setq cur (car lst))
+      (when (string-match "^\\(.*?\\)=\\(.*\\)" cur)
+        (setq var (match-string 1 cur))
+        (setq value (match-string 2 cur))
+        (setenv var value))
+      (setq lst (cdr lst)))))

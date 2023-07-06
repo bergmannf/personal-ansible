@@ -1,0 +1,12 @@
+#!/bin/bash
+
+fn=tempfile
+
+if [[ $# -eq 2 ]]; then
+    printenv -0 $2 > "$fn"
+else
+    printenv -0 > "$fn"
+fi
+
+emacsclient -e '(my-update-env "'"$fn"'")' >/dev/null
+rm $fn
