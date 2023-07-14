@@ -20,3 +20,5 @@ alias k='kubectl'
 # Quick access emacsclient
 alias e="TERM=xterm-direct emacsclient -a '' -c -nw"
 alias ae="TERM=xterm-direct emacsclient -n"
+
+alias fishenv="sed -E 's/([^=]+)=(.*)/set \1 \"\2\"/g'"
