@@ -1,0 +1,12 @@
+---
+
+- name: Download RPM for sunshine
+  ansible.builtin.get_url:
+    url: "https://github.com/LizardByte/Sunshine/releases/download/latest/sunshine-fedora-{{ ansible_distribution_version }}-amd64.rpm"
+    dest: /tmp/sunshine.rpm
+    mode: '0700'
+
+- name: Installing sunshine
+  yum:
+     name: /tmp/sunshine.rpm
+     state: present

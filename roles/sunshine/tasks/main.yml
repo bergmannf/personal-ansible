@@ -1,0 +1,13 @@
+---
+
+- name: "Install sunshine for the correct distribution"
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: "Copy the sunshine.sh file for sway setup"
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: sunshine.sh
+    dest: "~/.local/bin/sunshine.sh"
+    mode: 0744
+    owner: "{{ desktop_user.username }}"
