@@ -1,0 +1,20 @@
+---
+
+- name: "Ensure foot is installed"
+  package:
+    state: present
+    name: foot
+
+- name: "Create configuration directory"
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  ansible.builtin.file:
+    dest: "~/.config/foot"
+    state: directory
+
+- name: "Copy the foot configuration"
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: foot.ini
+    dest: "~/.config/foot/foot.ini"

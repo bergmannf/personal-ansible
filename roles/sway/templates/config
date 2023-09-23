@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term kitty
+set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -161,8 +161,9 @@ input "type:touchpad" {
     assign [app_id="kitty"] workspace number 2
     assign [instance="emacs"] workspace number 2
     assign [instance="spotify"] workspace number 4
-    assign [instance="steamwebhelper"] workspace number 6
-    assign [class="Dungeondraft"] workspace number 7
+    assign [instance="steam"] workspace number 6
+    for_window [title="Steam Big Picture Mode"] floating enable, fullscreen disable, resize set 99ppt 99ppt
+    assign [instance="Godot_Engine" class="Dungeondraft"] workspace number 7
 
     # Always float the sharing indicator in firefox
     for_window [title="Firefox — Sharing Indicator"] floating enable;
