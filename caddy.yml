@@ -1,0 +1,10 @@
+- name: Install services
+  become: yes
+  hosts: caddy-servers
+  roles:
+    - server/containerhost
+    - server/git
+    - server/reverseproxy
+    - server/backupfs
+    - server/nextcloud-aio
+    - server/foundryvtt

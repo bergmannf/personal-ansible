@@ -1,0 +1,8 @@
+---
+ssh_authorized_keys:
+  - "{{ lookup('community.general.passwordstore', 'server/bergmann.f.ssh.pub') }}"
+
+# Storagebox setup
+storagebox_fqdn: "u253630.your-storagebox.de"
+storagebox_user: "u253630"
+storagebox_ssh_port: 22
