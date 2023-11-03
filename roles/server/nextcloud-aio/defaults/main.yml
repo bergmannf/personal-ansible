@@ -1,0 +1,3 @@
+nextcloud_aio_apache_port: "11000"
+nextcloud_aio_skip_domain_validation: "false"
+nextcloud_aio_data_directory: "/mnt/ncdata"

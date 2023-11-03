@@ -1,0 +1,2 @@
+foundryvtt_data_directory: "/mnt/foundrydata"
+foundryvtt_admin_key: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.foundryvtt.adminkey') }}"

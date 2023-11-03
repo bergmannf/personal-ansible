@@ -1,0 +1,25 @@
+---
+- name: Ensure the data directory exists
+  file:
+    path: "{{ nextcloud_aio_data_directory }}"
+    state: directory
+
+- name: Start nextcloud AIO for use with a reverse proxy
+  community.docker.docker_container:
+    name: "nextcloud-aio-mastercontainer"
+    image: "docker.io/nextcloud/all-in-one:latest"
+    init: true
+    restart_policy: always
+    published_ports:
+      - "8080:8080"
+    # From: https://github.com/containers/podman/blob/main/docs/source/markdown/podman-system-service.1.md#access-the-unix-socket-from-inside-a-container
+    security_opts:
+      - "label=disable"
+    env:
+      APACHE_PORT: "{{ nextcloud_aio_apache_port }}"
+      APACHE_IP_BINDING: "0.0.0.0"
+      SKIP_DOMAIN_VALIDATION: "{{ nextcloud_aio_skip_domain_validation }}"
+      NEXTCLOUD_DATADIR: "{{ nextcloud_aio_data_directory }}"
+    volumes:
+      - "nextcloud_aio_mastercontainer:/mnt/docker-aio-config"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"

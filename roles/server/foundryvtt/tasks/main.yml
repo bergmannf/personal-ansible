@@ -1,0 +1,23 @@
+---
+- name: Ensure the data directory exists
+  file:
+    path: "{{ foundryvtt_data_directory }}"
+    state: directory
+
+- name: Start foundryvtt for use with a reverse proxy
+  community.docker.docker_container:
+    name: "foundryvtt"
+    image: "docker.io/felddy/foundryvtt:11.314"
+    restart_policy: always
+    published_ports:
+      - "30000:30000"
+    security_opts:
+      - "label=disable"
+    env:
+      CONTAINER_CACHE: "/data/container_cache"
+      # TODO: Won't work when moving from path-based to domain-based URL
+      # CONTAINER_PRESERVE_CONFIG: "true"
+      FOUNDRY_ADMIN_KEY: "{{ foundryvtt_admin_key }}"
+      FOUNDRY_PROXY_SSL: "true"
+    volumes:
+      - "{{ foundryvtt_data_directory }}:/data"

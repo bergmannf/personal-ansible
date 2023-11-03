@@ -5,20 +5,52 @@
     dest: /root/.ssh/id_ed25519
     content: |
       {{ lookup('community.general.passwordstore', 'server/u253630.your-storagebox.de.private_key returnall=yes') }}
-
     owner: root
     group: root
     mode: 0600
+
+- name: Install the ssh_config for the storagebox
+  template:
+    dest: /root/.ssh/ssh_config
+    src: ssh_config
+    owner: root
+    group: root
+    mode: 0600
+
+- block:
+  - name: Enable EPEL repo
+    yum:
+      name: epel-release
+      state: present
+
+  - name: Ensure sshfs is installed
+    package:
+      name: fuse-sshfs
+      state: present
+  when: ansible_distribution in ["AlmaLinux", "CentOS", "RockyLinux"]
 
 - name: Ensure sshfs is installed
   package:
     name: sshfs
     state: present
+  when: ansible_distribution not in ["AlmaLinux", "CentOS", "RockyLinux"]
 
-- name: Install sshfs mountpoint in fstab
+- name: Install sshfs mountpoint in fstab (port 23)
   mount:
     path: /mnt/storagebox
-    src: 'sshfs#{{ storagebox_user }}@{{ storagebox_fqdn }}:'
+    src: 'sshfs#{{ storagebox_user }}@{{ storagebox_fqdn }}:/'
     opts: "IdentityFile=/root/.ssh/id_ed25519,StrictHostKeyChecking=no,port={{ storagebox_ssh_port }},users,idmap=user,noatime,allow_other,_netdev,reconnect"
-    fstype: fuse
+    fstype: fuse.sshfs
     state: mounted
+  when:
+    storagebox_ssh_port == 23
+
+- name: Install sshfs mountpoint in fstab (port 22)
+  mount:
+    path: /mnt/storagebox
+    src: '{{ storagebox_user }}@{{ storagebox_fqdn }}:/'
+    opts: "IdentityFile=/root/.ssh/id_ed25519,StrictHostKeyChecking=no,port={{ storagebox_ssh_port }},users,idmap=user,noatime,allow_other,_netdev,reconnect"
+    fstype: fuse.sshfs
+    state: mounted
+  when:
+    storagebox_ssh_port == 22

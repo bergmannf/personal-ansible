@@ -1,0 +1,39 @@
+- name: Enable caddy COPR
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    state: enabled
+    name: "@caddy/caddy"
+    chroot: epel-9-x86_64
+  when: ansible_distribution in ["AlmaLinux", "CentOS", "RockyLinux"]
+
+- name: Install caddy
+  package:
+    name: caddy
+    state: present
+
+- name: Setup the caddy file
+  copy:
+    dest: /etc/caddy/Caddyfile
+    content: |
+      https://nextcloud.niflheim.cc:443 {
+        reverse_proxy localhost:11000
+      }
+
+      https://foundry.niflheim.cc:443 {
+        reverse_proxy localhost:30000
+        tls internal
+      }
+
+- name: Start caddy service
+  systemd_service:
+    name: caddy
+    enabled: yes
+    state: "restarted"
+
+- name: Enable HTTPS port in firewall
+  ansible.posix.firewalld:
+    service: https
+    permanent: true
+    state: enabled
+    zone: public
+    immediate: true
