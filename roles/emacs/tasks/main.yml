@@ -1,10 +1,12 @@
 ---
 # tasks file for emacs
 - name: Install emacs
-  include: "{{ ansible_os_family }}.yml"
+  include_tasks: "{{ ansible_os_family }}.yml"
 
 - name: Spacemacs repository checkout for .emacs.d
-  include: emacsd.yml user="{{ desktop_user }}"
+  include_tasks: emacsd.yml 
+  vars:
+    user: "{{ desktop_user }}"
 
 - name: Install spacemacs
   include_tasks: install_spacemacs.yml
@@ -18,7 +20,7 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   ansible.builtin.file:
-    path: "~/bin"
+    path: "~/.local/bin"
     state: directory
     mode: "0755"
     owner: "{{ desktop_user.username }}"
@@ -26,8 +28,8 @@
 - name: Copy the update_emacs_env script
   become: yes
   become_user: "{{ desktop_user.username }}"
-  copy:
+  template:
     src: update_emacs_env
-    dest: "~/bin/update_emacs_env"
+    dest: "~/.local/bin/update_emacs_env"
     owner: "{{ desktop_user.username }}"
     mode: "0755"

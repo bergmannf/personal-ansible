@@ -1,7 +1,7 @@
 ---
 
 - name: Setup kubernetes repositories
-  include: "repositories_cli_{{ ansible_os_family }}.yml"
+  include_tasks: "repositories_cli_{{ ansible_os_family }}.yml"
 
 - name: Install kubectl
   package:

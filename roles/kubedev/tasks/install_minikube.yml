@@ -1,4 +1,4 @@
 ---
 
 - name: Install minikube
-  include: "install_minikube_{{ ansible_os_family }}.yml"
+  include_tasks: "install_minikube_{{ ansible_os_family }}.yml"

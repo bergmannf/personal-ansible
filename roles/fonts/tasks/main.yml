@@ -1,7 +1,7 @@
 ---
 # tasks file for fonts
 - name: Load distribution specific font setup
-  include: "{{ ansible_os_family }}.yml"
+  include_tasks: "{{ ansible_os_family }}.yml"
 
 - block:
   - name: Create fonts directory
