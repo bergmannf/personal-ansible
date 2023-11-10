@@ -8,3 +8,16 @@
     - server/backupfs
     - server/nextcloud-aio
     - server/foundryvtt
+    - server/mumble
+    - name: server/backup
+      vars:
+        backup_identifier: "nextcloud"
+        backup_source: "/mnt/ncdata/"
+        backup_destination: "/mnt/storagebox/nextclouddata"
+        backup_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.nextcloud.restic') }}"
+    - name: server/backup
+      vars:
+        backup_identifier: "foundry"
+        backup_source: "/mnt/foundrydata/"
+        backup_destination: "/mnt/storagebox/foundrydata"
+        backup_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.foundryvtt.restic') }}"

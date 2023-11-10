@@ -23,3 +23,14 @@
     volumes:
       - "nextcloud_aio_mastercontainer:/mnt/docker-aio-config"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+- name: Open required ports in the firewall
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    permanent: true
+    state: enabled
+    zone: public
+    immediate: true
+  with_items:
+    - "3478/tcp"
+    - "3478/udp"
