@@ -1,0 +1,3 @@
+mumble_data_directory: "/mnt/mumble"
+mumble_superuser_password: ""
+mumble_config_server_password: ""

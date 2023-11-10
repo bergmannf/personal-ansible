@@ -21,7 +21,6 @@
 
       https://foundry.niflheim.cc:443 {
         reverse_proxy localhost:30000
-        tls internal
       }
 
 - name: Start caddy service

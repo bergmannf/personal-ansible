@@ -1,0 +1,34 @@
+---
+- name: Ensure the data directory exists
+  file:
+    path: "{{ mumble_data_directory }}"
+    state: directory
+    owner: 1000
+    group: 1000
+
+- name: Start mumble
+  community.docker.docker_container:
+    name: "mumble"
+    image: "mumblevoip/mumble-server:v1.4.230"
+    restart_policy: always
+    published_ports:
+      - "64738:64738/tcp"
+      - "64738:64738/udp"
+    security_opts:
+      - "label=disable"
+    env:
+      MUMBLE_SUPERUSER_PASSWORD: "{{ mumble_superuser_password }}"
+      MUMBLE_CONFIG_SERVER_PASSWORD: "{{ mumble_config_server_password }}"
+    volumes:
+      - "{{ mumble_data_directory }}:/data"
+
+- name: Open required ports in the firewall
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    permanent: true
+    state: enabled
+    zone: public
+    immediate: true
+  with_items:
+    - "64738/tcp"
+    - "64738/udp"

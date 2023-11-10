@@ -107,7 +107,7 @@
           spec:
             containers:
               - name: mumble
-                image: mumblevoip/mumble-server:v1.4.287
+                image: mumblevoip/mumble-server:v1.4.230
                 env:
                   - name: MUMBLE_SUPERUSER_PASSWORD
                     valueFrom:

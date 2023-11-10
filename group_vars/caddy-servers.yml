@@ -6,3 +6,10 @@ ssh_authorized_keys:
 storagebox_fqdn: "u253630.your-storagebox.de"
 storagebox_user: "u253630"
 storagebox_ssh_port: 22
+
+# Foundry:
+foundryvtt_admin_key: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.foundryvtt.adminkey') }}"
+
+# Mumble configuration
+mumble_config_server_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.mumble.server.password') }}"
+mumble_superuser_password: "{{ lookup('community.general.passwordstore', 'server/mimir.niflheim.cc.mumble.admin.password') }}"

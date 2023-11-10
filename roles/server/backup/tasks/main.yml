@@ -1,0 +1,25 @@
+---
+
+- name: Copy the generic backup script
+  copy:
+    src: restic_backup.sh
+    dest: /usr/local/bin/restic_backup.sh
+    owner: root
+    group: root
+    mode: 0700
+
+- name: Ensure there is a cron directory in var
+  file:
+    dest: "/var/cron"
+    state: directory
+
+- name: Create password file for the cronjob
+  copy:
+    dest: "/var/cron/{{ backup_identifier }}.pw"
+    content: "{{ backup_password }}"
+
+- name: Create a cronjob with the passed variables
+  cron:
+    name: "backup job for {{ backup_identifier }}"
+    special_time: weekly
+    job: "/usr/local/bin/restic_backup.sh -s {{ backup_source }} -d {{ backup_destination }} -p /var/cron/{{ backup_identifier }}.pw"
