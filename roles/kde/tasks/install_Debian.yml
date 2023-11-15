@@ -1,8 +1,0 @@
----
-
-- name: Install Debian packages
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - kde-standard

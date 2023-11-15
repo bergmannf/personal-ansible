@@ -1,17 +1,14 @@
 ---
 
 - name: Install the Gnome group
-  dnf:
+  package:
     name: 
-      - "@GNOME Desktop Environment"
       - dconf-editor
-      - gnome-shell-extension-pomodoro
       - gnome-shell-extension-appindicator
-      - gnome-shell-extension-auto-move-windows
       - gnome-shell-extension-forge
       # Needed by the pop-shell extension
-      - pinentry-gnome3
+      - pinentry
       - firefox
-      - mozilla-ublock-origin
-      - python3-psutil
+      - firefox-ublock-origin
+      - python-psutil
     state: present

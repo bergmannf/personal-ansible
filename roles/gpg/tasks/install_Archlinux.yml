@@ -7,3 +7,10 @@
     - gnupg
     - pcsc-tools
     - pcsclite
+    - ccid
+
+- name: Enable pcscd socket
+  service:
+    name: pcscd.socket
+    state: started
+    enabled: true

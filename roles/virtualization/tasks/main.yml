@@ -4,25 +4,14 @@
 
 # tasks file for roles/virtualization
 - name: Install required packages for virtualization
-  apt:
+  package:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
   vars:
     packages:
       - virt-manager
-      - bridge-utils
-      - qemu-kvm
-      - libvirt-clients
-      - libvirt-daemon
-      - libvirt-daemon-system
-      - bridge-utils
-      - iptables
-      - virt-top
-      - virt-manager
-      # ansible dependencies:
-      - python-libvirt
-  when: ansible_os_family == "Debian"
+      - qemu-full
+  when: ansible_os_family == "Archlinux"
 
 - name: Install required packages for virtualization
   dnf:
@@ -33,6 +22,7 @@
     packages:
       - "@Virtualization"
   when: ansible_os_family == "RedHat"
+
 
 - name: Add {{ desktop_user.username }} to libvirt group
   user:

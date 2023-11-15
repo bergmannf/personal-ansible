@@ -1,0 +1,6 @@
+---
+
+- name: Install minikube
+  package:
+    name: minikube
+    state: present

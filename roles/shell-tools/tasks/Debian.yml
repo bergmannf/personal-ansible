@@ -1,9 +1,0 @@
----
-
-- name: Install better command line tools
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - silversearcher-ag
-    - ripgrep

@@ -1,0 +1,5 @@
+---
+libvirt_groups:
+  - libvirt
+  - libvirt-qemu
+  - qemu

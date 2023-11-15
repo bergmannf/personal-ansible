@@ -1,5 +1,0 @@
----
-
-- name: Install minikube
-  apt:
-    deb: "https://storage.googleapis.com/minikube/releases/latest/minikube_{{ minikube_version }}-0_amd64.deb"

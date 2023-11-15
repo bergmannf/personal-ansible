@@ -2,6 +2,7 @@
 
 - name: Setup kubernetes repositories
   include_tasks: "repositories_cli_{{ ansible_os_family }}.yml"
+  when: ansible_distribution != "Archlinux"
 
 - name: Install kubectl
   package:

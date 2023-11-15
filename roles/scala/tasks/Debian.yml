@@ -1,5 +1,0 @@
----
-- name: Install scala package
-  package:
-    name: scala
-    state: present
