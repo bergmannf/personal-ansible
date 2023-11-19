@@ -19,8 +19,8 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Fira Mono" :size 16 :weight 'normal)
-      doom-variable-pitch-font (font-spec :family "sans" :size 16))
+(setq doom-font (font-spec :family "Fira Mono" :size 16.0 :weight 'normal)
+      doom-variable-pitch-font (font-spec :family "sans" :size 16.0))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -81,19 +81,19 @@
   (interactive)
   (if (vc-find-root (buffer-file-name (current-buffer)) (or source-control-witness ".git"))
       (let* ((pyright-config-path (concat (vc-root-dir) "pyrightconfig.json"))
-            (venv-name (car (last (split-string (poetry-find-virtualenv-path) "/"))))
-            (dir-parts (remove venv-name (split-string (poetry-find-virtualenv-path) "/")))
-            (venv-dir (mapconcat 'identity dir-parts "/")))
-         (if (not (file-exists-p pyright-config-path))
-             (progn
-               (message "Writing new pyright config file")
-               (write-region (json-encode '(("venvPath" . venv-dir) ("venv" . venv-name))) nil pyright-config-path))
-           (progn
-             (message "Pyright config exists - adjusting it")
-             (let ((pyright-alist (json-read-file pyright-config-path)))
-               (setf (alist-get 'venvPath pyright-alist venv-dir) venv-dir)
-               (setf (alist-get 'venv pyright-alist venv-name) venv-name)
-               (write-region (json-encode pyright-alist) nil pyright-config-path)))))
+             (venv-name (car (last (split-string (poetry-find-virtualenv-path) "/"))))
+             (dir-parts (remove venv-name (split-string (poetry-find-virtualenv-path) "/")))
+             (venv-dir (mapconcat 'identity dir-parts "/")))
+        (if (not (file-exists-p pyright-config-path))
+            (progn
+              (message "Writing new pyright config file")
+              (write-region (json-encode '(("venvPath" . venv-dir) ("venv" . venv-name))) nil pyright-config-path))
+          (progn
+            (message "Pyright config exists - adjusting it")
+            (let ((pyright-alist (json-read-file pyright-config-path)))
+              (setf (alist-get 'venvPath pyright-alist venv-dir) venv-dir)
+              (setf (alist-get 'venv pyright-alist venv-name) venv-name)
+              (write-region (json-encode pyright-alist) nil pyright-config-path)))))
     (message "Not inside a projectile project. Will not setup pyrightconfig.")))
 
 ;; This is apparently needed because evil has some problems with dir-locals.
@@ -102,7 +102,7 @@
   (when (eq major-mode 'fundamental-mode)
     (hack-local-variables)))
 
-; Make local-variables ask for confirmations
+                                        ; Make local-variables ask for confirmations
 ;; This was changed: https://github.com/hlissner/doom-emacs/commit/5e7864838a7f65204b8ad3fe96febc603675e24a
 (setq enable-local-variables 't)
 
@@ -111,24 +111,24 @@
 (setq smtpmail-smtp-service 587)
 
 (set-email-account! "gmail.com"
-  '((mu4e-sent-folder       . "/gmail/Sent")
-    (mu4e-drafts-folder     . "/gmail/[Google Mail]/Drafts")
-    (mu4e-trash-folder      . "/gmail/Trash")
-    (mu4e-refile-folder     . "/gmail/[Google Mail]/All Mail")
-    (smtpmail-smtp-user     . "bergmann.f@gmail.com")
-    (user-mail-address      . "bergmann.f@gmail.com")    ;; only needed for mu < 1.4
-    (user-full-name         . "Florian Bergmann")
-    (mu4e-compose-signature . "Florian Bergmann"))
-  t)
+                    '((mu4e-sent-folder       . "/gmail/Sent")
+                      (mu4e-drafts-folder     . "/gmail/[Google Mail]/Drafts")
+                      (mu4e-trash-folder      . "/gmail/Trash")
+                      (mu4e-refile-folder     . "/gmail/[Google Mail]/All Mail")
+                      (smtpmail-smtp-user     . "bergmann.f@gmail.com")
+                      (user-mail-address      . "bergmann.f@gmail.com")    ;; only needed for mu < 1.4
+                      (user-full-name         . "Florian Bergmann")
+                      (mu4e-compose-signature . "Florian Bergmann"))
+                    t)
 
-; Define own layer for lsp-shortcuts
+                                        ; Define own layer for lsp-shortcuts
 (map! :leader
       (:prefix-map ("l" . "lsp")
-       (:desc "Find references" "r" #'lsp-find-references
-        (:prefix ("d" . "debug")
-         :desc "Add new breakpoint" "a" #'dap-breakpoint-add
-         :desc "Delete breakpoing" "d" #'dap-breakpoint-delete
-         :desc "Toggle breakpoint" "t" #'dap-breakpoint-toggle))))
+                   (:desc "Find references" "r" #'lsp-find-references
+                          (:prefix ("d" . "debug")
+                           :desc "Add new breakpoint" "a" #'dap-breakpoint-add
+                           :desc "Delete breakpoing" "d" #'dap-breakpoint-delete
+                           :desc "Toggle breakpoint" "t" #'dap-breakpoint-toggle))))
 
 (defun my-update-env (fn)
   ;; Update the environment in emacs - should be called from a shell with the
