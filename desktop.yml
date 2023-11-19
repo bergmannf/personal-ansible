@@ -3,7 +3,7 @@
 - hosts: all
   roles:
     - fonts
-    - sway
     - codecs
     - flatpak-apps
     - gnome
+    - sway

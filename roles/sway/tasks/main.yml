@@ -2,14 +2,14 @@
 
 - name: Install the sway window manager
   package:
-    name: 
+    name:
+      - gammastep
       - light
-      - lxpolkit
       - mako
+      - polkit-gnome
       - sway
       - waybar
       - wl-clipboard
-      - wlsunset
       - wofi
     state: present
 

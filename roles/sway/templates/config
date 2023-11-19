@@ -253,6 +253,6 @@ bar {
 
 include /etc/sway/config.d/*
 
-exec lxpolkit
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
-exec wlsunset -l 50 -L 10
+exec gammastep -l 50:10
