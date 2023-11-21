@@ -80,7 +80,7 @@ if command -v oc &> /dev/null; then
   fi
   compdef _oc oc
 fi
-if -z ~/.asdf/asdf.sh; then
+if [ -f ~/.asdf/asdf.sh ]; then
   source ~/.asdf/asdf.sh
   source ~/.asdf/completions/asdf.bash
 fi
