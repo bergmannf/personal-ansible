@@ -36,8 +36,8 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # The following lines were added by compinstall
 zstyle :compinstall filename "$HOME/.zshrc"
 
-autoload -Uz compinit
-compinit
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
 
 autoload -U edit-command-line
 zle -N edit-command-line
@@ -79,6 +79,10 @@ if command -v oc &> /dev/null; then
     oc completion zsh > $HOME/.zfunctions/_oc
   fi
   compdef _oc oc
+fi
+if -z ~/.asdf/asdf.sh; then
+  source ~/.asdf/asdf.sh
+  source ~/.asdf/completions/asdf.bash
 fi
 
 eval "$(direnv hook zsh)"
