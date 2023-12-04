@@ -25,3 +25,11 @@ dconfsettings:
     value: ['<Alt>F4', '<Super>Q']
   - key: "/org/gnome/settings-daemon/plugins/media-keys/screensaver"
     value: "['<Super>Esc']"
+  - key: "/org/gnome/shell/keybindings/switch-to-application-1"
+    value: "[]"
+  - key: "/org/gnome/shell/keybindings/switch-to-application-2"
+    value: "[]"
+  - key: "/org/gnome/shell/keybindings/switch-to-application-3"
+    value: "[]"
+  - key: "/org/gnome/shell/keybindings/switch-to-application-4"
+    value: "[]"
