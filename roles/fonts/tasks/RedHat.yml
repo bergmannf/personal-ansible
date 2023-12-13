@@ -31,3 +31,8 @@
   package:
     name: unifont-fonts
     state: present
+
+- name: Install google noto emoji font
+  package:
+    name: google-noto-color-emoji-fonts
+    state: present

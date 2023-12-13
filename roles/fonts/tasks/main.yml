@@ -36,7 +36,7 @@
     path: ~/.config/fontconfig/
     owner: "{{ desktop_user.username }}"
 
-- name: Set default monospace font using fontconfig
+- name: Set default fonts using fontconfig
   become: yes
   become_user: "{{ desktop_user.username }}"
   copy:
