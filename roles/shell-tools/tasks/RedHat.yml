@@ -7,4 +7,6 @@
       - ripgrep
       - direnv
       - fzf
+      - eza
+      - bat
     state: present

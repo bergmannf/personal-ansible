@@ -5,4 +5,8 @@
     name:
       - the_silver_searcher
       - ripgrep
+      - direnv
+      - fzf
+      - eza
+      - bat
     state: present
