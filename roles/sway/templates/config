@@ -256,3 +256,4 @@ include /etc/sway/config.d/*
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
 exec gammastep -l 50:10
+exec "~/.local/bin/vrr_fullscreen.sh"

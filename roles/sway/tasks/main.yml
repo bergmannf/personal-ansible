@@ -29,3 +29,12 @@
     dest: "~/.config/sway/config"
     owner: "{{ desktop_user.username }}"
     mode: 0644
+
+- name: Copy VRR script
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: "vrr_fullscreen.sh"
+    dest: "~/.local/bin/vrr_fullscreen.sh"
+    owner: "{{ desktop_user.username }}"
+    mode: 0755
