@@ -1,3 +1,6 @@
+font:
+  size: 13.0
+
 colors:
   primary:
     background: '#2b3e50'
