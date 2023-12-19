@@ -9,6 +9,14 @@
   shell: tmux -V | cut -d' ' -f2
   register: tmux_version
 
+- name: Install tmux tpm
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "~/.tmux/plugins/tpm"
+    depth: 1
+
 - name: Copy tmux theme
   become: yes
   become_user: "{{ desktop_user.username }}"
@@ -26,3 +34,9 @@
     owner: "{{ desktop_user.username }}"
     dest: "~/.tmux.conf"
     mode: 0644
+
+- name: Force install tpm plugins
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  shell:
+    cmd: "~/.tmux/plugins/tpm/bin/install_plugins"
