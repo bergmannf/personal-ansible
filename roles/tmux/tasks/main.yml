@@ -39,4 +39,4 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   shell:
-    cmd: "~/.tmux/plugins/tpm/bin/install_plugins"
+    cmd: "~/.tmux/plugins/tpm/tpm && ~/.tmux/plugins/tpm/bin/install_plugins"
