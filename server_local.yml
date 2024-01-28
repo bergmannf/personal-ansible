@@ -1,0 +1,8 @@
+- name: Bootstrap
+  hosts: local-servers
+  become: yes
+  vars:
+    ansible_user: farseer
+    ansible_port: 22
+  roles:
+    - server/adblock
