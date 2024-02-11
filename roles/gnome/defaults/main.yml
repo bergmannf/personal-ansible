@@ -33,3 +33,5 @@ dconfsettings:
     value: "['']"
   - key: "/org/gnome/shell/keybindings/switch-to-application-4"
     value: "['']"
+  - key: "/org/gnome/desktop/wm/keybindings/minimize"
+    value: "['']"
