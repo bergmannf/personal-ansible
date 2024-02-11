@@ -14,9 +14,10 @@
 - name: Create theme folder
   become: yes
   become_user: "{{ desktop_user.username }}"
-  file:
-    state: directory
+  git:
+    repo: https://github.com/alacritty/alacritty-theme.git
     dest: "~/.config/alacritty/themes"
+    update: yes
 
 - name: Copy alacritty configuration
   become: yes
@@ -24,13 +25,3 @@
   copy:
     src: "alacritty.toml"
     dest: "~/.config/alacritty/alacritty.toml"
-
-- name: Copy themes
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  copy:
-    src: "{{ item }}"
-    dest: "~/.config/alacritty/themes/{{ item }}"
-  with_items:
-    - "theme-lucario.toml"
-    - "theme-city-lights.toml"
