@@ -1,0 +1,30 @@
+---
+- name: Install the hyprland window manager
+  package:
+    name:
+      - gammastep
+      - light
+      - mako
+      - hyprland
+      - waybar
+      - wl-clipboard
+      - wofi
+      - network-manager-applet
+    state: present
+
+- name: Create the sway configuration folder
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    dest: "~/.config/hypr"
+    state: directory
+    owner: "{{ desktop_user.username }}"
+
+- name: Copy over the sway configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: "hyprland.conf"
+    dest: "~/.config/hypr/hyprland.conf"
+    owner: "{{ desktop_user.username }}"
+    mode: 0644
