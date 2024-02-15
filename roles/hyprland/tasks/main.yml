@@ -12,15 +12,18 @@
       - network-manager-applet
     state: present
 
-- name: Create the sway configuration folder
+- name: Create the hyprland & waybar configuration folder
   become: yes
   become_user: "{{ desktop_user.username }}"
   file:
-    dest: "~/.config/hypr"
+    dest: "{{ item }}"
     state: directory
     owner: "{{ desktop_user.username }}"
+  with_items:
+    - "~/.config/hypr"
+    - "~/.config/waybar"
 
-- name: Copy over the sway configuration
+- name: Copy over the hyprland configuration
   become: yes
   become_user: "{{ desktop_user.username }}"
   template:
@@ -28,3 +31,15 @@
     dest: "~/.config/hypr/hyprland.conf"
     owner: "{{ desktop_user.username }}"
     mode: 0644
+
+- name: Copy over the sway configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: "{{ item }}"
+    dest: "~/.config/waybar/{{ item }}"
+    owner: "{{ desktop_user.username }}"
+    mode: 0644
+  with_items:
+    - "waybar-hyprland.conf"
+    - "style.css"
