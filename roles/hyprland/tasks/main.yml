@@ -2,7 +2,7 @@
 - name: Install the hyprland window manager
   package:
     name:
-      - gammastep
+      - wlsunset
       - light
       - mako
       - hyprland
