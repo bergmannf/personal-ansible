@@ -43,3 +43,4 @@
   with_items:
     - "waybar-hyprland.conf"
     - "style.css"
+    - "machiatto.css"
