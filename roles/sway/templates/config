@@ -239,7 +239,7 @@ bindsym $mod+r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
-    swaybar_command waybar
+    swaybar_command waybar -c /home/{{ desktop_user.username }}/.config/waybar/waybar-sway.conf
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.

@@ -13,13 +13,16 @@
       - wofi
     state: present
 
-- name: Create the sway configuration folder
+- name: Create the sway & waybar configuration folder
   become: yes
   become_user: "{{ desktop_user.username }}"
   file:
-    dest: "~/.config/sway"
+    dest: "{{ item }}"
     state: directory
     owner: "{{ desktop_user.username }}"
+  with_items:
+    - "~/.config/sway"
+    - "~/.config/waybar"
 
 - name: Copy over the sway configuration
   become: yes
@@ -34,7 +37,19 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   template:
-    src: "vrr_fullscreen.sh"
-    dest: "~/.local/bin/vrr_fullscreen.sh"
+    src: "{{ item }}"
+    dest: "~/.local/bin/{{ item }}"
     owner: "{{ desktop_user.username }}"
     mode: 0755
+  with_items:
+    - vrr_fullscreen.sh
+    - sway_waybar.sh
+
+- name: Copy over the waybar configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: "waybar-sway.conf"
+    dest: "~/.config/waybar/"
+    owner: "{{ desktop_user.username }}"
+    mode: 0644
