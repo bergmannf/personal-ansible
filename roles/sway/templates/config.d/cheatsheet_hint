@@ -1,0 +1,3 @@
+# Run the cheatsheet notification script
+
+exec ~/.config/sway/scripts/cheatsheet_hint.sh

@@ -3,10 +3,19 @@
 - name: Install the sway window manager
   package:
     name:
+      - azote
+      - blueman
+      - brightnessctl
+      - fuzzel
       - gammastep
-      - light
+      - kanshi
       - mako
+      - network-manager-applet
+      - nwg-panel
+      - nwg-launchers
       - polkit-gnome
+      - slurp
+      - swappy
       - sway
       - waybar
       - wl-clipboard
@@ -22,28 +31,50 @@
     owner: "{{ desktop_user.username }}"
   with_items:
     - "~/.config/sway"
+    - "~/.config/sway/config.d"
+    - "~/.config/sway/scripts"
     - "~/.config/waybar"
 
 - name: Copy over the sway configuration
   become: yes
   become_user: "{{ desktop_user.username }}"
   template:
-    src: "config"
-    dest: "~/.config/sway/config"
+    src: "{{ item }}"
+    dest: "~/.config/sway/{{ item }}"
     owner: "{{ desktop_user.username }}"
     mode: 0644
+  with_items:
+    - "config"
+    - "config.d/application_defaults"
+    - "config.d/autostart_applications"
+    - "config.d/cheatsheet_hint"
+    - "config.d/clamshell"
+    - "config.d/default"
+    - "config.d/input"
+    - "config.d/output"
+    - "config.d/swayfx"
+    - "config.d/theme"
 
-- name: Copy VRR script
+- name: Copy over scripts
   become: yes
   become_user: "{{ desktop_user.username }}"
   template:
     src: "{{ item }}"
-    dest: "~/.local/bin/{{ item }}"
+    dest: "~/.config/sway/{{ item }}"
     owner: "{{ desktop_user.username }}"
     mode: 0755
   with_items:
-    - vrr_fullscreen.sh
-    - sway_waybar.sh
+    - scripts/advance_workspace.sh
+    - scripts/cheatsheet_hint.sh
+    - scripts/clamshell.sh
+    - scripts/hidpi_1.5.sh
+    - scripts/import-gsettings
+    - scripts/lockman.sh
+    - scripts/screenshot_display.sh
+    - scripts/screenshot_window.sh
+    - scripts/swayfader.py
+    - scripts/sway_waybar.sh
+    - scripts/vrr_fullscreen.sh
 
 - name: Copy over the waybar configuration
   become: yes
