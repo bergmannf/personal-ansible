@@ -1,0 +1,30 @@
+---
+
+- name: Setup Zellij on Fedora
+  block:
+    - name: Setup COPR repo
+      community.general.copr:
+        name: varlad/zellij
+        state: enabled
+
+    - name: Install Zellij
+      package:
+        name: zellij
+        state: installed
+  when: ansible_os_family == "RedHat"
+
+- name: Create config folder
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    state: directory
+    dest: "~/.config/zellij"
+
+- name: Copy configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: config.kdl
+    dest: "~/.config/zellij/config.kdl"
+    mode: 0644
+    owner: "{{ desktop_user.username }}"
