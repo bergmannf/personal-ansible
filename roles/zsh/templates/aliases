@@ -22,3 +22,9 @@ alias e="TERM=xterm-direct emacsclient -a '' -c -nw"
 alias ae="TERM=xterm-direct emacsclient -n"
 
 alias fishenv="sed -E 's/([^=]+)=(.*)/set \1 \"\2\"/g'"
+
+alias le='eza --long --all --icons=auto'
+
+alias tmux="zellij"
+
+alias bat="bat --theme ansi"
