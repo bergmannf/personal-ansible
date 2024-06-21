@@ -34,5 +34,5 @@ client.urgent           #ebcb8b #ebcb8b #2e3440 #8fbcbb   #ebcb8b
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
-    swaybar_command waybar -c /home/{{ desktop_user.username }}/.config/waybar/scripts/sway_waybar.sh
+    swaybar_command /home/{{ desktop_user.username }}/.config/sway/scripts/sway_waybar.sh
 }

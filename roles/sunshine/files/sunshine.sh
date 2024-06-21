@@ -6,7 +6,7 @@ if [ $# -lt 1 ]; then
 fi
 
 ACTION=$1
-DISABLE_MONITOR="HDMI-A-1"
+DISABLE_MONITOR="DP-2"
 MAIN_MONITOR="DP-3"
 RESOLUTION_FILE=/tmp/monitor-resolution
 SWAY_GAMING_WORKSPACE=6
@@ -46,6 +46,14 @@ if [[ $DESKTOP_SESSION == "sway" ]]; then
     else
         echo "Received unknown command: $ACTION"
         exit 1
+    fi
+elif [[ $XDG_CURRENT_DESKTOP == "plasma" ]]; then
+    if [[ $ACTION == "start" ]]; then
+        kscreen-doctor output.${MAIN_MONITOR}.mode.${SUNSHINE_CLIENT_WIDTH}x${SUNSHINE_CLIENT_HEIGHT}@${SUNSHINE_CLIENT_FPS}
+        kscreen-doctor output.${DISABLE_MONITOR}.disable
+    elif [[ $ACTION == "stop" ]]; then
+        kscreen-doctor output.${MAIN_MONITOR}.mode.2560x1440@144
+        kscreen-doctor output.${DISABLE_MONITOR}.enable
     fi
 else
     echo "Only sway is currently supported"
