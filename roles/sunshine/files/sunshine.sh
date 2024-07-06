@@ -1,14 +1,18 @@
 #!/usr/bin/env sh
 
+
 if [ $# -lt 1 ]; then
     echo "Must pass either 'start' or 'stop' action"
     exit 1
 fi
 
 ACTION=$1
-DISABLE_MONITOR="DP-2"
-MAIN_MONITOR="DP-3"
+DISABLE_MONITOR="DP-3"
+MAIN_MONITOR="DP-2"
 RESOLUTION_FILE=/tmp/monitor-resolution
+STREAM_WIDTH=${SUNSHINE_CLIENT_WIDTH}
+STREAM_HEIGHT=${SUNSHINE_CLIENT_HEIGHT}
+REFRESH=${SUNSHINE_CLIENT_FPS}
 SWAY_GAMING_WORKSPACE=6
 
 function store_old_resolution {
@@ -26,15 +30,17 @@ function restore_old_resolution {
     swaymsg output "$MAIN_MONITOR" mode "${WIDTH}x${HEIGHT}@${REFRESH}Hz" && rm "$RESOLUTION_FILE"
 }
 
-echo "Performing action: $ACTION"
-if [[ $DESKTOP_SESSION == "sway" ]]; then
+echo "Performing action: $ACTION for $DESKTOP_SESSION"
+echo "Width: ${STREAM_WIDTH}"
+echo "Height: ${STREAM_HEIGHT}"
+echo "Refresh: ${REFRESH}"
+if [[ $XDG_CURRENT_DESKTOP == "sway" || $XDG_SESSION_DESKTOP == "sway" ]]; then
     if [[ $ACTION == "start" ]]; then
         if [ ! -f "$RESOLUTION_FILE" ]; then
             store_old_resolution
         fi
         swaymsg output "$DISABLE_MONITOR" disable
-        echo "Changing output resolution to 1920x1080@60Hz"
-        swaymsg output "$MAIN_MONITOR" mode "1920x1080@60Hz"
+        swaymsg output "$MAIN_MONITOR" mode "${STREAM_WIDTH}x${STREAM_HEIGHT}@${REFRESH}Hz"
         swaymsg workspace number $SWAY_GAMING_WORKSPACE
         exit 0
     elif [[ $ACTION == "stop" ]]; then
@@ -47,7 +53,21 @@ if [[ $DESKTOP_SESSION == "sway" ]]; then
         echo "Received unknown command: $ACTION"
         exit 1
     fi
-elif [[ $XDG_CURRENT_DESKTOP == "plasma" ]]; then
+elif [[ $XDG_CURRENT_DESKTOP == "gnome" ]]; then
+    if [[ $ACTION == "start" ]]; then
+        gnome-monitor-config set -LpM DP-3 -m "${STREAM_WIDTH}x${STREAM_HEIGHT}@${REFRESH}"
+    elif [[ $ACTION == "stop" ]]; then
+        gnome-monitor-config set -LpM DP-3 -m "2560x1440@120.049" -LM DP-2 -x 2560 -y 0 -m "2560x1440@59.951"
+    fi
+elif [[ $XDG_CURRENT_DESKTOP == "Hyprland" ]]; then
+    if [[ $ACTION == "start" ]]; then
+        hyprctl keyword monitor ${DISABLE_MONITOR},disable
+        hyprctl keyword monitor ${MAIN_MONITOR},"${STREAM_WIDTH}x${STREAM_HEIGHT}@${REFRESH}",auto,1
+    elif [[ $ACTION == "stop" ]]; then
+        hyprctl keyword monitor ${DISABLE_MONITOR},preferred,auto,1
+        hyprctl keyword monitor ${MAIN_MONITOR},2560x1440@120,auto,1
+    fi
+elif [[ $XDG_CURRENT_DESKTOP == "KDE" ]]; then
     if [[ $ACTION == "start" ]]; then
         kscreen-doctor output.${MAIN_MONITOR}.mode.${SUNSHINE_CLIENT_WIDTH}x${SUNSHINE_CLIENT_HEIGHT}@${SUNSHINE_CLIENT_FPS}
         kscreen-doctor output.${DISABLE_MONITOR}.disable
