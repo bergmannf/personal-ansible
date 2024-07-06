@@ -9,4 +9,5 @@
       - fzf
       - eza
       - bat
+      - difftastic
     state: present
