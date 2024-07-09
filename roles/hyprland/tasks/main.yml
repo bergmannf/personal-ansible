@@ -8,7 +8,7 @@
       - hyprland
       - waybar
       - wl-clipboard
-      - wofi
+      - rofi-wayland
       - network-manager-applet
     state: present
 
