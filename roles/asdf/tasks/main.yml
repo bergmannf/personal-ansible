@@ -37,3 +37,10 @@
         source "$HOME/.asdf/asdf.sh"
       fi
     insertafter: "# ZSHRC FOOTER"
+
+- name: Setup path
+  include_role:
+    name: env
+  vars:
+    KEY: PATH
+    VALUE: "${HOME}/.asdf/shims:${HOME}/.asdf/bin:${PATH}"

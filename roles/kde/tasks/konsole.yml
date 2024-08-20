@@ -1,13 +1,4 @@
 ---
-
-- name: Add SSH_ASKPASS
-  become: yes
-  become_user: "{{ user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'SSH_ASKPASS=ksshaskpass'
-    insertafter: "# PREPATH config:"
-
 - name: Create autostart directory
   become: yes
   become_user: "{{ user.username }}"

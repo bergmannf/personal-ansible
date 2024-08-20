@@ -33,7 +33,8 @@
 - name: Add .config/emacs/bin to PATH
   become: yes
   become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'PATH="$HOME/.config/emacs/bin:$PATH"'
-    insertafter: "# PATH config:"
+  include_role:
+    name: env
+  vars:
+    KEY: "PATH"
+    VALUE: "${HOME}/.config/emacs/bin:${PATH}"

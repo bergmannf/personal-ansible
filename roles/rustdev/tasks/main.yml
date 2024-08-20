@@ -11,12 +11,11 @@
   command: /tmp/rustup.sh -y --no-modify-path
 
 - name: Add .cargo/bin to PATH
-  become: yes
-  become_user: "{{ desktop_user.username }}"
-  lineinfile:
-    dest: "~/.zshenv"
-    line: 'PATH="$HOME/.cargo/bin:$PATH"'
-    insertafter: "# PATH config:"
+  include_role:
+    name: env
+  vars:
+    KEY: PATH
+    VALUE: "${HOME}/.cargo/bin:${PATH}"
 
 - name: Install rust completions
   become: yes
