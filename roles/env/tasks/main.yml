@@ -11,7 +11,7 @@
 - name: Copy static environment variables
   become: yes
   become_user: "{{ desktop_user.username }}"
-  copy:
+  template:
     src: 10-ansible-static.conf
     dest:  "~/.config/environment.d/10-ansible-static.conf"
 
