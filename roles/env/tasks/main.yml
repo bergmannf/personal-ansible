@@ -1,0 +1,51 @@
+---
+
+- name: Ensure environment.d directory exist
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    state: directory
+    owner: "{{ desktop_user.username }}"
+    path: "{{ lookup('env', 'HOME') }}/.config/environment.d/"
+
+- name: Copy static environment variables
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: 10-ansible-static.conf
+    dest:  "~/.config/environment.d/10-ansible-static.conf"
+
+- name: Create dynamic environment file
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    content: |
+      PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+    dest: "~/.config/environment.d/10-ansible-dynamic.conf"
+    force: false
+    owner: "{{ desktop_user.username }}"
+    mode: 0755
+
+- name: Setting environment variable for environment.d
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.config/environment.d/10-ansible-dynamic.conf"
+    line: "{{ KEY }}={{ VALUE }}"
+
+- name: Install zshenv configuration
+  become: true
+  become_user: "{{ desktop_user.username }}"
+  template:
+    mode: 0644
+    src: zshenv.j2
+    owner: "{{ desktop_user.username }}"
+    dest: "~/.zshenv"
+
+- name: Set environment variable for shell
+  become: true
+  become_user: "{{ desktop_user.username }}"
+  lineinfile:
+    dest: "~/.zshenv"
+    line: '{{ KEY }}={{ VALUE }}'
+    insertbefore: "export PATH"
