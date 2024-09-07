@@ -31,8 +31,6 @@
     - packages
 
 - name: Add .config/emacs/bin to PATH
-  become: yes
-  become_user: "{{ desktop_user.username }}"
   include_role:
     name: env
   vars:
