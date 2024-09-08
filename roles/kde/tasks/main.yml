@@ -1,25 +1,30 @@
 ---
 # tasks file for kde
 
-- name: Install KDE desktop packages
-  include: "install_{{ ansible_os_family }}.yml"
+# - name: Install KDE desktop packages
+#   include_tasks: "install_{{ ansible_os_family }}.yml"
+
+- name: Setup Krohnkite
+  include_tasks: "krohnkite.yml"
+  vars:
+    user: "{{ desktop_user }}"
 
 - name: Setup virtual desktops
-  include: "virtual_desktops.yml"
+  include_tasks: "virtual_desktops.yml"
   vars:
     user: "{{ desktop_user }}"
 
-- name: Setup window rules
-  include: "window_rules.yml"
-  vars:
-    user: "{{ desktop_user }}"
+# - name: Setup window rules
+#   include_tasks: "window_rules.yml"
+#   vars:
+#     user: "{{ desktop_user }}"
 
 - name: Setup keybindings
-  include: "keybindings.yml"
+  include_tasks: "keybindings.yml"
   vars:
     user: "{{ desktop_user }}"
 
-- name: Setup Konsole
-  include: "konsole.yml"
-  vars:
-    user: "{{ desktop_user }}"
+# - name: Setup Konsole
+#   include_tasks: "konsole.yml"
+#   vars:
+#     user: "{{ desktop_user }}"

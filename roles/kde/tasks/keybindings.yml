@@ -1,9 +1,50 @@
 ---
-- name: Copy over keybindings
+- name: Kwin keybindings
   become: yes
   become_user: "{{ user.username }}"
-  template:
-    src: kglobalshortcutsrc
-    dest: ~/.config/kglobalshortcutsrc
-    owner: "{{ user.username }}"
-    mode: 0600
+  community.general.kdeconfig:
+    path: "~/.config/kglobalshortcutsrc"
+    values:
+      - group: kwin
+        key: "{{ item.key }}"
+        value: "{{ item.value }}"
+  loop: "{{ settings | dict2items }}"
+  vars:
+    settings:
+      "Switch to Desktop 1": "Meta+1,,Switch to Desktop 1"
+      "Switch to Desktop 2": "Meta+2,,Switch to Desktop 2"
+      "Switch to Desktop 3": "Meta+3,,Switch to Desktop 3"
+      "Switch to Desktop 4": "Meta+4,,Switch to Desktop 4"
+      "Switch to Next Screen": "Meta+.,,Switch to Next Screen"
+      "Switch to Previous Screen": "Meta+\\,,,Switch to Previous Screen"
+
+- name: Plasmashell keybindings
+  become: yes
+  become_user: "{{ user.username }}"
+  community.general.kdeconfig:
+    path: "~/.config/kglobalshortcutsrc"
+    values:
+      - group: plasmashell
+        key: "{{ item.key }}"
+        value: "{{ item.value }}"
+  loop: "{{ settings | dict2items }}"
+  vars:
+    settings:
+      "activate task manager entry 1": ",,Activate Task Manager Entry 1"
+      "activate task manager entry 2": ",,Activate Task Manager Entry 2"
+      "activate task manager entry 3": ",,Activate Task Manager Entry 3"
+      "activate task manager entry 4": ",,Activate Task Manager Entry 4"
+
+- name: Ksmserver keybindings
+  become: yes
+  become_user: "{{ user.username }}"
+  community.general.kdeconfig:
+    path: "~/.config/kglobalshortcutsrc"
+    values:
+      - group: ksmserver
+        key: "{{ item.key }}"
+        value: "{{ item.value }}"
+  loop: "{{ settings | dict2items }}"
+  vars:
+    settings:
+      "Lock Session": "Meta+Shift+F1\tScreensaver,,Lock Session"

@@ -1,0 +1,26 @@
+- name: Download krohnkite script
+  get_url:
+    url: https://github.com/anametologin/krohnkite/releases/download/0.9.7/krohnkite-0.9.7.kwinscript
+    dest: /tmp/krohnkite.kwinscript
+    mode: 0777
+
+- name: Check if krohnkite is already installed
+  become: yes
+  become_user: "{{ user.username }}"
+  command: |
+    kpackagetool6 -l
+  register: kpackages
+
+- name: Update krohnkite
+  become: yes
+  become_user: "{{ user.username }}"
+  command: |
+    kpackagetool6 -t KWin/Script -u /tmp/krohnkite.kwinscript
+  when: '"krohnkite" in kpackages.stderr'
+
+- name: Install krohnkite
+  become: yes
+  become_user: "{{ user.username }}"
+  command: |
+    kpackagetool6 -t KWin/Script -i /tmp/krohnkite.kwinscript
+  when: '"krohnkite" not in kpackages.stderr'

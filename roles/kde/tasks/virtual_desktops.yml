@@ -2,8 +2,32 @@
 - name: Setup virtual desktops
   become: yes
   become_user: "{{ user.username }}"
-  template:
-    src: kwinrc
-    dest: "~/.config/kwinrc"
-    owner: "{{ user.username }}"
-    mode: 0600
+  community.general.kdeconfig:
+    path: "~/.config/kwinrc"
+    values:
+      - group: Desktops
+        key: "{{ item.key }}"
+        value: "{{ item.value }}"
+  loop: "{{ desktops | dict2items }}"
+  vars:
+    desktops:
+      Id_1: f702d8b7-d63f-42f9-9802-d3cd2a0c6444
+      Id_2: 778c04bc-080d-42bf-9178-e01efdc089f1
+      Id_3: 0149c079-8ec6-4683-8db6-35307adfd621
+      Id_4: 87df3abb-fb45-420c-8468-c642fbeec403
+      Name_1: Web
+      Name_2: Dev
+      Name_3: Comm
+      Name_4: Games
+      Number: 4
+      Rows: 2
+
+- name: Setup screen focus
+  become: yes
+  become_user: "{{ user.username }}"
+  community.general.kdeconfig:
+    path: "~/.config/kwinrc"
+    values:
+      - group: Windows
+        key: "SeparateScreenFocus"
+        bool_value: true
