@@ -1,6 +1,6 @@
 - name: Download krohnkite script
   get_url:
-    url: https://github.com/anametologin/krohnkite/releases/download/0.9.7/krohnkite-0.9.7.kwinscript
+    url: https://github.com/anametologin/krohnkite/releases/download/0.9.8.2/krohnkite-0.9.8.2.kwinscript
     dest: /tmp/krohnkite.kwinscript
     mode: 0777
 
