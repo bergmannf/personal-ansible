@@ -20,7 +20,7 @@
   become_user: "{{ desktop_user.username }}"
   copy:
     content: |
-      PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+      PATH=${HOME}/bin:${HOME}/.local/bin:${PATH}"
     dest: "~/.config/environment.d/10-ansible-dynamic.conf"
     force: false
     owner: "{{ desktop_user.username }}"
@@ -36,16 +36,24 @@
 - name: Install zshenv configuration
   become: true
   become_user: "{{ desktop_user.username }}"
+  stat: path=~/.zshenv
+  register: ze
+
+- name: Install zshenv configuration
+  become: true
+  become_user: "{{ desktop_user.username }}"
   template:
     mode: 0644
     src: zshenv.j2
     owner: "{{ desktop_user.username }}"
     dest: "~/.zshenv"
+  when: not ze.stat.exists
 
 - name: Set environment variable for shell
   become: true
   become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: "~/.zshenv"
-    line: '{{ KEY }}={{ VALUE }}'
-    insertbefore: "export PATH"
+    regex: '^{{ KEY }}="{{ VALUE }}"'
+    line: '{{ KEY }}="{{ VALUE }}"'
+    insertbefore: "^export PATH"
