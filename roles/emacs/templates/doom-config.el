@@ -145,3 +145,9 @@
         (setq value (match-string 2 cur))
         (setenv var value))
       (setq lst (cdr lst)))))
+
+(defun doom/ediff-init-and-example ()
+  "ediff the current `init.el' with the example in doom-emacs-dir"
+  (interactive)
+  (ediff-files (concat doom-private-dir "init.el")
+               (concat doom-emacs-dir "templates" "/" "init.example.el")))
