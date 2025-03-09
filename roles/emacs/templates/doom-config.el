@@ -102,26 +102,11 @@
   (when (eq major-mode 'fundamental-mode)
     (hack-local-variables)))
 
-                                        ; Make local-variables ask for confirmations
+;; Make local-variables ask for confirmations
 ;; This was changed: https://github.com/hlissner/doom-emacs/commit/5e7864838a7f65204b8ad3fe96febc603675e24a
 (setq enable-local-variables 't)
 
-;; Setup MU4E
-(setq smtpmail-smtp-server "smtp.gmail.com")
-(setq smtpmail-smtp-service 587)
-
-(set-email-account! "gmail.com"
-                    '((mu4e-sent-folder       . "/gmail/Sent")
-                      (mu4e-drafts-folder     . "/gmail/[Google Mail]/Drafts")
-                      (mu4e-trash-folder      . "/gmail/Trash")
-                      (mu4e-refile-folder     . "/gmail/[Google Mail]/All Mail")
-                      (smtpmail-smtp-user     . "bergmann.f@gmail.com")
-                      (user-mail-address      . "bergmann.f@gmail.com")    ;; only needed for mu < 1.4
-                      (user-full-name         . "Florian Bergmann")
-                      (mu4e-compose-signature . "Florian Bergmann"))
-                    t)
-
-                                        ; Define own layer for lsp-shortcuts
+;; Define own layer for lsp-shortcuts
 (map! :leader
       (:prefix-map ("l" . "lsp")
                    (:desc "Find references" "r" #'lsp-find-references
@@ -151,3 +136,9 @@
   (interactive)
   (ediff-files (concat doom-private-dir "init.el")
                (concat doom-emacs-dir "templates" "/" "init.example.el")))
+
+;; Setup doom emacs for fish
+(setq shell-file-name (executable-find "bash"))
+
+(setq-default vterm-shell "/usr/bin/fish")
+(setq-default explicit-shell-file-name "/usr/bin/fish")
