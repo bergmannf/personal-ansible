@@ -3,7 +3,7 @@
 - name: Install the Gnome group
   dnf:
     name: 
-      - "@GNOME Desktop Environment"
+      - "@Fedora Workstation"
       - dconf-editor
       - gnome-shell-extension-pomodoro
       - gnome-shell-extension-appindicator
