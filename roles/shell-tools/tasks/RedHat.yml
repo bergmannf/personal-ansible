@@ -3,11 +3,12 @@
 - name: Install better greps
   package:
     name:
-      - the_silver_searcher
-      - ripgrep
-      - direnv
-      - fzf
-      - eza
       - bat
       - difftastic
+      - direnv
+      - eza
+      - fd-find
+      - fzf
+      - ripgrep
+      - the_silver_searcher
     state: present
