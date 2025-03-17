@@ -1,15 +1,26 @@
 ---
+- name: Enable solopasha COPR
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    state: enabled
+    name: "solopasha/hyprland"
+  when: ansible_os_family == "RedHat"
+
 - name: Install the hyprland window manager
   package:
     name:
-      - wlsunset
+      - hyprland
+      - hypridle
       - light
       - mako
-      - hyprland
+      - network-manager-applet
+      - rofi-wayland
+      - SwayNotificationCenter
       - waybar
       - wl-clipboard
-      - rofi-wayland
-      - network-manager-applet
+      - wlogout
+      - wlsunset
+      - xdg-desktop-portal-hyprland
     state: present
 
 - name: Create the hyprland & waybar configuration folder
@@ -21,26 +32,60 @@
     owner: "{{ desktop_user.username }}"
   with_items:
     - "~/.config/hypr"
+    - "~/.config/hypr/scripts"
+    - "~/.config/hypr/configs"
     - "~/.config/waybar"
+    - "~/.config/rofi"
 
 - name: Copy over the hyprland configuration
   become: yes
   become_user: "{{ desktop_user.username }}"
-  template:
+  copy:
     src: "hyprland.conf"
     dest: "~/.config/hypr/hyprland.conf"
     owner: "{{ desktop_user.username }}"
     mode: 0644
 
-- name: Copy over the sway configuration
+- name: Copy over hyprland scripts
   become: yes
   become_user: "{{ desktop_user.username }}"
-  template:
+  copy:
     src: "{{ item }}"
-    dest: "~/.config/waybar/{{ item }}"
+    dest: "~/.config/hypr/scripts/{{ item | basename }}"
     owner: "{{ desktop_user.username }}"
     mode: 0644
-  with_items:
-    - "waybar-hyprland.conf"
-    - "style.css"
-    - "machiatto.css"
+  with_fileglob:
+    - "scripts/*"
+
+- name: Copy over hyprland configs
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: "{{ item }}"
+    dest: "~/.config/hypr/configs/{{ item | basename }}"
+    owner: "{{ desktop_user.username }}"
+    mode: 0644
+  with_fileglob:
+    - "configs/*"
+
+- name: Copy over the waybar configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: "{{ item }}"
+    dest: "~/.config/waybar/{{ item | basename }}"
+    owner: "{{ desktop_user.username }}"
+    mode: 0644
+  with_fileglob:
+    - "waybar/*"
+
+- name: Copy over the rofi configuration
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: "{{ item }}"
+    dest: "~/.config/rofi/{{ item | basename }}"
+    owner: "{{ desktop_user.username }}"
+    mode: 0644
+  with_fileglob:
+    - "rofi/*"
