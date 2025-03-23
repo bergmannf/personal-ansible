@@ -43,4 +43,4 @@
     name: env
   vars:
     KEY: PATH
-    VALUE: "${HOME}/.asdf/shims:${HOME}/.asdf/bin:${PATH}"
+    VALUE: "${PATH}:${HOME}/.asdf/shims:${HOME}/.asdf/bin"

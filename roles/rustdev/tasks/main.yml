@@ -15,7 +15,7 @@
     name: env
   vars:
     KEY: PATH
-    VALUE: "${HOME}/.cargo/bin:${PATH}"
+    VALUE: "${PATH}:${HOME}/.cargo/bin"
 
 - name: Install rust completions
   become: yes

@@ -34,5 +34,5 @@
   include_role:
     name: env
   vars:
-    KEY: "PATH"
-    VALUE: "${HOME}/.config/emacs/bin:${PATH}"
+    KEY: PATH
+    VALUE: "${PATH}:${HOME}/.config/emacs/bin"
