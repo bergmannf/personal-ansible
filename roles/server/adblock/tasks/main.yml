@@ -1,5 +1,9 @@
 ---
 # tasks file for roles/server/adblock
+- name: Ensure podman is installed
+  package:
+    state: installed
+    name: podman
 
 - name: Setup the mountpoints on the host
   file:
@@ -14,11 +18,11 @@
 - name: Run adblock container
   containers.podman.podman_container:
     name: adguardhome
-    image: docker.io/adguard/adguardhome:v0.107.43
+    image: docker.io/adguard/adguardhome:v0.107.59
     state: started
     mount:
-      - "type=bind,source=/media/adguard/work,destination=/opt/adguardhome/work"
-      - "type=bind,source=/media/adguard/conf,destination=/opt/adguardhome/conf"
+      - "type=bind,source=/media/adguard/work,destination=/opt/adguardhome/work:z"
+      - "type=bind,source=/media/adguard/conf,destination=/opt/adguardhome/conf:z"
     ports:
       - "53:53/tcp"
       - "53:53/udp"
