@@ -8,28 +8,15 @@
 
 - name: Install caddy
   package:
-    name: caddy
+    name:
+      - caddy
+      - nss-tools
     state: present
 
 - name: Setup the caddy file
   copy:
     dest: /etc/caddy/Caddyfile
-    content: |
-      https://nextcloud.niflheim.cc:443 {
-        reverse_proxy localhost:11000
-      }
-
-      https://nextcloud.niflheim.cc:8443 {
-        reverse_proxy https://localhost:8080 {
-          transport http {
-            tls_insecure_skip_verify
-          }
-        }
-      }
-
-      https://foundry.niflheim.cc:443 {
-        reverse_proxy localhost:30000
-      }
+    content: "{{ caddy_file }}"
 
 - name: Start caddy service
   systemd_service:

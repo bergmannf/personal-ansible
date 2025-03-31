@@ -1,0 +1,66 @@
+all:
+  vars:
+    passwordstore_backend: gopass
+
+
+caddy-servers:
+  hosts:
+    mimir.niflheim.cc:
+  vars:
+    ansible_user: alma
+    ansible_port: 2200
+    caddy_file: |
+      https://nextcloud.niflheim.cc:443 {
+        reverse_proxy localhost:11000
+      }
+
+      https://nextcloud.niflheim.cc:8443 {
+        reverse_proxy https://localhost:8080 {
+          transport http {
+            tls_insecure_skip_verify
+          }
+        }
+      }
+
+      https://foundry.niflheim.cc:443 {
+        reverse_proxy localhost:30000
+      }
+
+dns:
+  hosts:
+    farseer.lan:
+      ansible_host: 192.168.10.2
+      ansible_user: farseer
+      ansible_port: 22
+      adguard_leader: yes
+      adguard_user: admin
+      adguard_password: "{{ lookup('community.general.passwordstore', 'server/farseer.lan.adguard') }}"
+    farseer2.lan:
+      ansible_host: 192.168.10.55
+      ansible_user: farseer
+      ansible_port: 22
+      adguard_leader: no
+
+prometheus:
+  hosts:
+    farseer.lan:
+
+caddy_local:
+  hosts:
+    farseer.lan:
+      caddy_file: |
+        farseer.lan {
+           tls internal
+           reverse_proxy 127.0.0.1:8080
+        }
+
+        prometheus.lan {
+           tls internal
+           reverse_proxy 127.0.0.1:30000
+        }
+    farseer2.lan:
+      caddy_file: |
+        farseer2.lan {
+           tls internal
+           reverse_proxy 127.0.0.1:8080
+        }

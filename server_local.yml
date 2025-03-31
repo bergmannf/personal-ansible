@@ -1,8 +1,21 @@
-- name: Bootstrap
-  hosts: local-servers
+- name: Setup DNS servers
+  hosts: dns
   become: yes
   vars:
     ansible_user: farseer
     ansible_port: 22
   roles:
     - server/adblock
+
+- name: Setup prometheus servers
+  hosts: prometheus
+  become: yes
+  vars:
+  roles:
+    - server/mktxp
+
+- name: Setup caddy
+  hosts: caddy_local
+  become: yes
+  roles:
+    - server/reverseproxy

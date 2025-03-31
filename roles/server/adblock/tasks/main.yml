@@ -20,15 +20,15 @@
     name: adguardhome
     image: docker.io/adguard/adguardhome:v0.107.59
     state: started
-    mount:
-      - "type=bind,source=/media/adguard/work,destination=/opt/adguardhome/work:z"
-      - "type=bind,source=/media/adguard/conf,destination=/opt/adguardhome/conf:z"
+    volumes:
+      - "/media/adguard/work:/opt/adguardhome/work:z"
+      - "/media/adguard/conf:/opt/adguardhome/conf:z"
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
-      - "443:443/udp"
+      - "8080:80/tcp"
+      - "8443:443/tcp"
+      - "8443:443/udp"
       - "784:784/udp"
       - "853:853/tcp"
       - "853:853/udp"
@@ -47,3 +47,45 @@
     enabled: true
     daemon_reload: true
     name: container-adguardhome
+
+- name: Setup sync from master to follower
+  block:
+    - name: Setup the mountpoints on the host
+      file:
+        name: "{{ item }}"
+        state: directory
+        owner: "root"
+        group: "root"
+      with_items:
+        - /media/adguardsync/config
+
+    - name: Configure adguardhomesync
+      containers.podman.podman_container:
+        name: adguardhomesync
+        image: ghcr.io/bakito/adguardhome-sync
+        state: started
+        env:
+          LOG_LEVEL: "info"
+          ORIGIN_URL: "http://{{ hostvars['farseer.lan']['ansible_default_ipv4']['address'] }}:8080"
+          ORIGIN_USERNAME: "{{ adguard_user }}"
+          ORIGIN_PASSWORD: "{{ adguard_password }}"
+          REPLICA1_URL: "http://{{ hostvars['farseer2.lan']['ansible_default_ipv4']['address'] }}:8080"
+          REPLICA1_USERNAME: "{{ adguard_user }}"
+          REPLICA1_PASSWORD: "{{ adguard_password }}"
+          CRON: "0 */2 * * *" # run every 2 hours
+          RUN_ON_START: "true"
+          API_PORT: 8080
+        volumes:
+          - /media/adguardsync/config:/config/:z
+        generate_systemd:
+          new: true
+          restart: on-failure
+          path: /usr/lib/systemd/system/
+
+    - name: Enable adguardhomesync systemd-service
+      ansible.builtin.systemd_service:
+        state: started
+        enabled: true
+        daemon_reload: true
+        name: container-adguardhomesync
+  when: adguard_leader == True
