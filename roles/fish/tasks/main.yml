@@ -35,3 +35,4 @@
     - path.fish
     - gnupg-ssh-agent.fish
     - aliases.fish
+    - vterm.fish

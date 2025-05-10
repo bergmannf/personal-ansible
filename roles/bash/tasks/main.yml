@@ -1,0 +1,26 @@
+- name: Create a config directory for bash
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    state: directory
+    dest: "~/.config/bash/conf.d"
+
+- name: Install bashrc
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: bashrc
+    dest: "~/.bashrc"
+    owner: "{{ desktop_user.username }}"
+
+- name: Copy additional files to config dir
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: "{{ item }}"
+    dest: "~/.config/bash/conf.d/{{ item }}"
+    owner: "{{ desktop_user.username }}"
+  with_items:
+    - aliases
+    - aliases.sh
+    - vterm.sh

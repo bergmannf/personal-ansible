@@ -7,12 +7,14 @@
       - zsh-syntax-highlighting
     state: present
 
-- name: Set as default shell
-  user:
-    name: "{{ desktop_user.username }}"
-    shell: /bin/zsh
+- name: Create a config directory for zsh
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  file:
+    state: directory
+    dest: "~/.config/zsh/conf.d"
 
-- name: Create zsh directories
+- name: Create default zsh directories
   become: true
   become_user: "{{ desktop_user.username }}"
   file:
@@ -33,15 +35,6 @@
     owner: "{{ desktop_user.username }}"
     dest: "~/.zshrc"
 
-- name: Install ssh-agent.zsh
-  become: true
-  become_user: "{{ desktop_user.username }}"
-  template:
-    mode: 0644
-    src: ssh-agent.zsh
-    owner: "{{ desktop_user.username }}"
-    dest: "~/.zsh/ssh-agent.zsh"
-
 - name: Copy async library
   become: true
   become_user: "{{ desktop_user.username }}"
@@ -53,16 +46,18 @@
 - name: Install zsh theme
   include_tasks: install_theme.yml
 
-- name: Copy aliases
+- name: Copy configurations to zsh conf directory
   become: true
   become_user: "{{ desktop_user.username }}"
   copy:
     src: "{{ role_path }}/templates/{{ item }}"
-    dest: "~/.{{ item }}"
+    dest: "~/.config/zsh/conf.d/{{ item }}"
     owner: "{{ desktop_user.username }}"
   with_items:
     - aliases
     - aliases.zsh
+    - ssh-agent.zsh
+    - completions.zsh
 
 - name: Add additional zsh-completions
   become: true
@@ -85,7 +80,7 @@
   become_user: "{{ desktop_user.username }}"
   lineinfile:
     dest: ~/.zshrc
-    line: "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    line: ""
 
 - name: Install zsh-syntaxhighlighting
   become: true

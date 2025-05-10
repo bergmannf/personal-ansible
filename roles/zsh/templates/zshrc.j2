@@ -45,44 +45,18 @@ zle -N edit-command-line
 bindkey '^xe' edit-command-line
 bindkey '^x^e' edit-command-line
 
-if [ -f ~/.aliases ]; then
-  source ~/.aliases
-fi
-
-if [ -f ~/.zsh/ssh-agent.zsh ]; then
-  source ~/.zsh/ssh-agent.zsh
+if [ -d ~/.config/zsh/conf.d ]; then
+    for rc in ~/.config/zsh/conf.d/*; do
+        if [ -f "$rc" ]; then
+            . "$rc"
+        fi
+    done
 fi
 
 if [ -f /usr/share/fzf/shell/key-bindings.zsh ]; then
   source /usr/share/fzf/shell/key-bindings.zsh
 fi
 
-function reset-gpg-card {
-  killall -9 ssh-agent gpg-agent
-  for keystub in $(gpg --with-keygrip --list-secret-keys '{{ desktop_user.email }}' | grep Keygrip | awk '{print $3}'); do
-    rm "/home/{{ desktop_user.username }}/.gnupg/private-keys-v1.d/$keystub.key";
-  done;
-  gpg --card-status
-  eval $(gpg --launch gpg-agent)
-}
-
 # ZSHRC FOOTER
-if command -v kubectl &> /dev/null; then
-  if [ -z $HOME/.zfunctions/_kubectl ]; then
-    kubectl completion zsh > $HOME/.zfunctions/_kubectl
-  fi
-  compdef _kubectl kubectl
-  compdef _kubectl k
-fi
-if command -v oc &> /dev/null; then
-  if [ -z $HOME/.zfunctions/_oc ]; then
-    oc completion zsh > $HOME/.zfunctions/_oc
-  fi
-  compdef _oc oc
-fi
-if [ -f ~/.asdf/asdf.sh ]; then
-  source ~/.asdf/asdf.sh
-  source ~/.asdf/completions/asdf.bash
-fi
 
 eval "$(direnv hook zsh)"

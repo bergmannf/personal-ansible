@@ -2,3 +2,8 @@
 
 - name: Setup shell tools for distribution
   include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Set default shell
+  user:
+    name: "{{ desktop_user.username }}"
+    shell: "/bin/{{ desktop_user.default_shell }}"
