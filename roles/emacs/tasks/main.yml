@@ -33,3 +33,12 @@
     dest: "~/.local/bin/update_emacs_env"
     owner: "{{ desktop_user.username }}"
     mode: "0755"
+
+- name: Copy the emacsclient desktop file
+  become: yes
+  become_user: "{{ desktop_user.username }}"
+  template:
+    src: emacsclient.desktop
+    dest: "~/.local/share/applications/emacsclient.desktop"
+    owner: "{{ desktop_user.username }}"
+    mode: "0755"
