@@ -20,7 +20,7 @@
   become_user: "{{ desktop_user.username }}"
   copy:
     content: |
-      PATH=${HOME}/bin:${HOME}/.local/bin:${PATH}"
+      PATH=${HOME}/bin:${HOME}/.local/bin:${PATH}
     dest: "~/.config/environment.d/10-ansible-dynamic.conf"
     force: false
     owner: "{{ desktop_user.username }}"
@@ -30,6 +30,7 @@
   become: yes
   become_user: "{{ desktop_user.username }}"
   lineinfile:
+    insertbefore: BOF
     dest: "~/.config/environment.d/10-ansible-dynamic.conf"
     line: "{{ KEY }}={{ VALUE }}"
 
