@@ -1,8 +1,4 @@
 ---
-roles:
-  - name: cimon-io.asdf
-    version: v1.1.0
-
 collections:
   - name: community.general
     version: 9.3.0
