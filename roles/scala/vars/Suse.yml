@@ -1,2 +1,0 @@
-package_format: "rpm"
-scala_url: "https://downloads.lightbend.com/scala/{{ scala_ver }}/scala-{{ scala_ver }}.{{ package_format }}"

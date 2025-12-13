@@ -1,4 +1,0 @@
----
-# defaults file for sbt
-sbt_version: "0.13"
-ensime_version: "1.12.13"

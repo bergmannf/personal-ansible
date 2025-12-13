@@ -1,7 +1,0 @@
----
-- name: Add sbt bintray repository
-  zypper_repository:
-    name: bintray-sbt
-    repo: http://sbt.bintray.com/rpm
-    state: present
-    auto_import_keys: yes
