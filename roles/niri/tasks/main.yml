@@ -1,0 +1,25 @@
+---
+
+- name: Install niri
+  package:
+    name: niri
+    state: present
+
+- name: Setup DMS
+  community.general.copr:
+    name: avengemedia/dms
+    state: enabled
+  when: ansible_os_family in ["RedHat"]
+
+- name: Install DMS
+  package:
+    name: dms
+    state: present
+
+- name: Copy niri configuration
+  become: true
+  become_user: "{{ desktop_user.username }}"
+  copy:
+    src: "{{ role_path }}/files/config.kdl"
+    dest: "~/.config/niri/config.kdl"
+    owner: "{{ desktop_user.username }}"
