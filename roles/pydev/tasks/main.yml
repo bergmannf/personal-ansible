@@ -2,13 +2,5 @@
 
 - name: Install pipenv
   package:
-    name: poetry
+    name: uv
     state: present
-  when: ansible_os_family == "RedHat"
-
-- name: Install pipenv
-  pip:
-    name: poetry
-    state: present
-    extra_args: --user
-  when: ansible_os_family == "Debian"
