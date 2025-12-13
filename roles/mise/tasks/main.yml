@@ -17,7 +17,7 @@
   blockinfile:
     dest: ~/.zshrc
     block: |
-      eval '$(mise activate zsh)'
+      eval "$(mise activate zsh)"
     insertafter: "# ZSHRC FOOTER"
 
 - name: Setup mise in the shell configuration
@@ -26,5 +26,5 @@
   blockinfile:
     dest: "~/.config/fish/config.fish"
     block: |
-      'mise activate fish | source'
+      mise activate fish | source
     insertafter: "# FISH INTERACTIVE FOOTER"
