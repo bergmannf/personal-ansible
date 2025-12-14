@@ -38,7 +38,7 @@
 - name: Copy over the sway configuration
   become: yes
   become_user: "{{ desktop_user.username }}"
-  template:
+  copy:
     src: "{{ item }}"
     dest: "~/.config/sway/{{ item }}"
     owner: "{{ desktop_user.username }}"
@@ -58,7 +58,7 @@
 - name: Copy over scripts
   become: yes
   become_user: "{{ desktop_user.username }}"
-  template:
+  copy:
     src: "{{ item }}"
     dest: "~/.config/sway/{{ item }}"
     owner: "{{ desktop_user.username }}"
@@ -79,7 +79,7 @@
 - name: Copy over the waybar configuration
   become: yes
   become_user: "{{ desktop_user.username }}"
-  template:
+  copy:
     src: "waybar-sway.conf"
     dest: "~/.config/waybar/"
     owner: "{{ desktop_user.username }}"
