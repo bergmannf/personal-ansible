@@ -141,3 +141,41 @@
 
 (setq-default vterm-shell "/usr/bin/fish")
 (setq-default explicit-shell-file-name "/usr/bin/fish")
+
+(defun replace-german-umlauts-interactive ()
+  "Interactively replace ae/oe/ue with German umlauts ä/ö/ü.
+Highlight each occurrence using the `isearch` face and ask for confirmation."
+  (interactive)
+  (goto-char (point-min))
+  (let ((case-fold-search nil)
+        (replacements '(("ae" . "ä")
+                        ("oe" . "ö")
+                        ("ue" . "ü"))))
+    (while (re-search-forward "\\(ae\\|oe\\|ue\\)" nil t)
+      (let* ((match (match-string 1))
+             (replacement (cdr (assoc match replacements)))
+             (start (match-beginning 1))
+             (end (match-end 1))
+             (word (buffer-substring-no-properties
+                    (save-excursion
+                      (goto-char start)
+                      (skip-chars-backward "[:alnum:]")
+                      (point))
+                    (save-excursion
+                      (goto-char end)
+                      (skip-chars-forward "[:alnum:]")
+                      (point))))
+             (ov (make-overlay start end)))
+        (overlay-put ov 'face 'isearch)
+        (unwind-protect
+            (if (y-or-n-p
+                 (format "Replace %s → %s in word \"%s\"? "
+                         match replacement word))
+                ;; Explicit replacement (no match-data dependence)
+                (progn
+                  (delete-region start end)
+                  (goto-char start)
+                  (insert replacement))
+              ;; Skip: move point past this occurrence
+              (goto-char end))
+          (delete-overlay ov))))))
